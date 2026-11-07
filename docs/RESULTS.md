@@ -1,5 +1,16 @@
 # #793 offline golden harness — 2026-11-07
 
+PR #5 review correction: replay imports now use separate finite-number JSON
+ingress with recursive duplicate-key checks, accepting fractional telemetry and
+nested settings/`0.0`. The integer-only contract/fixture/scorer ingress is
+unchanged. Four additional regressions verify positive CLI/JSONL/CSV paths,
+error-specific negative/evidence/synthetic validation, strict integer fields and
+nested duplicate-key rejection (41 integration tests total). The failure was
+reproduced before the fix. [Correction validation](results/golden-correction-validation.log)
+records required checks and the golden evidence audit. Original measured outputs
+below are retained; requests, fixtures, scoring rubrics and timing operations are
+unchanged. Test-only invented fractional telemetry is never model evidence.
+
 Six pinned synthetic cases × four offline contexts × four matched arms produce
 96 local trials. All source hashes, independent ledger/extraction comparisons and
 complete structural round trips pass. The first three cases were checked before

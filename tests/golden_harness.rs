@@ -510,3 +510,201 @@ fn checked_in_synthetic_controls_have_explicit_non_model_outcomes() {
     }
     assert!(harness::replay("").is_err());
 }
+
+fn fractional_replay() -> Replay {
+    // Invented telemetry for regression testing only; never measured/exported evidence.
+    let mut r = replay();
+    r.origin = Origin::ImportedReal;
+    r.metrics = Metrics {
+        provider: Some("unit-test".into()),
+        model: Some("not-a-model".into()),
+        model_revision: Some("test-only".into()),
+        settings: Some(
+            json!({"temperature":0.0,"top_p":0.95,"nested":[{"temperature":0.7,"zero":0.0}]}),
+        ),
+        usage_evidence: Some("unit-test usage only".into()),
+        actual_input_tokens: Some(100),
+        actual_output_tokens: Some(10),
+        actual_cached_input_tokens: Some(5),
+        retry_count: Some(0),
+        model_latency_ms: Some(12.5),
+        end_to_end_latency_ms: Some(20.25),
+        cost_usd: Some(0.001),
+        cost_evidence: Some("unit-test cost evidence only".into()),
+        ..Metrics::default()
+    };
+    r
+}
+
+#[test]
+fn fractional_telemetry_and_nested_settings_survive_cli_replay_and_both_exports() {
+    let trial = fractional_replay();
+    let serialized = serde_json::to_string(&trial).unwrap();
+    assert!(serialized.contains("\"temperature\":0.0"));
+    let rows = import(&trial).unwrap();
+    assert_eq!(
+        serde_json::to_value(&rows[0].metrics).unwrap(),
+        serde_json::to_value(&trial.metrics).unwrap()
+    );
+    assert_eq!(
+        rows[0].correct_assertions_per_1000_actual_input_tokens,
+        Some(20.0)
+    );
+    let dir = std::env::temp_dir().join(format!(
+        "communications-fractional-cli-{}",
+        std::process::id()
+    ));
+    std::fs::create_dir_all(&dir).unwrap();
+    let input = dir.join("input.jsonl");
+    let j = dir.join("result.jsonl");
+    let c = dir.join("result.csv");
+    std::fs::write(&input, serialized).unwrap();
+    let out = Command::new(env!("CARGO_BIN_EXE_communications-probe"))
+        .args(["golden", "replay"])
+        .arg(&input)
+        .arg(&j)
+        .arg(&c)
+        .output()
+        .unwrap();
+    assert!(
+        out.status.success(),
+        "{}",
+        String::from_utf8_lossy(&out.stderr)
+    );
+    let jsonl = std::fs::read_to_string(j).unwrap();
+    let result: Value = serde_json::from_str(jsonl.trim()).unwrap();
+    let typed: harness::Row = serde_json::from_value(result.clone()).unwrap();
+    assert_eq!(
+        serde_json::to_value(&typed.metrics).unwrap(),
+        serde_json::to_value(&trial.metrics).unwrap()
+    );
+    assert_eq!(
+        result["metrics"]["settings"]["nested"][0]["zero"].to_string(),
+        "0.0"
+    );
+    let csv = csv_rows(&std::fs::read_to_string(c).unwrap());
+    let cells: BTreeMap<_, _> = csv[0].iter().zip(csv[1].iter()).collect();
+    for (key, value) in result.as_object().unwrap() {
+        let restored = if value.is_string() {
+            Value::String(cells[key].to_string())
+        } else {
+            serde_json::from_str(cells[key]).unwrap()
+        };
+        assert_eq!(&restored, value, "{key}");
+    }
+    let mut zero = trial.clone();
+    zero.metrics.model_latency_ms = Some(0.0);
+    zero.metrics.end_to_end_latency_ms = Some(0.0);
+    zero.metrics.cost_usd = Some(0.0);
+    assert_eq!(import(&zero).unwrap()[0].metrics.cost_usd, Some(0.0));
+    std::fs::remove_dir_all(dir).unwrap();
+}
+
+#[test]
+fn fractional_ingress_reaches_telemetry_validation_and_preserves_restrictions() {
+    for field in ["model_latency_ms", "end_to_end_latency_ms", "cost_usd"] {
+        let mut value = serde_json::to_value(fractional_replay()).unwrap();
+        value["metrics"][field] = json!(-0.001);
+        assert!(
+            harness::replay(&value.to_string())
+                .unwrap_err()
+                .contains("negative/nonfinite metric"),
+            "{field}"
+        );
+    }
+    let mut trial = fractional_replay();
+    trial.metrics.cost_evidence = None;
+    assert!(import(&trial)
+        .unwrap_err()
+        .contains("cost needs billing or dated pricing evidence"));
+    let mut trial = fractional_replay();
+    trial.metrics.usage_evidence = None;
+    assert!(import(&trial)
+        .unwrap_err()
+        .contains("actual tokens need caller-attested provider usage evidence"));
+    let mut trial = fractional_replay();
+    trial.origin = Origin::Synthetic;
+    assert!(import(&trial)
+        .unwrap_err()
+        .contains("synthetic replay cannot carry model/resource telemetry"));
+    // Out-of-range JSON numbers and non-JSON nonfinite tokens must not become null.
+    for literal in ["1e999", "NaN", "Infinity", "-Infinity"] {
+        let text = serde_json::to_string(&fractional_replay())
+            .unwrap()
+            .replace("\"cost_usd\":0.001", &format!("\"cost_usd\":{literal}"));
+        assert!(harness::replay(&text).is_err(), "{literal}");
+    }
+}
+
+#[test]
+fn decimal_import_does_not_relax_integer_counts_contract_or_scoring_fields() {
+    for field in [
+        "actual_input_tokens",
+        "actual_output_tokens",
+        "actual_cached_input_tokens",
+        "retry_count",
+        "cpu_time_ns",
+        "peak_rss_bytes",
+    ] {
+        let mut value = serde_json::to_value(fractional_replay()).unwrap();
+        value["metrics"][field] = json!(1.0);
+        let error = harness::replay(&value.to_string()).unwrap_err();
+        assert!(
+            error.contains("invalid type: floating point"),
+            "{field}: {error}"
+        );
+    }
+    let mut value = serde_json::to_value(fractional_replay()).unwrap();
+    value["version"] = json!(1.0);
+    assert!(harness::replay(&value.to_string())
+        .unwrap_err()
+        .contains("invalid type: floating point"));
+    let case = golden::load().unwrap().remove(0);
+    for pointer in [
+        "/assertions/0/times/event_ms",
+        "/assertions/0/times/record_ms",
+        "/assertions/0/uncertainty/permille",
+    ] {
+        let mut value = serde_json::to_value(&case.contract).unwrap();
+        *value.pointer_mut(pointer).unwrap() = json!(0.0);
+        assert!(
+            communications_probe::Contract::from_json(value.to_string().as_bytes()).is_err(),
+            "{pointer}"
+        );
+    }
+    let mut trial = fractional_replay();
+    let mut response = case.reference.synthetic_perfect();
+    response["reconstruction"][0]["times"]["record_ms"] = json!(2000.0);
+    trial.response_json = response.to_string();
+    let row = import(&trial).unwrap().remove(0);
+    assert_eq!(row.score.unwrap().malformed, 1);
+    assert_eq!(row.correct_assertions_per_1000_actual_input_tokens, None);
+}
+
+#[test]
+fn decimal_replay_still_rejects_duplicate_keys_at_every_nested_boundary() {
+    let text = serde_json::to_string(&fractional_replay()).unwrap();
+    for (needle, duplicate) in [
+        ("\"version\":1", "\"version\":1,\"version\":1"),
+        (
+            "\"cost_usd\":0.001",
+            "\"cost_usd\":0.001,\"cost_usd\":0.002",
+        ),
+        ("\"top_p\":0.95", "\"top_p\":0.95,\"top_p\":0.96"),
+        (
+            "\"temperature\":0.7",
+            "\"temperature\":0.7,\"\\u0074emperature\":0.8",
+        ),
+    ] {
+        assert!(text.contains(needle));
+        let error = harness::replay(&text.replace(needle, duplicate)).unwrap_err();
+        assert!(error.contains("duplicate JSON key"), "{error}");
+    }
+    let mut trial = fractional_replay();
+    trial.response_json =
+        r#"{"reconstruction":[],"comprehension":{},"comprehension":{},"application":{}}"#.into();
+    assert_eq!(
+        import(&trial).unwrap()[0].score.as_ref().unwrap().malformed,
+        1
+    );
+}

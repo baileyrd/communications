@@ -1,4 +1,5 @@
 //! Reproducible offline trials and telemetry import. This module never calls a model.
+mod replay_json;
 use crate::{
     adapter::{self, Arm, Context},
     codec::Encoding,
@@ -289,7 +290,7 @@ pub fn replay(input: &str) -> Result<Vec<Row>, String> {
         .lines()
         .enumerate()
         .map(|(line, text)| {
-            let trial: Replay = golden::from_json(text.as_bytes())
+            let trial: Replay = replay_json::from_json(text.as_bytes())
                 .map_err(|e| format!("replay line {}: {e}", line + 1))?;
             if trial.version != golden::VERSION
                 || trial.trial_id.trim().is_empty()

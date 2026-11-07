@@ -18,6 +18,19 @@ The first three cases were validated first; the same schema expands to six, with
 no three-versus-six deferral. Existing smoke originals/evidence/results and the
 #791/#792 contract, codecs and adapter implementations remain unchanged.
 
+PR #5 independent review of initial head
+`7cd665a2d27f22f3a9f1c0073031432b2f3c57b7` found that the shared integer-only
+JSON visitor rejected valid fractional replay telemetry/settings. The same branch
+now has separate replay-only finite-number ingress with recursive duplicate-key
+checks; core contract, fixture and scored-response ingress is unchanged. Four
+new regressions cover fractional CLI/export success, exact validation errors,
+integer restrictions and nested duplicate keys (41 total integration tests).
+See [correction validation](results/golden-correction-validation.log). The prior
+local timing artifacts are retained; the correction does not change requests,
+fixture content, scoring rubrics or measured codec/adapter operations. Refresh
+#793/PR #5 for the correction commit/tree and new-head CI; independent re-review
+is required and no previous review is approval of the changed head.
+
 See [harness commands/rubric/import/export/boundaries](GOLDEN-HARNESS.md),
 [architecture](ARCHITECTURE.md), [measurement](MEASUREMENT.md),
 [results](RESULTS.md), [raw golden JSONL](results/golden-offline.jsonl),

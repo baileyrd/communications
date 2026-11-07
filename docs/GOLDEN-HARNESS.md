@@ -152,6 +152,11 @@ error, model latency, end-to-end latency, CPU time and peak RSS are separate
 nullable fields. Resource/timing values supplied by a future importer must have
 their boundaries and measurement method recorded in its settings/evidence; the
 local runner never derives CPU time from wall time or fills them automatically.
+Replay metadata uses its own finite-number, duplicate-key-checking JSON ingress,
+so fractional settings (including nested values and `0.0`), latency and small
+costs are accepted. Semantic contracts, golden fixtures and scored responses
+retain their separate integer-only numeric ingress. Typed replay version, token,
+retry and resource-count fields still reject decimal representations.
 Negative/nonfinite timing/cost, inconsistent cached usage and missing metadata
 are rejected. A failed trial with `trial_error` retains its record and telemetry
 but receives no score or efficiency.

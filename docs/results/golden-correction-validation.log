@@ -1,0 +1,141 @@
+PR #5 correction to initial head 7cd665a2d27f22f3a9f1c0073031432b2f3c57b7.
+Positive fractional regression reproduced pre-fix rejection at nested temperature 0.7 (exit 101).
+Only replay metadata gets finite-number ingress; contract/fixture/scorer remain integer-only.
+Telemetry in new unit/CLI tests is invented test data, never measured model results.
+
+$ cargo fmt --check
+exit=0
+
+$ cargo test --locked
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 6 tests
+test rejects_invalid_confidence_provenance_and_digest ... ok
+test order_independent_encoding_does_not_collapse_assertions ... ok
+test preserves_all_fields_and_verifies_original_bytes ... ok
+test rejects_dangling_and_mistyped_relationships ... ok
+test unknown_event_time_and_confidence_remain_unknown ... ok
+test unknown_version_or_fields_fail_closed ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 12 tests
+test cbor_is_real_named_field_cbor_and_rejects_tags_indefinite_nonpreferred_and_duplicate_keys ... ok
+test adapter_nested_ambiguity_and_envelope_identity_fail_closed ... ok
+test cbor_rejects_unknown_duplicate_nested_keys_refs_and_invalid_contracts ... ok
+test every_codec_preserves_exact_fields_variants_extremes_and_canonical_repeatability ... ok
+test invalid_in_memory_contracts_cannot_be_encoded_or_rendered ... ok
+test model_native_is_explicitly_unsupported_for_all_arms ... ok
+test adapters_reject_ambiguous_metadata_extra_fields_and_corrupted_payloads ... ok
+test all_offline_contexts_and_matched_baselines_preserve_same_complete_facts ... ok
+test typed_record_documented_bytes_and_scalar_validation ... ok
+test records_enforce_framing_versions_bounds_unknown_tags_and_unique_ids ... ok
+test smoke_reference_content_is_not_a_renderers_shared_omission ... ok
+test every_truncation_trailing_bytes_and_oversize_payload_fail ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+
+running 8 tests
+test evidence_verification_uses_exact_bytes_and_never_locator_identity ... ok
+test duplicate_json_keys_fail_at_every_object_boundary ... ok
+test duplicate_references_and_assertions_fail_without_deduplication ... ok
+test roundtrip_preserves_literal_variants_conflicts_unicode_and_time_extremes ... ok
+test unused_relation_kinds_and_malformed_identifiers_are_validated ... ok
+test schema_and_malformed_inputs_fail_closed ... ok
+test unknown_or_missing_nested_fields_are_rejected ... ok
+test semantic_validation_runs_during_decode ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 15 tests
+test answers_use_exact_types_unknown_null_and_explicit_task_rubrics ... ok
+test cli_check_initial_expanded_and_usage_errors ... ok
+test checked_in_synthetic_controls_have_explicit_non_model_outcomes ... ok
+test efficiencies_and_empty_denominators_are_never_fabricated ... ok
+test decimal_replay_still_rejects_duplicate_keys_at_every_nested_boundary ... ok
+test final_requests_count_schema_questions_escaping_and_do_not_leak_answers ... ok
+test decimal_import_does_not_relax_integer_counts_contract_or_scoring_fields ... ok
+test fractional_telemetry_and_nested_settings_survive_cli_replay_and_both_exports ... ok
+test jsonl_csv_are_losslessly_compatible_for_all_fields_and_special_characters ... ok
+test malformed_duplicate_and_ambiguous_responses_have_no_valid_score ... ok
+test scorer_penalizes_omissions_inventions_contradictions_and_partial_metadata_separately ... ok
+test fractional_ingress_reaches_telemetry_validation_and_preserves_restrictions ... ok
+test request_identity_replay_telemetry_and_error_boundaries ... ok
+test three_initial_then_six_pinned_cases_preserve_every_arm_and_metadata ... ok
+test cli_runs_full_matrix_exports_and_replays_without_model_measurements ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.73s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Compiling communications-probe v0.1.0 (/workspace/communications)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.99s
+     Running unittests src/lib.rs (target/debug/deps/communications_probe-e39a88d279004a19)
+     Running unittests src/main.rs (target/debug/deps/communications_probe-636c8ca9806048e8)
+     Running tests/architecture.rs (target/debug/deps/architecture-7f653eb9f22e4877)
+     Running tests/codecs_adapters.rs (target/debug/deps/codecs_adapters-920ce7b50c4767b8)
+     Running tests/contract.rs (target/debug/deps/contract-13561a15b6c45fc1)
+     Running tests/golden_harness.rs (target/debug/deps/golden_harness-3bba7fe5cdd0da78)
+   Doc-tests communications_probe
+exit=0
+
+$ cargo clippy --all-targets --locked -- -D warnings
+    Checking communications-probe v0.1.0 (/workspace/communications)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.17s
+exit=0
+
+$ cargo run --release --locked > /tmp/golden-correction-smoke.jsonl
+   Compiling communications-probe v0.1.0 (/workspace/communications)
+    Finished `release` profile [optimized] target(s) in 4.72s
+     Running `target/release/communications-probe`
+exit=0
+
+$ cargo run --release --locked -- golden check > /tmp/golden-correction-check.jsonl
+    Finished `release` profile [optimized] target(s) in 0.02s
+     Running `target/release/communications-probe golden check`
+exit=0
+
+$ cargo run --release --locked -- golden run /tmp/golden-correction-local.jsonl /tmp/golden-correction-local.csv
+    Finished `release` profile [optimized] target(s) in 0.02s
+     Running `target/release/communications-probe golden run /tmp/golden-correction-local.jsonl /tmp/golden-correction-local.csv`
+wrote 96 rows to /tmp/golden-correction-local.jsonl and /tmp/golden-correction-local.csv
+exit=0
+
+$ cargo run --release --locked -- golden replay fixtures/golden/synthetic-replay.jsonl /tmp/golden-correction-replay.jsonl /tmp/golden-correction-replay.csv
+    Finished `release` profile [optimized] target(s) in 0.02s
+     Running `target/release/communications-probe golden replay fixtures/golden/synthetic-replay.jsonl /tmp/golden-correction-replay.jsonl /tmp/golden-correction-replay.csv`
+wrote 7 rows to /tmp/golden-correction-replay.jsonl and /tmp/golden-correction-replay.csv
+exit=0
+
+$ cmp docs/results/golden-check.jsonl /tmp/golden-correction-check.jsonl
+exit=0
+
+$ cmp docs/results/golden-synthetic-replay.jsonl /tmp/golden-correction-replay.jsonl
+exit=0
+
+$ cmp docs/results/golden-synthetic-replay.csv /tmp/golden-correction-replay.csv
+exit=0
+
+$ python scripts/validate-golden-results.py
+golden-offline: 96 rows; CSV restores every JSONL value; all exact request/source/contract/suite/lock hashes verified; all telemetry null; modes valid
+golden-synthetic-replay: 7 rows; CSV restores every JSONL value; all exact request/source/contract/suite/lock hashes verified; all telemetry null; modes valid
+7 synthetic response hashes and exact expected score outcomes verified; example request digest matches replay binding
+exit=0
+
+$ git diff --check
+exit=0
