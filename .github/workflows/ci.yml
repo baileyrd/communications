@@ -1,0 +1,14 @@
+name: architecture-probe
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup toolchain install 1.98.1 --profile minimal --component rustfmt --component clippy
+      - run: cargo +1.98.1 fmt --check
+      - run: cargo +1.98.1 test --locked
+      - run: cargo +1.98.1 clippy --all-targets --locked -- -D warnings
+      - run: cargo +1.98.1 run --release --locked

@@ -1,0 +1,14 @@
+[package]
+name = "communications-probe"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "Executable architecture probe for Mill Board 790"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+
+[lints.rust]
+unsafe_code = "forbid"
