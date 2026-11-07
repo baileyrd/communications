@@ -3,7 +3,7 @@ name = "communications-probe"
 version = "0.1.0"
 edition = "2021"
 publish = false
-description = "Executable architecture probe for Mill Board 790"
+description = "Minimal semantic contract and offline probe for Communications M01"
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }

@@ -1,0 +1,82 @@
+$ cargo fmt --check
+exit=0
+$ cargo test --locked
+   Compiling communications-probe v0.1.0 (/workspace/communications)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.21s
+     Running unittests src/lib.rs (target/debug/deps/communications_probe-110cf940ef89feec)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/communications_probe-aed60322be7603b3)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/architecture.rs (target/debug/deps/architecture-66ff5909f258c03b)
+
+running 6 tests
+test rejects_dangling_and_mistyped_relationships ... ok
+test rejects_invalid_confidence_provenance_and_digest ... ok
+test preserves_all_fields_and_verifies_original_bytes ... ok
+test order_independent_encoding_does_not_collapse_assertions ... ok
+test unknown_version_or_fields_fail_closed ... ok
+test unknown_event_time_and_confidence_remain_unknown ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/contract.rs (target/debug/deps/contract-4b8614de4d548487)
+
+running 8 tests
+test evidence_verification_uses_exact_bytes_and_never_locator_identity ... ok
+test duplicate_json_keys_fail_at_every_object_boundary ... ok
+test roundtrip_preserves_literal_variants_conflicts_unicode_and_time_extremes ... ok
+test duplicate_references_and_assertions_fail_without_deduplication ... ok
+test unused_relation_kinds_and_malformed_identifiers_are_validated ... ok
+test schema_and_malformed_inputs_fail_closed ... ok
+test semantic_validation_runs_during_decode ... ok
+test unknown_or_missing_nested_fields_are_rejected ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests communications_probe
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+exit=0
+$ cargo clippy --all-targets --locked -- -D warnings
+    Checking communications-probe v0.1.0 (/workspace/communications)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.23s
+exit=0
+$ cargo run --release --locked
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.27
+   Compiling typenum v1.20.1
+   Compiling serde_core v1.0.229
+   Compiling generic-array v0.14.7
+   Compiling zmij v1.0.23
+   Compiling serde_json v1.0.154
+   Compiling serde v1.0.229
+   Compiling syn v3.0.9
+   Compiling itoa v1.0.18
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling cpufeatures v0.2.17
+   Compiling memchr v2.8.3
+   Compiling digest v0.10.7
+   Compiling cfg-if v1.0.5
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling communications-probe v0.1.0 (/workspace/communications)
+    Finished `release` profile [optimized] target(s) in 6.05s
+     Running `target/release/communications-probe`
+{"adapter_overhead_ns":null,"assertions":2,"case":"observation","cpu_time_ns":null,"decode_validate_mean_ns":9696,"decode_validate_total_ns":96969040,"end_to_end_latency_ms":null,"evidence_digest_matches":true,"exact_roundtrip":true,"iterations":10000,"limitation":"one synthetic smoke fixture; JSON formatting control only; no model, adapter, CBOR or comprehension experiment","mode":"offline_architecture_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"peak_memory_bytes":null,"pretty_json_control_bytes":1583,"representation":"semantic_json","semantic_fidelity_score":null,"validate_clone_sort_encode_mean_ns":3088,"validate_clone_sort_encode_total_ns":30889483,"version":"0.1-draft","warmup_iterations":100,"wire_bytes":994}
+exit=0
+$ git diff --check
+exit=0

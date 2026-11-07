@@ -1,49 +1,39 @@
-# Communications draft checkpoint
+# Communications implementation checkpoint
 
-2026-11-07: this focused #790 branch is based on actual remote main
-`d29af7a6dc3eb7aa5e07b77da8414611f586992f` (the owner-requested README). Its
-three-line introduction is preserved. This contributes to
-[M01 issue #1](https://github.com/baileyrd/communications/issues/1); it does not
-complete that issue, this card or any downstream dependency.
+2026-11-07: #790 is Done. GitHub PR #2 merged into main at
+`1b6997845aea7d0770cc8e3101d1759ec866f66f`; #791 starts from that verified
+checkpoint, preserving its architecture, fixture, evidence digest and README.
+Mill Board remains authoritative for scope, dependencies and execution progress.
 
-Implemented: provisional typed semantic architecture, validation, SHA-256 evidence
-check, stable probe JSON encoding, one synthetic fixture, 6 integration tests,
-offline JSONL smoke, measurement plan and source-pinned reuse assessment.
-No Rusty Mill code was edited or imported. See [results](RESULTS.md), the exact
-[validation log](results/validation.log), and [architecture limits](ARCHITECTURE.md).
+#791 implements the minimal versioned semantic contract on branch
+`codex/m01-791-contract`: validated, duplicate-rejecting JSON ingress; typed
+entities, assertions and relationships; provenance; separate explicit event,
+record and interpretation times; uncertainty; exact original-byte verification;
+and deterministic validated canonical serialization. The existing `0.1-draft`
+wire version remains readable. Malformed inputs previously silently normalized
+or accepted can now fail. No new dependencies, Rusty Mill edits or imports,
+model/MCP/storage adapters, paid calls or access changes were introduced.
 
-Mill Board is the shared execution source of truth. Cloud thread
-`01a1b71a-fe07-7182-9e33-465f5afb6033`, initial turn
-`01a1b71b-0763-76c5-8d2a-e3f75be96409`. The resumed turn's identifier was not
-exposed to the worker at preparation time; the coordinator can record it from
-task metadata. Refresh #790's comments for live PR/head/CI status.
+See [architecture and limits](ARCHITECTURE.md), [contract validation](results/contract-validation.log)
+and `tests/contract.rs`. Existing #790 measurement logs remain historical;
+[results](RESULTS.md) distinguishes them from the stricter #791 decoder.
+Round trips prove structural preservation, not model semantic fidelity.
 
-Publication access changed after the first local checkpoint
-`d19c851d58bea599cdbebdbe28a5dc142dfbc8d2`. The collaborator invitation was
-accepted and the requested README baseline established. On resume, connected
-GitHub tools independently verified identity `dottiusmaximus`, push=true,
-pull=true and triage=true, current main and no open PRs. Publication uses those
-supported connected tools. An ordinary public Git fetch of main also succeeded.
-Earlier `gh api` probes had returned `Forbidden` without response details; their
-rejecting layer and separate CLI identity remain unknown. They were not retried,
-and no credentials, permissions or network policy were changed by this worker.
-The prior private artifact is not needed to reconstruct or publish this branch.
+Cloud thread `01a1b73d-a74d-76a0-80a3-37dda7fe9013`, initial turn
+`01a1b73d-b259-7662-ada8-6c051c347297`. Refresh #791 comments for the actual
+published PR/head and head-specific CI. No merge, formal approval or Done is
+claimed by this worker. Independent technical review, required CI and unchanged
+reviewed head are coordinator gates; corrections must update the same PR.
 
-Board claiming remains separately blocked: fixed authenticated actor `ChatGPT`
-is rejected with `invalid input: with a rusty_tick store, actor names must be
-lowercase`. No actor override or repeated claim attempt is justified by the
-access change. The coordinator moved the card to Blocked after the first local
-run; subsequent transitions must follow the actual board rules. Comments,
-not an invented execution-link identifier, record worker progress.
+Known board defect: fixed authenticated `ChatGPT` actor cannot claim because the
+store requires lowercase names. No identity override or repeated claim attempt
+was made. Supported Planning → Architecting → Building transitions succeeded.
+Comments record concrete execution identifiers; incompatible Orch IDs are not
+fabricated. Connected GitHub tools provide publication; previously forbidden
+`gh api` routes were not retried.
 
-Remaining: remote head-specific CI, the user's architectural and independent
-technical review, corrections and verified merge. Local success or PR creation
-does not establish completion. No merge or formal approval is authorized for this
-worker. #791–#794 (full contract, encodings/adapters, golden suite, pilot) and
-M02–M04 remain unstarted by this worker. Owner license choice remains open.
-The draft vocabulary and uncertainty boundary await architectural review.
-
-Resume: refresh Mill Board #790–#797, current GitHub main, active PRs and exact
-head-specific CI; read `CHATGPT_WORKFLOW.md`, `AGENTS.md` and this checkpoint.
-Correct the existing PR branch when needed; do not start competing work or
-release downstream dependencies until independently verified review and merge.
+Next: coordinator review and verified merge of #791, then select the next
+Mill Board dependency-eligible card. #792 encodings/adapters and #793 golden suite
+remain outside this increment, as do the pilot and M02–M04. Owner license choice
+remains open. Resume with current main, active PRs, board #791–#797, `AGENTS.md`,
+`CHATGPT_WORKFLOW.md` and this checkpoint; preserve work already completed.

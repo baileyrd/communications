@@ -1,8 +1,9 @@
-# M01 executable architecture proposal — #790
+# M01 minimal semantic contract — #791
 
-Status: draft for the user's architectural review. This probe is intentionally
-one crate, one smoke fixture, one JSON wire form. It establishes an executable
-boundary without claiming the downstream #791 contract is complete or stable.
+Status: #791 builds on merged #790 (PR #2), retaining one independent crate,
+one smoke fixture and one JSON wire form. The vocabulary remains versioned
+`0.1-draft`; this is a minimal experiment contract, not a production standard.
+Independent review and merge of this increment remain coordinator gates.
 
 The experiment asks whether a shared semantic contract can carry matched facts
 across mechanisms with less total cost and equal understanding. A smaller binary
@@ -11,17 +12,17 @@ MCP, model APIs, retrieval storage, and Rusty Mill's workspace.
 
 ## Draft semantic boundary
 
-`src/lib.rs` gives this proposed vocabulary executable validation:
+`src/lib.rs` gives this vocabulary executable validation:
 
 | Field | Meaning and invariant |
 | --- | --- |
 | `version` | Exact `0.1-draft`; unknown versions fail validation. |
-| `entities` | Local id → kind. Empty ids/kinds fail. Literal-kind names are reserved. |
-| `relations` | Predicate → subject and object kinds. Assertions must match both. |
+| `entities` | Local id → kind. Empty, padded or control-containing ids/kinds fail. Literal-kind names are reserved. |
+| `relations` | Predicate → subject and object kinds. Kinds must exist in entities (or a literal object kind); assertions must match both. |
 | `assertions` | Unique id, subject, typed predicate and typed object: entity reference, boolean, text, or integer. No last-writer-wins deduplication. |
 | `uncertainty` | Explicit unknown or reported confidence in [0,1000] permille. It is not inferred certainty or a calibrated probability. |
 | `provenance` | Existing asserting entity, observed/reported/inferred method, nonempty set of valid evidence references. Attribution is distinct from truth. |
-| `times` | Separate event (nullable), record, interpretation times in UTC epoch milliseconds. Unknown event time stays null. No invented cross-clock ordering constraint. |
+| `times` | Required separate event (explicitly nullable), record, interpretation times in UTC epoch milliseconds. Unknown event time stays null. No invented cross-clock ordering constraint. |
 | `evidence` | Lowercase SHA-256 of exact original bytes plus retrieval locator. Digest is authoritative; locator is a hint. Retrieval and byte verification are separate from reference validation. |
 
 Maps and evidence-reference sets are sorted; assertions sort by id before compact
@@ -54,17 +55,43 @@ an optional **fourth** baseline; it does not replace CBOR. MCP is one contextual
 adapter, not the contract or proof of a model-native interface. No hidden-state
 or arbitrary tensor interface is assumed available.
 
-## Deliberate limits and review questions
+## Validated ingress and canonical form
 
-This is not a production untrusted-input API. Serde can accept duplicate JSON map
-keys by retaining the last occurrence; the probe does not define a hardened
-decoder, input-size limits, numeric units, intervals, negation logic, schema
-migrations, or cross-language canonicalization. Unknown struct fields are refused,
-but that alone does not establish strict canonical parsing. These are #791 review
-items; the CLI only reads the checked-in smoke fixture. Full fixtures, extraction,
-reconstruction/comprehension/application scoring and benchmark adapters remain
-downstream. Exact round-trip is structural preservation, not semantic fidelity.
+`Contract::from_json(&bytes)` and direct Serde deserialization of `Contract`
+reject duplicate JSON object keys at every nesting level before constructing
+maps or tagged enums. Escaped key aliases count as duplicates. Duplicate evidence
+references are rejected before set construction. Validation runs during decode:
+unknown schema versions, fields/variants, missing fields, dangling references,
+type mismatches, duplicate assertion ids, invalid uncertainty and malformed
+digests fail. An unknown event time must be explicit `null`, not omitted. Integer
+fields reject floats and overflow. JSON whitespace and object/set/assertion order
+may differ on ingress; canonical bytes normalize order, not semantic content.
 
-Architectural feedback requested through Mill Board #790: is this draft vocabulary
-and separation of source-reported confidence from unknown uncertainty a useful
-starting point for #791? It remains reversible until independent review.
+Use `canonical_json()` for validated output; ordinary Serde serialization is a
+low-level representation operation. Public Rust fields permit construction and
+editing, so call `validate()` before consuming an edited value. `verify_evidence`
+checks supplied original bytes against the referenced SHA-256 and reports missing
+references or mismatches. It never retrieves a locator. The same locator may name
+different snapshots; the digest defines original content identity. Digest aliases
+at different locators are allowed. No mutation or retrieval store is implemented.
+
+Regression tests include every object boundary, evidence-set duplication, all
+object variants, confidence boundaries, unknown confidence/event time, extreme
+integer/time values, Unicode preservation, conflicting assertions and canonical
+idempotence. Conflicting claims remain independent assertions; no truth resolution
+or implicit deduplication occurs.
+
+## Deliberate limits
+
+JSON ingress buffers a duplicate-checked value before typed construction. It uses
+Serde JSON's default recursion limit and has no explicit byte/collection quotas;
+callers must bound input size before exposing it to untrusted traffic. No schema
+migration, cross-language canonicalization, units, intervals, negation calculus,
+authentication, evidence availability or semantic entailment is claimed. This
+is a structural contract, not a universal ontology. Kind names remain local opaque
+strings; unused relation kinds must still be represented by an entity in this
+minimal vocabulary. Separate per-kind registries are outside this slice.
+
+CBOR/typed-record encodings (#792), golden cases, extraction, adapters and semantic
+fidelity/efficiency evaluation remain downstream. Exact structural round-trip
+preservation does not establish model understanding or efficiency.
