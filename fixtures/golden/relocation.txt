@@ -1,0 +1,4 @@
+Fixture relocation. All times are UTC epoch milliseconds. Local entities: crate=crate, north=room, south=room, mover=person. Relation located_in: crate -> room.
+Mover observes crate located_in north, confidence 1000 permille, event 100, record 300, interpretation 400 (assertion r1).
+Mover observes crate located_in south, confidence 1000 permille, event 200, record 250, interpretation 401 (assertion r2).
+Both cite original evidence e1 at fixture:golden/relocation.txt. Location after event 200 is not supplied.

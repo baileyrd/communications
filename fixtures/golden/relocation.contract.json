@@ -1,0 +1,81 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "crate": {
+      "kind": "crate"
+    },
+    "north": {
+      "kind": "room"
+    },
+    "south": {
+      "kind": "room"
+    },
+    "mover": {
+      "kind": "person"
+    }
+  },
+  "relations": {
+    "located_in": {
+      "subject_kind": "crate",
+      "object_kind": "room"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "23e042976b972484853322f84692d025d6c664f7b9e5ad68f3db98d978d597aa",
+      "locator": "fixture:golden/relocation.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "r1",
+      "subject": "crate",
+      "predicate": "located_in",
+      "object": {
+        "type": "entity",
+        "value": "north"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "mover",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 100,
+        "record_ms": 300,
+        "interpretation_ms": 400
+      }
+    },
+    {
+      "id": "r2",
+      "subject": "crate",
+      "predicate": "located_in",
+      "object": {
+        "type": "entity",
+        "value": "south"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "mover",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 200,
+        "record_ms": 250,
+        "interpretation_ms": 401
+      }
+    }
+  ]
+}

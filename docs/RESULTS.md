@@ -1,3 +1,87 @@
+# #793 offline golden harness — 2026-11-07
+
+Six pinned synthetic cases × four offline contexts × four matched arms produce
+96 local trials. All source hashes, independent ledger/extraction comparisons and
+complete structural round trips pass. The first three cases were checked before
+the expanded six-case run. This delivers the bounded #793 offline harness; it does
+not complete M01, Issue #1 or #794's real model pilot.
+
+[Raw JSONL](results/golden-offline.jsonl), [compatible CSV](results/golden-offline.csv),
+[first-three checks](results/golden-initial-check.jsonl), [six-case checks](results/golden-check.jsonl),
+[synthetic replay JSONL](results/golden-synthetic-replay.jsonl),
+[replay CSV](results/golden-synthetic-replay.csv), [exact example request](results/golden-request-example.json),
+[hashes](results/golden-sha256.txt), [environment](results/golden-environment.txt)
+and [final validation](results/golden-validation.log) retain the evidence.
+[Commands and exact scoring/timing/import boundaries](GOLDEN-HARNESS.md) explain
+how to reproduce and interpret it.
+
+| Arm | Payload bytes, min–max over six cases/contexts | Complete local request bytes, min–max |
+| --- | ---: | ---: |
+| Conventional | 870–941 | 2,995–3,236 |
+| Semantic JSON | 876–941 | 4,694–5,118 |
+| Semantic CBOR | 687–748 | 4,783–4,931 |
+| Semantic CSR/1 | 328–388 | 5,522–5,650 |
+
+Final request bytes count the entire context envelope, common questions,
+instructions and output schema, cold transport schemas, escaping and base64.
+Compact binary payloads do not make these complete local requests smaller than
+the matched conventional controls. Provider/HTTP/session/tool-definition envelopes
+are not available, so these are local request sizes, not endpoint measurements.
+The conventional structured payload and semantic JSON payload use identical facts;
+conventional human text is a labelled fact sheet. No representative natural-language
+baseline or protocol interoperability is claimed.
+
+Named encode/decode, full adapter render/parse and full request-render wall-time
+totals are in the raw rows: 3 untimed warm-ups and 20 timed iterations per operation,
+with allocation/drop and validation inside. Setup, source/ledger checking, evidence
+hashing, round-trip assertions, I/O, build and model execution are outside. Spans
+overlap (adapter includes codec; request includes adapter); do not sum them. One
+warmed release process, fixed order, tiny cases and no repeated trials/confidence
+intervals limit interpretation. Wall times are not CPU or end-to-end latency.
+
+All 96 offline rows have **null** model scores, actual input/output/cached tokens,
+provider/model/settings, monetary cost, model/end-to-end latency, CPU duration,
+peak RSS and assertion-per-token efficiency. No estimate substitutes for usage.
+The separate synthetic scoring controls demonstrate the rubric only:
+
+| Synthetic response | Fidelity | Penalties / invalidity |
+| --- | ---: | --- |
+| Perfect | 1.00 | 0 |
+| One omitted assertion | 0.75 | 1 omission |
+| One invented assertion | 0.75 | 1 invention |
+| Contradictory typed value | 0.75 | 1 wrong relationship |
+| Lost provenance, changed event time, lost confidence | 0.25 | 3 category penalties |
+| Malformed text | null | malformed=1; invalid structured response |
+| Wrong comprehension and application answers | 0.50 | 2 wrong answers |
+
+These response controls are explicitly synthetic; their telemetry and
+assertion-per-token efficiency are null. The reference ledger and expected answers
+are hand-authored independently of the encoder; they still need independent
+technical review. Exact JSON answer scoring is intentionally strict and cannot
+evaluate unrestricted paraphrases, source entailment or physical truth. Imported
+real telemetry is a future caller-attested/unverified boundary; **no real trial is
+included or run**. The comprehension/efficiency hypothesis remains untested.
+
+Final validation includes 37 integration tests (26 retained, 11 focused golden
+regressions), formatter, Clippy with warnings denied, unchanged release smoke,
+three-case and six-case checks, 48/96-row matrices, replay/export/request commands,
+independent CSV/hash/result validation and whitespace checks. The new tests cover
+perfect, omitted, invented, contradictory, partial, malformed and wrong answers;
+duplicate/unknown data, independent clocks/provenance/uncertainty, zero/missing
+usage/score denominators, import errors, telemetry constraints, all arms and CLI
+exports. See the exact final commands and exit codes in the validation log.
+
+Initial environment setup needed the existing Cargo/Rustup homes and PATH to be
+selected explicitly. An initial compile caught an export borrow conflict and an
+unused import; both were fixed before final validation. No new dependencies,
+Rusty Mill imports, license choice, packages, access settings or downstream work.
+Remote CI and independent exact-head review are separate coordinator gates.
+
+---
+
+The following #792 and #790/#791 sections are historical run records. Their
+statements about #793 being undelivered apply to those earlier checkpoints.
+
 # #792 offline codec/adapter result — 2026-11-07
 
 Three codecs and sixteen adapter/control combinations preserve the complete same

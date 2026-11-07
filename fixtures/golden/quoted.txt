@@ -1,0 +1,4 @@
+Fixture quoted. All times are UTC epoch milliseconds. Local entities: sign=sign, reader=person. Relations text: sign -> text; lit: sign -> boolean.
+Reader reports text as this JSON string literal: "café \"A\"\nclosed", confidence unknown, event unknown, record -10, interpretation 0 (assertion q1).
+Reader observes lit=false, confidence 0 permille, event -20, record -9, interpretation 1 (assertion q2). Zero confidence is not unknown.
+Both cite original evidence e1 at fixture:golden/quoted.txt. No opening time is supplied.

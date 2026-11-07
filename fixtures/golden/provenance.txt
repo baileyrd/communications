@@ -1,0 +1,4 @@
+Fixture provenance. All times are UTC epoch milliseconds. Local entities: sample=sample, lab=organization, analyst=person. Relation label: sample -> text.
+Lab reports label="pass", confidence 900 permille, event 10, record 20, interpretation 30 (assertion p1).
+Analyst infers label="recheck", confidence 400 permille, event unknown, record 21, interpretation 31 (assertion p2).
+Both cite original evidence e1 at fixture:golden/provenance.txt. Inference is not a lab observation.

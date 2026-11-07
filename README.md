@@ -3,9 +3,10 @@
 Rust-first M01 experiment for a shared semantic contract across communication
 contexts, contributing to [Issue #1](https://github.com/baileyrd/communications/issues/1).
 #790 established the architecture/reuse probe; merged #791 added the validated
-contract. This #792 slice adds JSON, genuine CBOR and custom typed records, four
-offline adapter boundaries, matched conventional controls and measured local
-encoding/translation costs. The full M01 milestone is still incomplete.
+contract; merged #792 adds JSON, genuine CBOR, CSR/1 and four offline context
+boundaries. #793 adds six pinned golden cases, independent reference ledgers,
+structured reconstruction/comprehension/application scoring, replay/import and
+compatible JSONL/CSV exports. The full M01 milestone is still incomplete.
 
 ```sh
 cargo fmt --check
@@ -15,7 +16,7 @@ cargo run --release --locked
 git diff --check
 ```
 
-The CLI emits JSONL: three codec rows, sixteen adapter rows (four contexts × four
+With no arguments, the CLI retains the #792 smoke and emits JSONL: three codec rows, sixteen adapter rows (four contexts × four
 arms), and five capability rows. It uses the original synthetic two-assertion smoke
 fixture; verifies the exact evidence digest, complete structural round trips and
 final UTF-8 envelopes; measures payload/envelope/schema bytes and local wall time.
@@ -38,8 +39,27 @@ Ok(())
 These are offline envelopes, not working MCP/model/retrieval endpoints. Model-native
 tensors/hidden states are unsupported/not testable. Structural preservation is not
 comprehension or efficiency evidence; a compact binary payload can become a larger
-text envelope once base64, schema and escaping are included. #793's golden cases,
-#794's model pilot and optional Protobuf baseline remain deferred.
+text envelope once base64, schema and escaping are included. #794's model pilot and the optional Protobuf baseline remain deferred.
+
+
+Run the offline golden suite and explicit synthetic scoring controls:
+
+```sh
+cargo run --release --locked -- golden check --initial
+cargo run --release --locked -- golden check
+cargo run --release --locked -- golden run /tmp/golden.jsonl /tmp/golden.csv
+cargo run --release --locked -- golden sample > /tmp/synthetic.jsonl
+cargo run --release --locked -- golden replay /tmp/synthetic.jsonl /tmp/replay.jsonl /tmp/replay.csv
+```
+
+The full run emits 96 rows (six cases × four contexts × four arms). Each counts
+actual final local request bytes with the same questions and output schema,
+checks reference facts and structural preservation, and measures named local
+operations. Model/resource telemetry and model scores remain null. Replay scores
+use explicit expected JSON answers; synthetic controls are never model results.
+`golden request CASE CONTEXT ARM` emits the exact request for inspection/hash
+verification. Imported real telemetry is caller-attested and labeled unverified.
+See [commands, fixtures, rubric and import/export schema](docs/GOLDEN-HARNESS.md).
 
 Read [architecture](docs/ARCHITECTURE.md), [wire/adapters and limits](docs/WIRE-FORMATS.md),
 [reuse evidence](docs/REUSE.md), [measurement boundaries](docs/MEASUREMENT.md),

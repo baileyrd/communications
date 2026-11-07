@@ -1,0 +1,78 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "parcel": {
+      "kind": "parcel"
+    },
+    "clerk": {
+      "kind": "person"
+    }
+  },
+  "relations": {
+    "destination": {
+      "subject_kind": "parcel",
+      "object_kind": "text"
+    },
+    "sealed": {
+      "subject_kind": "parcel",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "71731c7a3a7284278af9500de5523739e2e894c55f8ae88fde3cc92dbdbf4e02",
+      "locator": "fixture:golden/unknown.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "u1",
+      "subject": "parcel",
+      "predicate": "destination",
+      "object": {
+        "type": "text",
+        "value": "unknown"
+      },
+      "uncertainty": {
+        "kind": "unknown"
+      },
+      "provenance": {
+        "asserted_by": "clerk",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": null,
+        "record_ms": 4000,
+        "interpretation_ms": 5000
+      }
+    },
+    {
+      "id": "u2",
+      "subject": "parcel",
+      "predicate": "sealed",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "clerk",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 3500,
+        "record_ms": 4001,
+        "interpretation_ms": 5001
+      }
+    }
+  ]
+}

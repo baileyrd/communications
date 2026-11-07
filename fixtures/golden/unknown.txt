@@ -1,0 +1,4 @@
+Fixture unknown. All times are UTC epoch milliseconds. Local entities: parcel=parcel, clerk=person. Relations destination: parcel -> text; sealed: parcel -> boolean.
+Clerk reports destination="unknown", confidence unknown, event unknown, record 4000, interpretation 5000 (assertion u1). The word unknown is a reported text label, not a known destination.
+Clerk observes sealed=true, confidence 1000 permille, event 3500, record 4001, interpretation 5001 (assertion u2).
+Both cite original evidence e1 at fixture:golden/unknown.txt. No delivery time is supplied.

@@ -2,6 +2,8 @@
 pub mod adapter;
 pub mod codec;
 mod decode;
+pub mod golden;
+pub mod harness;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, BTreeSet};

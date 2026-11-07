@@ -1,0 +1,4 @@
+Fixture conflict. All times are UTC epoch milliseconds. Local entities: gate=gate, alice=person, bob=person. Relation open: gate -> boolean.
+Alice reports gate open=true, confidence 800 permille, event 1000, record 2000, interpretation 3000 (assertion c1).
+Bob reports gate open=false, confidence unknown, event 1000, record 2500, interpretation 3100 (assertion c2).
+These reports conflict; neither establishes the physical state. Both cite original evidence e1 at fixture:golden/conflict.txt.
