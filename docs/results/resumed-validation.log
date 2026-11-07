@@ -1,0 +1,52 @@
+Resumed #790 validation on actual main baseline d29af7a6dc3eb7aa5e07b77da8414611f586992f
+Rust 1.98.1, Linux x86_64. Source preserved from d19c851.
+PATH=/workspace/.cargo/bin:$PATH RUSTUP_HOME=/workspace/.rustup CARGO_HOME=/workspace/.cargo
+$ cargo fmt --check
+EXIT 0
+
+$ cargo test --locked
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 6 tests
+test rejects_dangling_and_mistyped_relationships ... ok
+test rejects_invalid_confidence_provenance_and_digest ... ok
+test preserves_all_fields_and_verifies_original_bytes ... ok
+test order_independent_encoding_does_not_collapse_assertions ... ok
+test unknown_event_time_and_confidence_remain_unknown ... ok
+test unknown_version_or_fields_fail_closed ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Compiling communications-probe v0.1.0 (/workspace/communications)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.73s
+     Running unittests src/lib.rs (target/debug/deps/communications_probe-110cf940ef89feec)
+     Running unittests src/main.rs (target/debug/deps/communications_probe-aed60322be7603b3)
+     Running tests/architecture.rs (target/debug/deps/architecture-66ff5909f258c03b)
+   Doc-tests communications_probe
+EXIT 0
+
+$ cargo clippy --all-targets --locked -- -D warnings
+    Checking communications-probe v0.1.0 (/workspace/communications)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.28s
+EXIT 0
+
+$ cargo run --release --locked
+{"adapter_overhead_ns":null,"assertions":2,"case":"observation","cpu_time_ns":null,"decode_validate_mean_ns":3928,"decode_validate_total_ns":39288981,"end_to_end_latency_ms":null,"evidence_digest_matches":true,"exact_roundtrip":true,"iterations":10000,"limitation":"one synthetic smoke fixture; JSON formatting control only; no model, adapter, CBOR or comprehension experiment","mode":"offline_architecture_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"peak_memory_bytes":null,"pretty_json_control_bytes":1583,"representation":"semantic_json","semantic_fidelity_score":null,"validate_clone_sort_encode_mean_ns":2987,"validate_clone_sort_encode_total_ns":29876927,"version":"0.1-draft","warmup_iterations":100,"wire_bytes":994}
+   Compiling communications-probe v0.1.0 (/workspace/communications)
+    Finished `release` profile [optimized] target(s) in 2.86s
+     Running `target/release/communications-probe`
+EXIT 0

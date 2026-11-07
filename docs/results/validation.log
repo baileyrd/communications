@@ -1,0 +1,180 @@
+Validation captured 2026-11-07 UTC. Rust 1.98.1; Linux x86_64.
+PATH=/workspace/.cargo/bin:$PATH RUSTUP_HOME=/workspace/.rustup CARGO_HOME=/workspace/.cargo
+Reference tests run on isolated source copies; mounted Rusty Mill not modified.
+$ cargo fmt --check
+EXIT 0
+
+$ cargo test --locked
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.01s
+     Running unittests src/lib.rs (target/debug/deps/communications_probe-110cf940ef89feec)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/communications_probe-aed60322be7603b3)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/architecture.rs (target/debug/deps/architecture-66ff5909f258c03b)
+
+running 6 tests
+test rejects_dangling_and_mistyped_relationships ... ok
+test rejects_invalid_confidence_provenance_and_digest ... ok
+test order_independent_encoding_does_not_collapse_assertions ... ok
+test preserves_all_fields_and_verifies_original_bytes ... ok
+test unknown_event_time_and_confidence_remain_unknown ... ok
+test unknown_version_or_fields_fail_closed ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests communications_probe
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+EXIT 0
+
+$ cargo clippy --all-targets --locked -- -D warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s
+EXIT 0
+
+$ cargo run --release --locked
+    Finished `release` profile [optimized] target(s) in 0.05s
+     Running `target/release/communications-probe`
+{"adapter_overhead_ns":null,"assertions":2,"case":"observation","cpu_time_ns":null,"decode_validate_mean_ns":3692,"decode_validate_total_ns":36924404,"end_to_end_latency_ms":null,"evidence_digest_matches":true,"exact_roundtrip":true,"iterations":10000,"limitation":"one synthetic smoke fixture; JSON formatting control only; no model, adapter, CBOR or comprehension experiment","mode":"offline_architecture_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"peak_memory_bytes":null,"pretty_json_control_bytes":1583,"representation":"semantic_json","semantic_fidelity_score":null,"validate_clone_sort_encode_mean_ns":2646,"validate_clone_sort_encode_total_ns":26461626,"version":"0.1-draft","warmup_iterations":100,"wire_bytes":994}
+EXIT 0
+
+$ cargo test --manifest-path /tmp/communications-reference-tests/rusty_codec/Cargo.toml --offline
+   Compiling rusty_codec v0.1.0 (/tmp/communications-reference-tests/rusty_codec)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.40s
+     Running unittests src/lib.rs (/tmp/communications-reference-tests/rusty_codec/target/debug/deps/rusty_codec-305492df55422429)
+
+running 19 tests
+test binary::tests::deserialize_rejects_a_length_header_past_the_end_of_the_buffer_instead_of_panicking ... ok
+test binary::tests::roundtrip_binary ... ok
+test binary::tests::serialize_returns_a_result_and_still_roundtrips_normal_sized_data ... ok
+test toml::real_world_tests::parses_an_inline_table_with_a_feature_array_and_hyphenated_keys ... ok
+test toml::tests::a_realistic_cargo_toml_like_document_parses ... ok
+test toml::real_world_tests::parses_real_rusty_codec_cargo_toml ... ok
+test toml::tests::array_of_strings ... ok
+test toml::tests::basic_string_escapes_are_decoded ... ok
+test toml::tests::comments_are_ignored ... ok
+test toml::tests::dotted_keys_build_nested_tables ... ok
+test toml::tests::inline_tables ... ok
+test toml::tests::literal_strings_do_not_process_escapes ... ok
+test toml::tests::deeply_nested_arrays_are_rejected_instead_of_overflowing_the_stack ... ok
+test toml::tests::multi_line_arrays_with_trailing_comma_and_comments ... ok
+test toml::tests::parses_negative_and_underscored_numbers ... ok
+test toml::tests::parses_basic_scalars ... ok
+test toml::tests::redefining_a_scalar_key_as_a_table_errors ... ok
+test toml::tests::table_headers_nest_correctly ... ok
+test toml::tests::single_line_arrays ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests rusty_codec
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+EXIT 0
+
+$ cargo test --manifest-path /tmp/communications-reference-tests/rusty_protobuf/Cargo.toml --offline
+   Compiling rusty_protobuf v0.1.0 (/tmp/communications-reference-tests/rusty_protobuf)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.81s
+     Running unittests src/lib.rs (/tmp/communications-reference-tests/rusty_protobuf/target/debug/deps/rusty_protobuf-ca3ef4a33709b861)
+
+running 7 tests
+test varint::tests::decode_rejects_truncated_overflowing_and_overlong_input ... ok
+test varint::tests::decode_stops_at_the_first_byte_without_a_continuation_bit ... ok
+test varint::tests::decode_inverts_encode_at_every_length ... ok
+test varint::tests::encodes_the_documented_examples ... ok
+test varint::tests::overlong_encodings_are_accepted ... ok
+test varint::tests::zigzag_maps_small_magnitudes_to_small_values ... ok
+test writer::tests::finish_refuses_a_message_over_the_limit ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/bounds.rs (/tmp/communications-reference-tests/rusty_protobuf/target/debug/deps/bounds-e2357f3d50beb4bc)
+
+running 8 tests
+test a_huge_claimed_length_costs_nothing ... ok
+test a_reader_yields_nothing_after_an_error ... ok
+test a_cut_inside_a_single_field_message_is_an_error_not_an_empty_message ... ok
+test malformed_input_fails_with_the_matching_error ... ok
+test the_reference_rejects_what_this_crate_rejects ... ok
+test every_prefix_of_every_recording_is_handled ... ok
+test random_bytes_never_panic ... ok
+test random_corruption_never_panics ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/golden.rs (/tmp/communications-reference-tests/rusty_protobuf/target/debug/deps/golden-9a3cce5c4f4a35d4)
+
+running 12 tests
+test an_empty_message_is_zero_bytes ... ok
+test maps_are_repeated_entry_messages ... ok
+test nested_messages_and_an_empty_one_that_is_still_present ... ok
+test oneof_and_enum ... ok
+test overlong_varints_are_accepted ... ok
+test scalars_of_every_type_including_extremes ... ok
+test repeated_fields_packed_and_not ... ok
+test strings_and_bytes ... ok
+test the_largest_field_number ... ok
+test the_last_scalar_wins_and_sub_messages_merge ... ok
+test unknown_fields_are_yielded_and_a_decoder_may_skip_them ... ok
+test unpacked_and_split_packed_runs_concatenate ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/limits.rs (/tmp/communications-reference-tests/rusty_protobuf/target/debug/deps/limits-b325088dd9e81e7c)
+
+running 13 tests
+test a_packed_fixed_run_must_be_a_whole_number_of_elements ... ok
+test a_string_is_checked_but_bytes_are_not ... ok
+test a_truncated_fixed_value_is_refused_by_the_reader ... ok
+test bool_is_any_non_zero_varint ... ok
+test an_accessor_for_the_wrong_wire_type_says_so ... ok
+test nesting_up_to_the_default_limit_is_read ... ok
+test one_level_past_the_limit_is_refused ... ok
+test packed_fixed_width_take_a_run_or_one_element ... ok
+test packed_varints_take_a_run_or_one_element ... ok
+test the_limit_is_configurable_and_zero_forbids_sub_messages ... ok
+test varints_of_ten_bytes_that_fit_64_bits_are_read ... ok
+test wider_values_are_truncated_like_the_reference ... ok
+test deep_nesting_is_refused_before_a_recursive_decoder_can_exhaust_the_stack ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/writer.rs (/tmp/communications-reference-tests/rusty_protobuf/target/debug/deps/writer-5c74fdfbb90935fe)
+
+running 11 tests
+test a_sub_message_over_127_bytes_gets_a_two_byte_prefix ... ok
+test an_error_inside_a_sub_message_survives_the_fixup ... ok
+test a_tag_with_a_large_field_number_takes_more_bytes ... ok
+test an_invalid_field_number_is_reported_by_finish_and_writes_nothing ... ok
+test defaults_are_written_when_asked_for ... ok
+test empty_messages_and_empty_runs_are_a_tag_and_a_zero ... ok
+test nested_sub_messages_fix_each_level ... ok
+test packed_runs ... ok
+test scalars_are_little_endian_and_negatives_are_sign_extended ... ok
+test the_length_fixup_is_exact_at_the_one_to_two_byte_boundary ... ok
+test the_specs_own_examples ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests rusty_protobuf
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+EXIT 0
+
+$ git diff --cached --check
+EXIT 0 (after trimming log trailing blank line)

@@ -1,0 +1,81 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "observer": {
+      "kind": "person"
+    },
+    "v1": {
+      "kind": "valve"
+    },
+    "r1": {
+      "kind": "room"
+    }
+  },
+  "relations": {
+    "open": {
+      "subject_kind": "valve",
+      "object_kind": "boolean"
+    },
+    "located_in": {
+      "subject_kind": "valve",
+      "object_kind": "room"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "4ecc52e6ee2c4e8dfc3035ee236eb8b1476bbb8b836d834fecb532dac6b37989",
+      "locator": "fixtures/observation.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "a1",
+      "subject": "v1",
+      "predicate": "open",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 800
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 1700000000000,
+        "record_ms": 1700000001000,
+        "interpretation_ms": 1700000002000
+      }
+    },
+    {
+      "id": "a2",
+      "subject": "v1",
+      "predicate": "located_in",
+      "object": {
+        "type": "entity",
+        "value": "r1"
+      },
+      "uncertainty": {
+        "kind": "unknown"
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 1700000000000,
+        "record_ms": 1700000001000,
+        "interpretation_ms": 1700000002000
+      }
+    }
+  ]
+}

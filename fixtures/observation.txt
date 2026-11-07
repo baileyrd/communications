@@ -1,0 +1,1 @@
+Observer reports at 1700000000000 ms UTC: valve V1 is probably open (confidence 800/1000) and located in room R1. Recorded at 1700000001000 ms; interpreted at 1700000002000 ms.
