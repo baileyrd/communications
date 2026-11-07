@@ -1,0 +1,79 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "item": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "tested": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    },
+    "label": {
+      "subject_kind": "item",
+      "object_kind": "text"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "68175b584df9b8d6a2b9cc14574fa167380973092c522f575e2a8967157adf49",
+      "locator": "fixture:golden/missing-is-not-false.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "item",
+      "predicate": "tested",
+      "object": {
+        "type": "boolean",
+        "value": false
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "item",
+      "predicate": "label",
+      "object": {
+        "type": "text",
+        "value": "pending"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "item": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    },
+    "a": {
+      "kind": "item"
+    },
+    "b": {
+      "kind": "item"
+    }
+  },
+  "relations": {
+    "at": {
+      "subject_kind": "item",
+      "object_kind": "item"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "92a207d35f828e5cf95aea4b927022a0a0de99c2b4abfda0e12b120dde75eb23",
+      "locator": "fixture:golden/unknown-event-sort.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "item",
+      "predicate": "at",
+      "object": {
+        "type": "entity",
+        "value": "a"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": null,
+        "record_ms": 99,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "item",
+      "predicate": "at",
+      "object": {
+        "type": "entity",
+        "value": "b"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 50,
+        "record_ms": 1,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "tag": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "text": {
+      "subject_kind": "item",
+      "object_kind": "text"
+    },
+    "valid": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "8b18d2fe88b2bdf271882a99d085f6a15917e1599a5b2c6448eda047dbbbe7ab",
+      "locator": "fixture:golden/boolean-word.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "tag",
+      "predicate": "text",
+      "object": {
+        "type": "text",
+        "value": "false"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "tag",
+      "predicate": "valid",
+      "object": {
+        "type": "boolean",
+        "value": false
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+Authored synthetic scenario relocation-inference. An inferred later location does not become a later observation.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"crate": "item", "dock": "item", "observer": "agent", "truck": "item"}.
+Relation catalogue: {"at": ["item", "item"]}.
+f1: observer (observed) states crate at = {"type": "entity", "value": "dock"}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: observer (inferred) states crate at = {"type": "entity", "value": "truck"}; event 20, record 20, interpretation 30, confidence permille 500; cites e1.
+Original e1 is this complete report, locator fixture:golden/relocation-inference.txt. No other facts or causal rules are supplied.

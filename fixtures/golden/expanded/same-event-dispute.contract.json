@@ -1,0 +1,78 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "door": {
+      "kind": "item"
+    },
+    "a": {
+      "kind": "agent"
+    },
+    "b": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "open": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "8c85ae3a66e5c22e26a54696802c1116481fefba1cae326f1d4f6a4aaf8b4b73",
+      "locator": "fixture:golden/same-event-dispute.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "door",
+      "predicate": "open",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 700
+      },
+      "provenance": {
+        "asserted_by": "a",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "door",
+      "predicate": "open",
+      "object": {
+        "type": "boolean",
+        "value": false
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 700
+      },
+      "provenance": {
+        "asserted_by": "b",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

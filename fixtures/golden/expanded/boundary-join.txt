@@ -1,0 +1,8 @@
+Authored synthetic scenario boundary-join. Negative event, zero confidence, empty text and a directed link coexist.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"a": "item", "b": "item", "observer": "agent"}.
+Relation catalogue: {"linked_to": ["item", "item"], "text": ["item", "text"], "valid": ["item", "boolean"]}.
+f1: observer (observed) states a text = {"type": "text", "value": ""}; event -1, record 20, interpretation 30, confidence permille 0; cites e1.
+f2: observer (observed) states a linked_to = {"type": "entity", "value": "b"}; event null, record 20, interpretation 30, confidence permille null; cites e1.
+f3: observer (observed) states b valid = {"type": "boolean", "value": false}; event 0, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/boundary-join.txt. No other facts or causal rules are supplied.

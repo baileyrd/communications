@@ -113,3 +113,12 @@ client. Core contract types do not depend on these runner types. See the
 Automated extraction, actual model comprehension/application and comparative
 inference efficiency (#794) remain untested. Exact structural round trips and
 perfect synthetic scorer controls do not establish model understanding.
+
+## #795 expanded dataset boundary
+
+The separate `golden::load_expanded()`/`expanded` CLI select a 60-case pinned suite;
+original `load()`/`golden` retain the original six and exact request bytes. Each
+loaded case carries its actual suite digest. The same validated codecs/adapters,
+requests, timing and replay ingress/scorer are reused. No core contract/ontology,
+codec or model client changed. [Expanded design](EXPANDED-BENCHMARK.md) documents
+synthetic authorship limits, five-layer capabilities and incomplete live acceptance.

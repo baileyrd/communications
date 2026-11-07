@@ -1,0 +1,79 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "sign": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "label": {
+      "subject_kind": "item",
+      "object_kind": "text"
+    },
+    "visible": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "7b28227176123bd1f0edae870b39b3d03a3cae2f16ee5040bfe54548e1bd9639",
+      "locator": "fixture:golden/rtl-label.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "sign",
+      "predicate": "label",
+      "object": {
+        "type": "text",
+        "value": "‏باب ٣‏"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "sign",
+      "predicate": "visible",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "a": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    },
+    "b": {
+      "kind": "item"
+    }
+  },
+  "relations": {
+    "near": {
+      "subject_kind": "item",
+      "object_kind": "item"
+    },
+    "owned_by": {
+      "subject_kind": "item",
+      "object_kind": "item"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "0c764e82c44e6c7160ee1449db3b41fa98931a5e505d2a3b42a8745c0b2c7db2",
+      "locator": "fixture:golden/relation-name-distinction.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "a",
+      "predicate": "near",
+      "object": {
+        "type": "entity",
+        "value": "b"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "a",
+      "predicate": "owned_by",
+      "object": {
+        "type": "entity",
+        "value": "b"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

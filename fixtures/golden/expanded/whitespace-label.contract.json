@@ -1,0 +1,79 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "tag": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "text": {
+      "subject_kind": "item",
+      "object_kind": "text"
+    },
+    "trimmed": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "8d2224b4263dac7fb671c6f3145b0cbac8a34cb98de1624921bf97a22f26cc3c",
+      "locator": "fixture:golden/whitespace-label.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "tag",
+      "predicate": "text",
+      "object": {
+        "type": "text",
+        "value": "  A  "
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "tag",
+      "predicate": "trimmed",
+      "object": {
+        "type": "boolean",
+        "value": false
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

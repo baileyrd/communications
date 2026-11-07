@@ -1,0 +1,7 @@
+Authored synthetic scenario integer-extremes. Minimum and maximum signed 64-bit values are literal counts, not floats.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"high": "item", "low": "item", "observer": "agent"}.
+Relation catalogue: {"count": ["item", "integer"]}.
+f1: observer (observed) states low count = {"type": "integer", "value": -9223372036854775808}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: observer (observed) states high count = {"type": "integer", "value": 9223372036854775807}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/integer-extremes.txt. No other facts or causal rules are supplied.

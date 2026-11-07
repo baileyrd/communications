@@ -1,0 +1,106 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "vial": {
+      "kind": "item"
+    },
+    "lab": {
+      "kind": "agent"
+    },
+    "clerk": {
+      "kind": "agent"
+    },
+    "analyst": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "clear": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "e5371c2319ac6ef7a528dcd6b3b1c63f5759cfe568c258fac4343aef30888600",
+      "locator": "fixture:golden/method-triad.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "vial",
+      "predicate": "clear",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "lab",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "vial",
+      "predicate": "clear",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "clerk",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f3",
+      "subject": "vial",
+      "predicate": "clear",
+      "object": {
+        "type": "boolean",
+        "value": false
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "analyst",
+        "method": "inferred",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

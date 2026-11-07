@@ -1,0 +1,79 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "road": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "safe": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    },
+    "wet": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "907b9b4bdc4834dc46fe5e6f8799931ad1ecb73dac2468e69cc03744b17fa0fb",
+      "locator": "fixture:golden/inference-without-event.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "road",
+      "predicate": "safe",
+      "object": {
+        "type": "boolean",
+        "value": false
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 600
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "inferred",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": null,
+        "record_ms": 100,
+        "interpretation_ms": 200
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "road",
+      "predicate": "wet",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 80,
+        "record_ms": 90,
+        "interpretation_ms": 190
+      }
+    }
+  ]
+}

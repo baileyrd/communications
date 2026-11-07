@@ -223,3 +223,17 @@ serial fresh children with a seeded shuffled order and records errors alongside
 successful timings. It never invokes an endpoint. See [pilot report](PILOT.md)
 for commands, compact export/matrix join schema, sample units, audit and findings.
 The original smoke/golden result files and fixtures are preserved unchanged.
+
+## #795 separate 60-case selection
+
+`expanded check|capabilities|request|trial|replay` adds an explicit suite selection
+while preserving every original six-case command/request and historical artifact.
+The 54 additions have independent-from-codec authored references/expected answers,
+separate source/extraction files and a coverage catalogue; see
+[expanded design and authorship limits](EXPANDED-BENCHMARK.md). The same strict
+scorer/replay duplicate-key/fractional telemetry rules are reused unchanged.
+Expanded local rows still have null model scores/usage. Import compatibility tests
+are invented controls, not live interoperability evidence. The extended Python
+pilot imports the existing scheduling/export/summary helpers and adds independent
+source/reference/request/per-cell audits rather than introducing a second timing
+implementation.

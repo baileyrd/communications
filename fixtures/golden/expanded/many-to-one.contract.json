@@ -1,0 +1,110 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "a": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    },
+    "dock": {
+      "kind": "item"
+    },
+    "b": {
+      "kind": "item"
+    }
+  },
+  "relations": {
+    "at": {
+      "subject_kind": "item",
+      "object_kind": "item"
+    },
+    "sealed": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "2a0326eede3c8a8394209393c9bcbf6ec8ec4a46bd472f343714fc907451c007",
+      "locator": "fixture:golden/many-to-one.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "a",
+      "predicate": "at",
+      "object": {
+        "type": "entity",
+        "value": "dock"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "b",
+      "predicate": "at",
+      "object": {
+        "type": "entity",
+        "value": "dock"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f3",
+      "subject": "a",
+      "predicate": "sealed",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

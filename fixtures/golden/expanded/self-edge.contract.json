@@ -1,0 +1,82 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "a": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    },
+    "b": {
+      "kind": "item"
+    }
+  },
+  "relations": {
+    "linked_to": {
+      "subject_kind": "item",
+      "object_kind": "item"
+    },
+    "active": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "2c298d4abe6ca888c790573b060856ba581efb9f9730fa4ff4841bf13849ab19",
+      "locator": "fixture:golden/self-edge.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "a",
+      "predicate": "linked_to",
+      "object": {
+        "type": "entity",
+        "value": "a"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "b",
+      "predicate": "active",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

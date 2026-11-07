@@ -1,0 +1,7 @@
+Authored synthetic scenario zero-negative. A zero count is known while a negative value is a separate report.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"meter": "item", "observer": "agent", "offset": "item"}.
+Relation catalogue: {"count": ["item", "integer"]}.
+f1: observer (observed) states meter count = {"type": "integer", "value": 0}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: observer (reported) states offset count = {"type": "integer", "value": -1}; event 10, record 20, interpretation 30, confidence permille 0; cites e1.
+Original e1 is this complete report, locator fixture:golden/zero-negative.txt. No other facts or causal rules are supplied.

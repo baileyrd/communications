@@ -1,0 +1,8 @@
+Authored synthetic scenario zero-unknown-certainty. Zero, unknown and maximum confidence are three distinct values.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"a": "item", "b": "item", "c": "item", "observer": "agent"}.
+Relation catalogue: {"ok": ["item", "boolean"]}.
+f1: observer (observed) states a ok = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille 0; cites e1.
+f2: observer (observed) states b ok = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille null; cites e1.
+f3: observer (observed) states c ok = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/zero-unknown-certainty.txt. No other facts or causal rules are supplied.

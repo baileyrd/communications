@@ -1,0 +1,7 @@
+Authored synthetic scenario control-text. Text includes tab, CRLF, NUL and a backslash, all preserved inside a literal.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"log": "item", "observer": "agent"}.
+Relation catalogue: {"body": ["item", "text"], "complete": ["item", "boolean"]}.
+f1: observer (observed) states log body = {"type": "text", "value": "A\tB\r\n\u0000\\end"}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: observer (observed) states log complete = {"type": "boolean", "value": false}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/control-text.txt. No other facts or causal rules are supplied.

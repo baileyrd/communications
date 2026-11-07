@@ -1,0 +1,79 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "record": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "flag": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    },
+    "count": {
+      "subject_kind": "item",
+      "object_kind": "integer"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "55ea3cca6e654e6d38f3a60b3563bf91d71a0ebe4a991038ca5fcf096c76d9a5",
+      "locator": "fixture:golden/clock-extremes.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "record",
+      "predicate": "flag",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": -9223372036854775808,
+        "record_ms": 9223372036854775807,
+        "interpretation_ms": 0
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "record",
+      "predicate": "count",
+      "object": {
+        "type": "integer",
+        "value": 1
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": null,
+        "record_ms": 0,
+        "interpretation_ms": -9223372036854775808
+      }
+    }
+  ]
+}

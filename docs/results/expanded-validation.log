@@ -1,0 +1,263 @@
+Final #795 local checks. Historical pilot audit runs unchanged inside its verified immutable input context; current binary regenerates old requests.
+
+$ cargo fmt --check
+exit_code=0
+
+$ cargo test --locked
+   Compiling communications-probe v0.1.0 (/workspace/communications)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.58s
+     Running unittests src/lib.rs (target/debug/deps/communications_probe-e39a88d279004a19)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/communications_probe-636c8ca9806048e8)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/architecture.rs (target/debug/deps/architecture-7f653eb9f22e4877)
+
+running 6 tests
+test rejects_invalid_confidence_provenance_and_digest ... ok
+test rejects_dangling_and_mistyped_relationships ... ok
+test order_independent_encoding_does_not_collapse_assertions ... ok
+test preserves_all_fields_and_verifies_original_bytes ... ok
+test unknown_version_or_fields_fail_closed ... ok
+test unknown_event_time_and_confidence_remain_unknown ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/codecs_adapters.rs (target/debug/deps/codecs_adapters-920ce7b50c4767b8)
+
+running 12 tests
+test cbor_is_real_named_field_cbor_and_rejects_tags_indefinite_nonpreferred_and_duplicate_keys ... ok
+test adapter_nested_ambiguity_and_envelope_identity_fail_closed ... ok
+test cbor_rejects_unknown_duplicate_nested_keys_refs_and_invalid_contracts ... ok
+test every_codec_preserves_exact_fields_variants_extremes_and_canonical_repeatability ... ok
+test invalid_in_memory_contracts_cannot_be_encoded_or_rendered ... ok
+test model_native_is_explicitly_unsupported_for_all_arms ... ok
+test adapters_reject_ambiguous_metadata_extra_fields_and_corrupted_payloads ... ok
+test all_offline_contexts_and_matched_baselines_preserve_same_complete_facts ... ok
+test typed_record_documented_bytes_and_scalar_validation ... ok
+test smoke_reference_content_is_not_a_renderers_shared_omission ... ok
+test records_enforce_framing_versions_bounds_unknown_tags_and_unique_ids ... ok
+test every_truncation_trailing_bytes_and_oversize_payload_fail ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+     Running tests/contract.rs (target/debug/deps/contract-13561a15b6c45fc1)
+
+running 8 tests
+test evidence_verification_uses_exact_bytes_and_never_locator_identity ... ok
+test duplicate_json_keys_fail_at_every_object_boundary ... ok
+test duplicate_references_and_assertions_fail_without_deduplication ... ok
+test roundtrip_preserves_literal_variants_conflicts_unicode_and_time_extremes ... ok
+test unused_relation_kinds_and_malformed_identifiers_are_validated ... ok
+test schema_and_malformed_inputs_fail_closed ... ok
+test semantic_validation_runs_during_decode ... ok
+test unknown_or_missing_nested_fields_are_rejected ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/expanded.rs (target/debug/deps/expanded-4a749db033752ff0)
+
+running 3 tests
+test expanded_import_uses_same_unverified_and_fractional_boundary_with_new_case ... ok
+test expanded_suite_preserves_originals_and_checks_every_extraction_and_wire_arm ... ok
+test expanded_cli_selection_capabilities_and_null_boundaries ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.28s
+
+     Running tests/golden_harness.rs (target/debug/deps/golden_harness-3bba7fe5cdd0da78)
+
+running 15 tests
+test answers_use_exact_types_unknown_null_and_explicit_task_rubrics ... ok
+test checked_in_synthetic_controls_have_explicit_non_model_outcomes ... ok
+test cli_check_initial_expanded_and_usage_errors ... ok
+test efficiencies_and_empty_denominators_are_never_fabricated ... ok
+test final_requests_count_schema_questions_escaping_and_do_not_leak_answers ... ok
+test decimal_replay_still_rejects_duplicate_keys_at_every_nested_boundary ... ok
+test fractional_telemetry_and_nested_settings_survive_cli_replay_and_both_exports ... ok
+test jsonl_csv_are_losslessly_compatible_for_all_fields_and_special_characters ... ok
+test decimal_import_does_not_relax_integer_counts_contract_or_scoring_fields ... ok
+test malformed_duplicate_and_ambiguous_responses_have_no_valid_score ... ok
+test scorer_penalizes_omissions_inventions_contradictions_and_partial_metadata_separately ... ok
+test fractional_ingress_reaches_telemetry_validation_and_preserves_restrictions ... ok
+test three_initial_then_six_pinned_cases_preserve_every_arm_and_metadata ... ok
+test request_identity_replay_telemetry_and_error_boundaries ... ok
+test cli_runs_full_matrix_exports_and_replays_without_model_measurements ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.69s
+
+     Running tests/pilot.rs (target/debug/deps/pilot-2235062180f25a16)
+
+running 1 test
+test isolated_trial_cli_matches_requests_and_keeps_telemetry_unmeasured ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+   Doc-tests communications_probe
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+exit_code=0
+
+$ cargo clippy --all-targets --locked -- -D warnings
+    Checking typenum v1.20.1
+    Checking cfg-if v1.0.5
+    Checking serde_core v1.0.229
+    Checking zerocopy v0.8.63
+    Checking ciborium-io v0.2.2
+    Checking zmij v1.0.23
+    Checking itoa v1.0.18
+    Checking cpufeatures v0.2.17
+    Checking memchr v2.8.3
+    Checking generic-array v0.14.7
+    Checking base64 v0.22.1
+    Checking crypto-common v0.1.7
+    Checking block-buffer v0.10.4
+    Checking digest v0.10.7
+    Checking sha2 v0.10.9
+    Checking serde v1.0.229
+    Checking serde_json v1.0.154
+    Checking half v2.7.1
+    Checking ciborium-ll v0.2.2
+    Checking ciborium v0.2.2
+    Checking communications-probe v0.1.0 (/workspace/communications)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.51s
+exit_code=0
+
+$ cargo run --release --locked
+    Finished `release` profile [optimized] target(s) in 0.05s
+     Running `target/release/communications-probe`
+{"assertions":2,"case":"observation","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"decode_validate_mean_ns":9300,"decode_validate_total_ns":9300718,"encode_validate_mean_ns":3556,"encode_validate_total_ns":3556080,"encoding":"json","end_to_end_latency_ms":null,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"iterations":1000,"kind":"codec","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"payload_bytes":994,"peak_memory_bytes":null,"semantic_fidelity_score":null,"version":"0.1-draft","warmup_iterations":100}
+{"assertions":2,"case":"observation","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"decode_validate_mean_ns":19849,"decode_validate_total_ns":19849337,"encode_validate_mean_ns":2987,"encode_validate_total_ns":2987332,"encoding":"cbor","end_to_end_latency_ms":null,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"iterations":1000,"kind":"codec","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"payload_bytes":779,"peak_memory_bytes":null,"semantic_fidelity_score":null,"version":"0.1-draft","warmup_iterations":100}
+{"assertions":2,"case":"observation","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"decode_validate_mean_ns":6530,"decode_validate_total_ns":6530613,"encode_validate_mean_ns":1177,"encode_validate_total_ns":1177395,"encoding":"records","end_to_end_latency_ms":null,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"iterations":1000,"kind":"codec","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"payload_bytes":372,"peak_memory_bytes":null,"semantic_fidelity_score":null,"version":"0.1-draft","warmup_iterations":100}
+{"arm":"conventional","assertions":2,"case":"observation","context":"human_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":198,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":1186,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":34401,"parse_decode_validate_total_ns":34401470,"payload_bytes":988,"peak_memory_bytes":null,"render_encode_validate_mean_ns":21246,"render_encode_validate_total_ns":21246703,"rendered_payload_text_bytes":988,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":0,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"json"},"assertions":2,"case":"observation","context":"human_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":2097,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":3091,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":32944,"parse_decode_validate_total_ns":32944955,"payload_bytes":994,"peak_memory_bytes":null,"render_encode_validate_mean_ns":13212,"render_encode_validate_total_ns":13212974,"rendered_payload_text_bytes":994,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1466,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"cbor"},"assertions":2,"case":"observation","context":"human_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":2076,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":2855,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":33666,"parse_decode_validate_total_ns":33666743,"payload_bytes":779,"peak_memory_bytes":null,"render_encode_validate_mean_ns":8777,"render_encode_validate_total_ns":8777569,"rendered_payload_text_bytes":1040,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1660,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"records"},"assertions":2,"case":"observation","context":"human_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":3160,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":3532,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":17859,"parse_decode_validate_total_ns":17859518,"payload_bytes":372,"peak_memory_bytes":null,"render_encode_validate_mean_ns":7925,"render_encode_validate_total_ns":7925565,"rendered_payload_text_bytes":496,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":2876,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":"conventional","assertions":2,"case":"observation","context":"model_tool","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":92,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":1086,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":47727,"parse_decode_validate_total_ns":47727666,"payload_bytes":994,"peak_memory_bytes":null,"render_encode_validate_mean_ns":19270,"render_encode_validate_total_ns":19270764,"rendered_payload_text_bytes":994,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":0,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"json"},"assertions":2,"case":"observation","context":"model_tool","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":1803,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":2797,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":29453,"parse_decode_validate_total_ns":29453413,"payload_bytes":994,"peak_memory_bytes":null,"render_encode_validate_mean_ns":7725,"render_encode_validate_total_ns":7725033,"rendered_payload_text_bytes":994,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1466,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"cbor"},"assertions":2,"case":"observation","context":"model_tool","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":2101,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":2880,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":32122,"parse_decode_validate_total_ns":32122785,"payload_bytes":779,"peak_memory_bytes":null,"render_encode_validate_mean_ns":6906,"render_encode_validate_total_ns":6906229,"rendered_payload_text_bytes":1040,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1660,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"records"},"assertions":2,"case":"observation","context":"model_tool","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":3184,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":3556,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":16053,"parse_decode_validate_total_ns":16053876,"payload_bytes":372,"peak_memory_bytes":null,"render_encode_validate_mean_ns":5561,"render_encode_validate_total_ns":5561182,"rendered_payload_text_bytes":496,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":2876,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":"conventional","assertions":2,"case":"observation","context":"model_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":203,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":1197,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":39642,"parse_decode_validate_total_ns":39642520,"payload_bytes":994,"peak_memory_bytes":null,"render_encode_validate_mean_ns":20248,"render_encode_validate_total_ns":20248208,"rendered_payload_text_bytes":994,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":0,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"json"},"assertions":2,"case":"observation","context":"model_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":2097,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":3091,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":30375,"parse_decode_validate_total_ns":30375692,"payload_bytes":994,"peak_memory_bytes":null,"render_encode_validate_mean_ns":11798,"render_encode_validate_total_ns":11798904,"rendered_payload_text_bytes":994,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1466,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"cbor"},"assertions":2,"case":"observation","context":"model_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":2076,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":2855,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":33271,"parse_decode_validate_total_ns":33271056,"payload_bytes":779,"peak_memory_bytes":null,"render_encode_validate_mean_ns":8602,"render_encode_validate_total_ns":8602556,"rendered_payload_text_bytes":1040,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1660,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"records"},"assertions":2,"case":"observation","context":"model_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":3160,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":3532,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":18122,"parse_decode_validate_total_ns":18122975,"payload_bytes":372,"peak_memory_bytes":null,"render_encode_validate_mean_ns":8916,"render_encode_validate_total_ns":8916189,"rendered_payload_text_bytes":496,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":2876,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":"conventional","assertions":2,"case":"observation","context":"model_data","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":47,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":1041,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":42151,"parse_decode_validate_total_ns":42151400,"payload_bytes":994,"peak_memory_bytes":null,"render_encode_validate_mean_ns":17584,"render_encode_validate_total_ns":17584453,"rendered_payload_text_bytes":994,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":0,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"json"},"assertions":2,"case":"observation","context":"model_data","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":1758,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":2752,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":22725,"parse_decode_validate_total_ns":22725743,"payload_bytes":994,"peak_memory_bytes":null,"render_encode_validate_mean_ns":7789,"render_encode_validate_total_ns":7789080,"rendered_payload_text_bytes":994,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1466,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"cbor"},"assertions":2,"case":"observation","context":"model_data","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":2056,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":2835,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":31742,"parse_decode_validate_total_ns":31742282,"payload_bytes":779,"peak_memory_bytes":null,"render_encode_validate_mean_ns":6439,"render_encode_validate_total_ns":6439877,"rendered_payload_text_bytes":1040,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1660,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"records"},"assertions":2,"case":"observation","context":"model_data","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":3139,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":3511,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":14716,"parse_decode_validate_total_ns":14716621,"payload_bytes":372,"peak_memory_bytes":null,"render_encode_validate_mean_ns":5373,"render_encode_validate_total_ns":5373379,"rendered_payload_text_bytes":496,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":2876,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"capability":{"context":"human_model","limitation":"Offline user-message text; no model comprehension measured.","live_endpoint":false,"offline_roundtrip":true},"kind":"capability"}
+{"capability":{"context":"model_tool","limitation":"Offline tools/call JSON-RPC-shaped envelope; no MCP session, discovery or endpoint.","live_endpoint":false,"offline_roundtrip":true},"kind":"capability"}
+{"capability":{"context":"model_model","limitation":"Offline sender/receiver message boundary; no agent or model execution.","live_endpoint":false,"offline_roundtrip":true},"kind":"capability"}
+{"capability":{"context":"model_data","limitation":"Offline retrieved-document envelope; no search, storage or locator retrieval.","live_endpoint":false,"offline_roundtrip":true},"kind":"capability"}
+{"capability":{"context":"model_native","limitation":"Unsupported/not testable: no authorized documented tensor/hidden-state interface.","live_endpoint":false,"offline_roundtrip":false},"kind":"capability"}
+exit_code=0
+
+$ python3 scripts/test-offline-pilot.py
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK
+exit_code=0
+
+$ python3 scripts/validate-golden-results.py
+golden-offline: 96 rows; CSV restores every JSONL value; all exact request/source/contract/suite/lock hashes verified; all telemetry null; modes valid
+golden-synthetic-replay: 7 rows; CSV restores every JSONL value; all exact request/source/contract/suite/lock hashes verified; all telemetry null; modes valid
+7 synthetic response hashes and exact expected score outcomes verified; example request digest matches replay binding
+exit_code=0
+
+$ python3 scripts/audit-pinned-pilot.py
+pilot audit: 480 attempts, 480 successes, 0 failures retained; 96 matched combinations; order/IDs/CSV/hashes/byte arithmetic/timing and null boundaries verified
+Original #794 input hashes verified against immutable commit bcac61c82540c2a7f18d584ebad85ffde869f4e4; exact requests verified with current release binary. Historical timings remain historical.
+exit_code=0
+
+$ python3 scripts/test-expanded-pilot.py
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.023s
+
+OK
+exit_code=0
+
+$ python3 scripts/expanded-pilot.py fixtures
+60 expanded fixtures audited
+exit_code=0
+
+$ target/release/communications-probe expanded check
+{"case":"conflict","contract_sha256":"81eaa3e01091d751ff3c3281db9ca2dd6db58c50a7dd89486d91e821bf599998","ledger_verified":true,"source_sha256":"cb07f9ddf8e78be936c064441135c897c6c975793db48df0dc80dee101e6aa5d","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"unknown","contract_sha256":"2fb05334f9b531a4f938b1ea3bf1713bc629f0b613ece4f484039d5c246c1927","ledger_verified":true,"source_sha256":"71731c7a3a7284278af9500de5523739e2e894c55f8ae88fde3cc92dbdbf4e02","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"ordering","contract_sha256":"e569416ef8c44b7d927d6671710b34e63cc0e5af559baca9189f52c5c235bc2e","ledger_verified":true,"source_sha256":"c308ca5d516a2b3dbf39cff47d882ec00d0126248885daf87666feecc2fdaf3c","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"provenance","contract_sha256":"a2c2995fda27c83cf1b772a52b56d9e7910e603571f7788b32540f90965571b6","ledger_verified":true,"source_sha256":"ad98e8fed764d9d9c9808233543bb039cab4e91fbabdd4fd47c44ff55571cbbc","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"relocation","contract_sha256":"4e7275c953f6770da2e096b0a7a27272b6660d596006f745f8b1bdcefcdb0bf3","ledger_verified":true,"source_sha256":"23e042976b972484853322f84692d025d6c664f7b9e5ad68f3db98d978d597aa","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"quoted","contract_sha256":"0eabb7af3e01e47b086e7f42c85ad301ec28d37cd653f036bea144273f228d98","ledger_verified":true,"source_sha256":"1d7f38480f9f44e1f9d9c728dd0d2a9ece4320d367abfb5803dde2fe77b4bf36","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"same-event-dispute","contract_sha256":"1ad2cf0d5ade89820aa7a1fb5230ca82a4a07f4de82daf8edf981ba93f86d7ed","ledger_verified":true,"source_sha256":"8c85ae3a66e5c22e26a54696802c1116481fefba1cae326f1d4f6a4aaf8b4b73","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"retraction-unlinked","contract_sha256":"358a17d0b061d08e694d46b5bc13fa63456f5c2d345cf1e316cc34905ae7c22a","ledger_verified":true,"source_sha256":"ea62d9b9e15476746e75a6cc9bb06c968e0b32403fd4ee36457442cca216ab76","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"three-way-location","contract_sha256":"ec5ac36a80110441a7c4ca852d10d05d396ac16376c83fca93b8097dc6628f54","ledger_verified":true,"source_sha256":"3b283d6bd08d18988fbd764177cf1fadb44273a8b9705b17b330105458b116e8","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"count-disagreement","contract_sha256":"77ddd005787fd45962241a4f136b89d8fec9fb0692901e7c65b575db8be6505f","ledger_verified":true,"source_sha256":"cfe956ce45e11d3a6cf4f63cca803944c6fb2b64d32a1a29d31b9b5adef98784","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"empty-vs-missing","contract_sha256":"60da7c95bb63708f36d8c0b8a07c042067a30690d4b12aa366c7786c8ad2a4d3","ledger_verified":true,"source_sha256":"2e2e034e997db72c9ba10846452b804d9453e8c46419f93a4ab37e1a87df7249","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"normalization-pair","contract_sha256":"bb39668bd7b3c5f17fae33bf786c9b56b9fd8783556fbce3e927310b878b90b6","ledger_verified":true,"source_sha256":"31bded42deeb776e9b70caec3fd475d8b8e50a900fc2082ccfe29e91148a78c4","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"rtl-label","contract_sha256":"a65ab2c664c14db70906870e15087dbff8b7a3d41be839f37b8428377c157a17","ledger_verified":true,"source_sha256":"7b28227176123bd1f0edae870b39b3d03a3cae2f16ee5040bfe54548e1bd9639","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"emoji-sequence","contract_sha256":"f4c6b945a3d90f10be8c013a5fc48c4137bf2b0b1ed44fd8cd32b016e28d4e3c","ledger_verified":true,"source_sha256":"6845f9f98b73b3c99cea3513510894d7983a993dd4b7c7a55f6c34cdcd381ea2","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"control-text","contract_sha256":"8bc1408e012a4a2c357d9088ed629b8ff9628e041e97eb2b945143837fde78e7","ledger_verified":true,"source_sha256":"7b2ef87f863278194404258cdaa5ea91127217efc1340a2ab05d64fa393324a7","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"literal-instructions","contract_sha256":"64dc01cc2937b20194885237961be739cdb04e7389b92b2ffec1f4c61a99b898","ledger_verified":true,"source_sha256":"caacdfff1c4735f5869e69f73b197d6053d27d1dddf08e857fc31a47f2d11773","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"integer-extremes","contract_sha256":"b794089968480dbef3a9757012d624196ec23c758ec2bbbcb5272865b17d4daa","ledger_verified":true,"source_sha256":"acb58a5201cb8cd419abd1376dccab275ef9c4549d177664d58b7fc3df90cb07","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"zero-negative","contract_sha256":"83fea9fc3a2ddd29462f87611d5b90ab97ccbea2ef3826fbf4251a9253452f5d","ledger_verified":true,"source_sha256":"a2f8162b0bffd851907359b6ec59b3f79157dd042fc6aac26eb677a1df31f7e8","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"equal-clocks","contract_sha256":"322f2917a41f95373af6d1d9402c31f355c8c14c7977ea9b5038cb7d49bda841","ledger_verified":true,"source_sha256":"76e85a05c1f789b1d3e8156e922abd296be03a3c005c45e4e1b84f255f149d91","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"inverted-clocks","contract_sha256":"7e5d7a52f16571fe09a58944c4db7dbc67884b077eb891ea764a1524deebb5ac","ledger_verified":true,"source_sha256":"5d1be06260c3754f2c25b5e9e4d1d0eca43c9acc92443553408f29f1160e9ec2","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"negative-epoch","contract_sha256":"858d3aca922bc2e6c754bb625af21dd891ee265b063fd523454b2fe2b54fda69","ledger_verified":true,"source_sha256":"fca276fad0d5ead99fd8d2140a7216c4a06ffbaa88a4d3537033a055b643a55c","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"clock-extremes","contract_sha256":"711192be44ac0205d0d8ac1b28631b082363282a4c7531321903085d3881fb01","ledger_verified":true,"source_sha256":"55ea3cca6e654e6d38f3a60b3563bf91d71a0ebe4a991038ca5fcf096c76d9a5","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"event-tie","contract_sha256":"03bd30eefaed817c94cfddc3387c786828b4ba2fab556301aca5db3ad39c3ff5","ledger_verified":true,"source_sha256":"9e6448826d2b0154d58e93a5b260bd8965ab3a3c44e08b236d92fb64d27e83a1","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"unknown-event-sort","contract_sha256":"d9dee373c592e7431aa2a5f144e527d796f5df20e6cdc7936468037a15721d16","ledger_verified":true,"source_sha256":"92a207d35f828e5cf95aea4b927022a0a0de99c2b4abfda0e12b120dde75eb23","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"interpretation-revision","contract_sha256":"245d2ddb9dacaea40a610a899c9f1f206fb22c97aec48d56a2730d7eca3ee860","ledger_verified":true,"source_sha256":"eb9809ba9d32d2deb5fdb516089766d3addefc2a53d58791eb7a91c16370c30b","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"late-record-early-event","contract_sha256":"d20afd8ca1c669b85350f7ab5db1e03d3d2ea09040bc8bab8cff1f1129081fc2","ledger_verified":true,"source_sha256":"9407529036ee18220ea2b385bc727b2ef1a8a2d5c3ecde416f95eeb303625ac0","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"zero-unknown-certainty","contract_sha256":"a6bba9efa6cf7bb080336901e231c873df62e7e8c9d0738875ab91c500d26bc2","ledger_verified":true,"source_sha256":"f7ea94ea2b8ee741fc2c45a5cb29a06eb6bfefa26bc71c1dc5cdf69a00d7e817","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"confidence-threshold","contract_sha256":"c562fa678828c658317846ad762924224a914cf3021be293e525d2fb2e0d84fa","ledger_verified":true,"source_sha256":"a7c1bebb4459648c9e8f3a3011d5ec7b01c20dd07a14ba4540442a89b77cda29","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"high-confidence-conflict","contract_sha256":"f3f9035a43f3e833070c7ba0a6186e028dfbe77edef2c7e3e2d68405f844c429","ledger_verified":true,"source_sha256":"37c17454d50e400ffd9c83d47a6f1f3ca53e1a428eda883df72a3f0b6bbd5168","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"inferred-certainty","contract_sha256":"b4c1d25e6022a665364aa484f97de9307c9c9e1333851f2646824bddd73cd5c0","ledger_verified":true,"source_sha256":"78809ea11afe3d7c3544431a827f45cc4fffbf72e820f6cf458cbd2d2db7ad39","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"unknown-confidence-observation","contract_sha256":"2941de36f1ad423352745c29a4f09a892833ff9fed265b940efe02a5f1e657b8","ledger_verified":true,"source_sha256":"f2e3c3634b7c0685886053341a5c53f59f456135c11b605436c4cbac639b22e0","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"same-value-reporters","contract_sha256":"d7bf6f767dd75cefdefa1ea8f0251f084e29a96bd396a416e5755a07254290d8","ledger_verified":true,"source_sha256":"baf68ac3268d5d0d618e9d25079b99db30d81c1d2668e3828f838442db07b6b7","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"method-triad","contract_sha256":"bb61ad86ce5bd40341ede7acc171454ffbfb02600265fb9b67ba7c53aad9cc27","ledger_verified":true,"source_sha256":"e5371c2319ac6ef7a528dcd6b3b1c63f5759cfe568c258fac4343aef30888600","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"reporter-is-subject","contract_sha256":"0c113b29d0541ef7661d93e79b77f06b5b82ff864e43c948ee45070d3da66d66","ledger_verified":true,"source_sha256":"aee95fe65012c1ce4b89c0841242984b50e66a4d4ec791a0a6be46eba2538061","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"shared-original","contract_sha256":"9c809615e440965e5a0ba2cc64c296b42e8c4728f7881c50c879d5ae51509d60","ledger_verified":true,"source_sha256":"6127d1ec5ff7298451119eb379d0e6ac95eedcf82e2ea7fcc25e2f08816079ae","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"inference-without-event","contract_sha256":"4725facd14c1946f24360ab05ea35d32e8f2400c867a90cb62674ddfc11e315d","ledger_verified":true,"source_sha256":"907b9b4bdc4834dc46fe5e6f8799931ad1ecb73dac2468e69cc03744b17fa0fb","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"directional-edge","contract_sha256":"f0970d6681ddd46f06b8dba2fa319adf8d619ab0df044a3834981bf6a72f2c8d","ledger_verified":true,"source_sha256":"074733607c51d85f9fd543b2a2beee8c164b6b07c86d33264edf8bf88a489465","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"self-edge","contract_sha256":"e7b67c93fb4f99201bdaf39de686822287153f7a70c38d95697939dbee9af40b","ledger_verified":true,"source_sha256":"2c298d4abe6ca888c790573b060856ba581efb9f9730fa4ff4841bf13849ab19","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"chain-not-transitive","contract_sha256":"6f7893daab4f8f67128113bfdcb42f4b4285b4d02ca036448812f2db1102d528","ledger_verified":true,"source_sha256":"e1511f4b0cf8dafe7d2c78e3cfa15e0c5c73182b6f587356561acf2b1833cefa","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"cycle","contract_sha256":"4535865ae26777d3017e4dbf9701e8e99a294d780fb8bfbbab23c2ef9d22707c","ledger_verified":true,"source_sha256":"8fe18b3a4e9f26a4fc9ee489dcb6b8e6b17fbaff46fca76ca927e75bf9390461","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"one-to-many","contract_sha256":"ff83c1ca31a338209a1087aca0f791d4b519744bec427eda29efc6dc8a77fe5d","ledger_verified":true,"source_sha256":"3de7c5c01d59798a606452b67d565196a0ccbc68c80d85195cb8f582da54c145","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"many-to-one","contract_sha256":"19dac65687a97fde5f7736fc262838205030e00caed5c91bbbcf5bd393a22ce8","ledger_verified":true,"source_sha256":"2a0326eede3c8a8394209393c9bcbf6ec8ec4a46bd472f343714fc907451c007","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"relation-name-distinction","contract_sha256":"d2999e2270d9d0bbc84175999cc39ca4b9397f849e1228038fd33cf90152e2ae","ledger_verified":true,"source_sha256":"0c764e82c44e6c7160ee1449db3b41fa98931a5e505d2a3b42a8745c0b2c7db2","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"absent-causal-link","contract_sha256":"67806ea9abff8a3ebf78a256f9704c829920af37de728f1c930a8442f8fbe3fd","ledger_verified":true,"source_sha256":"bf910768dd7e431a6dacfce7c5e81fcb12e7371a31d9c27d1af9d06f01303a46","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"unknown-vs-word","contract_sha256":"f8f04131ae26e61e073d812e73403b6d3db60f5b832e3fab302f0b89b7903876","ledger_verified":true,"source_sha256":"f38c927a1210e944301dda9faf3bf99fcbe9ea6e285c184044fbc4d0eba8b934","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"boolean-word","contract_sha256":"ea00afc18e824551993ab2053e8f11ed90387047948125dc20b3a7df5a55e8f8","ledger_verified":true,"source_sha256":"8b18d2fe88b2bdf271882a99d085f6a15917e1599a5b2c6448eda047dbbbe7ab","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"numeric-word","contract_sha256":"3d33a117ad48d7de4cc0a7a848b2f190c98840f0f4679ff6f8f4feb8bfff26d0","ledger_verified":true,"source_sha256":"d89df7bd81b0b9177653a17e17e23e58767fbc463f5982671aa76af11d918e49","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"nonfinite-word","contract_sha256":"315438ddbced030dbf9b6fedd04b7141223de9bf0c646fbc41231dbee8f7395f","ledger_verified":true,"source_sha256":"4215a18bd763e7eefa4529e7577473995c78fe690ea2401fc40df04bfca7ed2d","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"whitespace-label","contract_sha256":"0d0b394f611f966cffb336f9fc0d1a3f36817ad239a3848880cd7d317d0a4faa","ledger_verified":true,"source_sha256":"8d2224b4263dac7fb671c6f3145b0cbac8a34cb98de1624921bf97a22f26cc3c","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"quoted-json","contract_sha256":"0d88a2ec76540294c12d851098472f87c65bb5be40fc6d68829e944ead5fb652","ledger_verified":true,"source_sha256":"0ad99143cc5c4b20a434f447605dd3f42ff7a25e6623bbb3de51b13c51786abc","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"unicode-identifiers","contract_sha256":"b42dfd4b102bd90956ea4ec4b33a752ef55cff4094e7ee31d0eeeaf74c4f52cd","ledger_verified":true,"source_sha256":"6ff2e1ca24dda528202aad909fa98ee490d976b9d6b8c6d9aef9be986f1bbc97","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"long-label","contract_sha256":"2fed3a151cf0e13e8365060e560493a2ff04646c54245308f10f32ff6dbe99c5","ledger_verified":true,"source_sha256":"1da369395961eea394ea5cf9cd7f6319939d345f91b674be2467cf3ee9bca01d","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"clock-confidence-filter","contract_sha256":"0917fa2a4e743605908d6a620aea0e2baa36d2df44f63727d137c6e6177cdbd5","ledger_verified":true,"source_sha256":"dd3a13be1da800bca765686fd8e962442e6513c33145463fe1952233cde86dae","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"provenance-event-filter","contract_sha256":"2689adcf872598fd9129f0fc1577e0a0f0db028df23ca3beb57cccd13e61f0c3","ledger_verified":true,"source_sha256":"1a1d4fe05590bc3ec298c7b07d2309279014db126c5339c4cb5cf47e5657820a","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"conflict-zero-confidence","contract_sha256":"3f79b01c908a053902ab6cd653fc29dc21446f70e099576cc5a74e195c34a914","ledger_verified":true,"source_sha256":"d2238c8962ec1daa7f76d31b7c21a2c1a6339836dd6f367b6b27180f5befc053","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"relocation-inference","contract_sha256":"28d12c0e79afae9f6d526b7f1d3f36d6299a1c5477bdbaebf7d847b9045d8ff5","ledger_verified":true,"source_sha256":"9e8450ed9a5cdac6d5511b6a00fef8de4a3bcab1c356b62b384e1303c6f07b70","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"boundary-join","contract_sha256":"c01258e7c84ffd8541a69f65e346aa4a4b175676df49c4052d1b22356072210c","ledger_verified":true,"source_sha256":"05b053ebc8627eda38f9826c6775f13fd9a3c8430090eec6019869d8308b7421","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"duplicate-content-ids","contract_sha256":"18cdab50eacca3e166f6cfcc4448891b5768e6b4b8d3dc5a214873cbae5caf8e","ledger_verified":true,"source_sha256":"3ce31e823b0df4c17e1e142f061789b9056704f4ee292cda56c8d4c56982c244","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"missing-is-not-false","contract_sha256":"3de72d73f59caac5b8eda124a71bb4411c4e9635df1081ad5ab2835ee3e5898a","ledger_verified":true,"source_sha256":"68175b584df9b8d6a2b9cc14574fa167380973092c522f575e2a8967157adf49","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+{"case":"multifact-decision","contract_sha256":"941e7358bfd891334862f9a5e4dac79cfc398a439358a86aabeb9b845b03e36d","ledger_verified":true,"source_sha256":"316b80e0ebecbd03d6266fb87fbc4981c7a928a0ff032882317dbe31e00e54e7","suite_sha256":"96dd978d8e2b629e6b86048b0dadb5db39e20880fbb9a6328a756a5e2b233a4c"}
+exit_code=0
+
+$ python3 scripts/expanded-pilot.py audit docs/results/expanded
+expanded audit: 4800 attempts; 4800 successes; 0 failures retained; 960 cells; 60 sources/references/extractions; order, exports, request bytes/hashes, per-cell stats, capability and null boundaries verified
+exit_code=0
+
+$ git diff --check
+exit_code=0

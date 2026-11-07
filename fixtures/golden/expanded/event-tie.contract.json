@@ -1,0 +1,75 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "switch": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "on": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "9e6448826d2b0154d58e93a5b260bd8965ab3a3c44e08b236d92fb64d27e83a1",
+      "locator": "fixture:golden/event-tie.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "switch",
+      "predicate": "on",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 4,
+        "record_ms": 9,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "switch",
+      "predicate": "on",
+      "object": {
+        "type": "boolean",
+        "value": false
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 4,
+        "record_ms": 5,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

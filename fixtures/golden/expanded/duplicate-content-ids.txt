@@ -1,0 +1,7 @@
+Authored synthetic scenario duplicate-content-ids. All semantic metadata may coincide while distinct assertion ids remain retained.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"item": "item", "observer": "agent"}.
+Relation catalogue: {"flag": ["item", "boolean"]}.
+f1: observer (observed) states item flag = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: observer (observed) states item flag = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/duplicate-content-ids.txt. No other facts or causal rules are supplied.

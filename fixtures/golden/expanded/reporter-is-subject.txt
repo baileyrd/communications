@@ -1,0 +1,7 @@
+Authored synthetic scenario reporter-is-subject. An entity can assert a fact about itself; attribution is still explicit.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"observer": "item", "witness": "agent"}.
+Relation catalogue: {"awake": ["item", "boolean"], "count": ["item", "integer"]}.
+f1: observer (reported) states observer awake = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: witness (observed) states observer count = {"type": "integer", "value": 1}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/reporter-is-subject.txt. No other facts or causal rules are supplied.

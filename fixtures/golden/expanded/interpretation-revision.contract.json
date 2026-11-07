@@ -1,0 +1,75 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "sample": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "label": {
+      "subject_kind": "item",
+      "object_kind": "text"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "eb9809ba9d32d2deb5fdb516089766d3addefc2a53d58791eb7a91c16370c30b",
+      "locator": "fixture:golden/interpretation-revision.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "sample",
+      "predicate": "label",
+      "object": {
+        "type": "text",
+        "value": "clear"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "sample",
+      "predicate": "label",
+      "object": {
+        "type": "text",
+        "value": "clear"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 600
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "inferred",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 40
+      }
+    }
+  ]
+}

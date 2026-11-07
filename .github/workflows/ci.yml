@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - run: rustup toolchain install 1.98.1 --profile minimal --component rustfmt --component clippy
       - run: cargo +1.98.1 fmt --check
       - run: cargo +1.98.1 test --locked
@@ -14,4 +16,6 @@ jobs:
       - run: cargo +1.98.1 run --release --locked
       - run: python3 scripts/test-offline-pilot.py
       - run: python3 scripts/validate-golden-results.py
-      - run: python3 scripts/offline-pilot.py audit docs/results/pilot
+      - run: python3 scripts/audit-pinned-pilot.py
+      - run: python3 scripts/test-expanded-pilot.py
+      - run: python3 scripts/expanded-pilot.py audit docs/results/expanded

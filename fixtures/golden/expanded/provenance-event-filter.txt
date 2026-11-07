@@ -1,0 +1,7 @@
+Authored synthetic scenario provenance-event-filter. Report attribution and event cutoff select a different claim than record cutoff.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"a": "agent", "b": "agent", "item": "item"}.
+Relation catalogue: {"count": ["item", "integer"]}.
+f1: a (reported) states item count = {"type": "integer", "value": 5}; event 90, record 100, interpretation 30, confidence permille 1000; cites e1.
+f2: b (observed) states item count = {"type": "integer", "value": 6}; event 110, record 95, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/provenance-event-filter.txt. No other facts or causal rules are supplied.

@@ -1,0 +1,7 @@
+Authored synthetic scenario emoji-sequence. Joined emoji with a skin modifier differs from separate glyphs.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"badge": "item", "observer": "agent"}.
+Relation catalogue: {"active": ["item", "boolean"], "label": ["item", "text"]}.
+f1: observer (observed) states badge label = {"type": "text", "value": "👩🏽‍🔬"}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: observer (observed) states badge active = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille null; cites e1.
+Original e1 is this complete report, locator fixture:golden/emoji-sequence.txt. No other facts or causal rules are supplied.

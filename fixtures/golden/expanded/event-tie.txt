@@ -1,0 +1,7 @@
+Authored synthetic scenario event-tie. Equal event times do not authorize record-order truth resolution.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"observer": "agent", "switch": "item"}.
+Relation catalogue: {"on": ["item", "boolean"]}.
+f1: observer (observed) states switch on = {"type": "boolean", "value": true}; event 4, record 9, interpretation 30, confidence permille 1000; cites e1.
+f2: observer (observed) states switch on = {"type": "boolean", "value": false}; event 4, record 5, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/event-tie.txt. No other facts or causal rules are supplied.

@@ -1,0 +1,7 @@
+Authored synthetic scenario inference-without-event. Inference record and interpretation clocks do not invent an event time.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"observer": "agent", "road": "item"}.
+Relation catalogue: {"safe": ["item", "boolean"], "wet": ["item", "boolean"]}.
+f1: observer (inferred) states road safe = {"type": "boolean", "value": false}; event null, record 100, interpretation 200, confidence permille 600; cites e1.
+f2: observer (observed) states road wet = {"type": "boolean", "value": true}; event 80, record 90, interpretation 190, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/inference-without-event.txt. No other facts or causal rules are supplied.

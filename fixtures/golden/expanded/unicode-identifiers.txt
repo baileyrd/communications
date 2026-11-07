@@ -1,0 +1,7 @@
+Authored synthetic scenario unicode-identifiers. Non-ASCII entity and predicate identifiers preserve references exactly.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"observer": "agent", "北": "item", "箱": "item", "記録者": "agent"}.
+Relation catalogue: {"sealed": ["item", "boolean"], "\u4f4d\u7f6e": ["item", "item"]}.
+f1: observer (observed) states 箱 位置 = {"type": "entity", "value": "北"}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: 記録者 (observed) states 箱 sealed = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/unicode-identifiers.txt. No other facts or causal rules are supplied.

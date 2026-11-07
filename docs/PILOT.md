@@ -150,3 +150,14 @@ session, retrieval, agent exchange, model judge or model-native interface ran.
 No actual usage or independent model-response scores exist, so semantic accuracy
 and assertion efficiency stay null. Full M01/Issue #1 completion, independent
 exact-head review, remote CI and merge remain coordinator gates. #795 is untouched.
+
+## #795 extension and historical audit
+
+The [60-case expansion](EXPANDED-BENCHMARK.md) extends this bounded workflow with
+explicit expanded suite selection and per-cell descriptive statistics. All of
+this report's six-case measured artifacts remain unchanged. Its manifest pins
+source-file bytes, so use `python3 scripts/audit-pinned-pilot.py` on newer code:
+it verifies every original input against the merged #794 commit and runs the
+unchanged audit with the current binary for request equivalence. The direct
+historical command above is valid in the pinned input context; new source bytes
+must not be represented as the historical measurement.

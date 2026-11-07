@@ -1,0 +1,8 @@
+Authored synthetic scenario late-record-early-event. The newest recording reports the oldest event.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"observer": "agent", "pump": "item"}.
+Relation catalogue: {"count": ["item", "integer"]}.
+f1: observer (observed) states pump count = {"type": "integer", "value": 1}; event 9, record 10, interpretation 30, confidence permille 1000; cites e1.
+f2: observer (observed) states pump count = {"type": "integer", "value": 2}; event 3, record 20, interpretation 30, confidence permille 1000; cites e1.
+f3: observer (observed) states pump count = {"type": "integer", "value": 3}; event 6, record 15, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/late-record-early-event.txt. No other facts or causal rules are supplied.

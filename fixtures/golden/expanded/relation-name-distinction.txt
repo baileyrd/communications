@@ -1,0 +1,7 @@
+Authored synthetic scenario relation-name-distinction. Same entities with distinct predicates preserve relationship identity.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"a": "item", "b": "item", "observer": "agent"}.
+Relation catalogue: {"near": ["item", "item"], "owned_by": ["item", "item"]}.
+f1: observer (observed) states a near = {"type": "entity", "value": "b"}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: observer (observed) states a owned_by = {"type": "entity", "value": "b"}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/relation-name-distinction.txt. No other facts or causal rules are supplied.

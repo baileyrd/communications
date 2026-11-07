@@ -1,0 +1,7 @@
+Authored synthetic scenario count-disagreement. Conflicting signed integer counts are retained, never averaged.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"a": "agent", "b": "agent", "tank": "item"}.
+Relation catalogue: {"count": ["item", "integer"]}.
+f1: a (reported) states tank count = {"type": "integer", "value": -2}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: b (reported) states tank count = {"type": "integer", "value": 5}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/count-disagreement.txt. No other facts or causal rules are supplied.

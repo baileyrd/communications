@@ -1,0 +1,79 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "sensor": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "value": {
+      "subject_kind": "item",
+      "object_kind": "integer"
+    },
+    "valid": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "5d1be06260c3754f2c25b5e9e4d1d0eca43c9acc92443553408f29f1160e9ec2",
+      "locator": "fixture:golden/inverted-clocks.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "sensor",
+      "predicate": "value",
+      "object": {
+        "type": "integer",
+        "value": 4
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 30,
+        "record_ms": 20,
+        "interpretation_ms": 10
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "sensor",
+      "predicate": "valid",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 29,
+        "record_ms": 21,
+        "interpretation_ms": 9
+      }
+    }
+  ]
+}

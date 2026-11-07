@@ -1,0 +1,75 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "panel": {
+      "kind": "item"
+    },
+    "a": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "ready": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "ea62d9b9e15476746e75a6cc9bb06c968e0b32403fd4ee36457442cca216ab76",
+      "locator": "fixture:golden/retraction-unlinked.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "panel",
+      "predicate": "ready",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "a",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "panel",
+      "predicate": "ready",
+      "object": {
+        "type": "boolean",
+        "value": false
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "a",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 11,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

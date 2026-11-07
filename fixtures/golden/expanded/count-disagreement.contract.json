@@ -1,0 +1,78 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "tank": {
+      "kind": "item"
+    },
+    "a": {
+      "kind": "agent"
+    },
+    "b": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "count": {
+      "subject_kind": "item",
+      "object_kind": "integer"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "cfe956ce45e11d3a6cf4f63cca803944c6fb2b64d32a1a29d31b9b5adef98784",
+      "locator": "fixture:golden/count-disagreement.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "tank",
+      "predicate": "count",
+      "object": {
+        "type": "integer",
+        "value": -2
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "a",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "tank",
+      "predicate": "count",
+      "object": {
+        "type": "integer",
+        "value": 5
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "b",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

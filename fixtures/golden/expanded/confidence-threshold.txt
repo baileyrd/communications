@@ -1,0 +1,8 @@
+Authored synthetic scenario confidence-threshold. Threshold comparison applies only to known numeric confidence, not truth.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"a": "item", "b": "item", "c": "item", "observer": "agent"}.
+Relation catalogue: {"ok": ["item", "boolean"]}.
+f1: observer (observed) states a ok = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille 499; cites e1.
+f2: observer (observed) states b ok = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille 500; cites e1.
+f3: observer (observed) states c ok = {"type": "boolean", "value": false}; event 10, record 20, interpretation 30, confidence permille null; cites e1.
+Original e1 is this complete report, locator fixture:golden/confidence-threshold.txt. No other facts or causal rules are supplied.
