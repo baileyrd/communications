@@ -39,7 +39,7 @@ Ok(())
 These are offline envelopes, not working MCP/model/retrieval endpoints. Model-native
 tensors/hidden states are unsupported/not testable. Structural preservation is not
 comprehension or efficiency evidence; a compact binary payload can become a larger
-text envelope once base64, schema and escaping are included. #794's model pilot and the optional Protobuf baseline remain deferred.
+text envelope once base64, schema and escaping are included. #794 adds a repeated offline pilot; real-model trials and the optional Protobuf baseline remain unmeasured/deferred.
 
 
 Run the offline golden suite and explicit synthetic scoring controls:
@@ -70,3 +70,19 @@ validation uses Rust 1.98.1 on Linux x86_64.
 No repository license has been selected by the owner. `publish = false` prevents
 accidental package publication; it does not grant a license. No Rusty Mill code is
 copied into this package or imported as a dependency.
+
+
+#794's [repeated offline pilot](docs/PILOT.md) records 480 attempts across all six
+cases, four contexts and four arms, five fresh processes per combination with
+seeded shuffled order. Model scores, tokens, cost and model latency remain null.
+
+```sh
+cargo build --release --locked
+python3 scripts/test-offline-pilot.py
+python3 scripts/offline-pilot.py audit docs/results/pilot
+python3 scripts/offline-pilot.py run /tmp/communications-pilot-new
+```
+
+The new output directory must not exist. `golden trial CASE CONTEXT ARM TRIAL_ID`
+measures one selected observation without a network client. See the report for
+raw exports, joined invariant matrix, failure denominators and timing limits.

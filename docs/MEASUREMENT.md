@@ -3,8 +3,8 @@
 The bounded #792 smoke in `src/main.rs` runs three codecs and sixteen offline
 adapter/control combinations on the unchanged observation fixture. Five capability
 rows distinguish offline boundaries from unsupported model-native access. #793
-now adds the [golden harness](GOLDEN-HARNESS.md); #794 model experiments remain
-planned. No model endpoint is configured and no paid calls are authorized. Null means unmeasured, never zero.
+now adds the [golden harness](GOLDEN-HARNESS.md); #794 adds a [repeated offline pilot](PILOT.md); real-model experiments remain
+unmeasured. No model endpoint is configured and no paid calls are authorized. Null means unmeasured, never zero.
 The comprehension/efficiency hypothesis is not tested.
 
 ## Comparison design
@@ -117,3 +117,22 @@ not supply a confidence interval, comparative performance guarantee, memory/CPU
 measurement or isolated-system assurance. Results can vary with scheduling and
 allocator/cache state. Binary-byte reduction is only a transport observation;
 base64 plus schema can make the final envelope larger than conventional JSON.
+
+
+## #794 repetition boundary
+
+`golden trial CASE CONTEXT ARM TRIAL_ID` executes one selected warmed observation.
+The standard-library pilot driver shuffles all 96 combinations with seed 794 in
+each of five repetitions and runs one fresh release child per trial (480 total).
+Inner timing operations retain 3 warm-ups/20 iterations, including allocations,
+validation and drop. All setup, child startup, fixture checks, hashing and I/O are
+outside timing. Fixed operation order inside each child and shared host caches
+remain limitations. Raw failed attempts are retained without replacement.
+
+Compact raw JSONL/CSV hold identity/order/status/timing; a 96-record invariant
+matrix holds matching request/fixture hashes, bytes and null telemetry. Join by
+case/context/arm. Audit restores CSV exactly, regenerates requests, checks hashes,
+coverage and byte/timing/null arithmetic. Summary distributions describe batch
+means, n=5 per combination and n=120 heterogeneous pooled batches per arm, not
+independent inner iterations; P95 uses nearest rank. No confidence intervals or
+CPU/model/end-to-end interpretations are supplied. See [report/artifacts](PILOT.md).

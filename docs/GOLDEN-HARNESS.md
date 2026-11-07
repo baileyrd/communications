@@ -212,3 +212,14 @@ dependency; the Rust tests also check the matrix and CSV independently.
 Independent exact-head review
 and head-specific CI remain separate gates; this harness does not complete M01,
 Issue #1, or #794's live comparative pilot.
+
+
+## #794 bounded repeated pilot
+
+The existing `golden run` remains a single fixed-order 96-row smoke measurement.
+The new `golden trial CASE CONTEXT ARM TRIAL_ID` uses the same requests/timing code
+for one selected observation. A standard-library Python driver schedules 480
+serial fresh children with a seeded shuffled order and records errors alongside
+successful timings. It never invokes an endpoint. See [pilot report](PILOT.md)
+for commands, compact export/matrix join schema, sample units, audit and findings.
+The original smoke/golden result files and fixtures are preserved unchanged.

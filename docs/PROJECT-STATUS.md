@@ -1,71 +1,45 @@
 # Communications implementation checkpoint
 
-2026-11-07: #790, #791 and #792 are Done. Verified current main at the start of
-#793 is `50a4621d2683856287cf0052d41fb0a01356c5fb` (PR #4 merged), with tree
-`c611cb633abc6d58617f6ea73015f0797b40d945`. PR #2 delivered architecture/reuse;
-PR #3 delivered the validated independent contract; PR #4 delivered genuine CBOR,
-CSR/1 and four offline adapter boundaries. This supersedes the historical #792
-awaiting-review checkpoint. Do not restart completed cards. Mill Board is
-authoritative for scope, dependencies and execution progress.
+2026-11-07: #790–#793 verified Done by coordinator. Current #794 base main is
+`ae9dafe30526bc6925a23031e5b9a3fe39ae254a` (merged PR #5), tree
+`535c3c8611bbeb552a876785061169fd7f22282f`. #793's fractional replay correction
+was independently re-reviewed and exact-head CI passed before merge. This
+supersedes the historical pending-correction checkpoint. Preserve completed work.
+Mill Board is authoritative for scope, dependencies and execution progress.
 
-#793 implementation is on `codex/m01-793-golden-harness`, based on that verified
-main in a separate Communications checkout. It adds six pinned golden sources,
-independently authored entity/relation/fact ledgers, separate manual contract
-extractions, explicit structured reconstruction/comprehension/application rubrics,
-deterministic scoring, strict replay/import, complete local requests with common
-questions/output schema, compatible JSONL/CSV and local timing measurements.
-The first three cases were validated first; the same schema expands to six, with
-no three-versus-six deferral. Existing smoke originals/evidence/results and the
-#791/#792 contract, codecs and adapter implementations remain unchanged.
+#794 implementation branch: `codex/m01-794-offline-pilot`, separate Communications
+checkout; mounted Rusty Mill untouched. Cloud thread/execution
+`01a1b781-0ecc-76c5-87d1-1cd98f4c303c`, initial turn
+`01a1b781-180b-767f-be0a-c3fb6a7a7946`. Actual ids are recorded in board comments;
+no incompatible Orch/assignment values invented. Supported in-progress transitions
+succeeded; known lowercase-store claim defect was not retried or impersonated.
 
-PR #5 independent review of initial head
-`7cd665a2d27f22f3a9f1c0073031432b2f3c57b7` found that the shared integer-only
-JSON visitor rejected valid fractional replay telemetry/settings. The same branch
-now has separate replay-only finite-number ingress with recursive duplicate-key
-checks; core contract, fixture and scored-response ingress is unchanged. Four
-new regressions cover fractional CLI/export success, exact validation errors,
-integer restrictions and nested duplicate keys (41 total integration tests).
-See [correction validation](results/golden-correction-validation.log). The prior
-local timing artifacts are retained; the correction does not change requests,
-fixture content, scoring rubrics or measured codec/adapter operations. Refresh
-#793/PR #5 for the correction commit/tree and new-head CI; independent re-review
-is required and no previous review is approval of the changed head.
+Delivered locally for review: one selected-trial CLI using existing timing code;
+a standard-library seeded serial fresh-process driver; five repetitions over six
+cases/four contexts/four arms; 480/480 successful attempts, zero execution errors;
+compact raw JSONL/CSV, 96-row invariant matrix, manifest/input/output hashes,
+descriptive distributions, audit and focused regression tests. All fixtures and
+original smoke/golden artifacts are unchanged. See [pilot report](PILOT.md),
+[measurement](MEASUREMENT.md), [results](RESULTS.md),
+[validation](results/pilot-validation.log). All 41 prior integration tests retained;
+one new Rust test and three Python tests cover selected CLI/schedule/export/
+aggregation/error-denominator boundaries. Current required checks are recorded
+in the validation log; local success is not independent approval or remote CI.
 
-See [harness commands/rubric/import/export/boundaries](GOLDEN-HARNESS.md),
-[architecture](ARCHITECTURE.md), [measurement](MEASUREMENT.md),
-[results](RESULTS.md), [raw golden JSONL](results/golden-offline.jsonl),
-[CSV](results/golden-offline.csv), [synthetic controls](results/golden-synthetic-replay.jsonl),
-[validation](results/golden-validation.log) and [hashes](results/golden-sha256.txt).
-Model telemetry and model scores are null in all 96 local rows. The seven replay
-rows are explicitly synthetic scorer controls, never actual model output.
-Imported future telemetry is caller-attested/unverified, not evidence that this
-worker ran a model. No paid/model/credential/endpoint calls occurred.
+Runtime metadata reported no configured secret/endpoint-variable/outbound identity.
+No already-authorized free model endpoint was established. Explicit offline-only
+fallback used; no model/paid calls, imported model records, credentials, grants,
+security changes or endpoint integration. Model fidelity, actual tokens/cost,
+model/end-to-end latency, CPU/RSS and assertion-per-token efficiency remain null.
+Model-native remains unsupported/not testable. Smaller binary payloads produce
+larger cold local requests here; understanding/inference hypothesis is untested.
 
-Cloud thread `01a1b762-6075-72bb-8484-5115e845903d`, initial turn
-`01a1b762-69c7-7097-a34a-811e592b535d`. Refresh #793 comments for the actual
-published draft PR, exact base/branch/head/tree and live head-specific CI. The
-worker prepares exactly one draft PR referencing #793 and related Issue #1,
-without closing the full M01 issue. Independent exact-head technical review,
-required CI and an unchanged reviewed head remain coordinator gates; local pass
-reports do not establish them. Corrections stay on the same branch/PR. This
-checkpoint is implementation evidence, not approval/merge/Done evidence.
+No #795 five-layer work, new ontology, source extraction, model judges, optional
+Protobuf, production endpoints, deployment, publication or license decision.
+Full M01/Issue #1 completion and restart-safe dispatch #798 are not established.
 
-Known board claim defect: authenticated `ChatGPT` does not satisfy the store's
-lowercase actor constraint. No claim retry or identity override was made. Supported
-Planning → Architecting → Building transitions succeeded. Concrete cloud ids are
-in comments; incompatible Orch/assignment ids are not invented. Connected GitHub
-tools publish the draft; previously forbidden `gh api` routes are not retried.
-Mounted Rusty Mill is read-only reference and has no code/workspace dependency here.
-
-Not delivered: automated source extraction; actual model comprehension, application,
-inference efficiency or endpoint comparisons; #794's live comparative pilot;
-MCP sessions, retrieval, model-native hidden states/tensors; optional Protobuf;
-restart-safe durable dispatch #798; full M01 or Issue #1 completion; M02–M04.
-No security/access/credential changes, spending, package publication, deployment,
-license selection or unrelated work. The hypothesis remains untested by a model.
-
-Next: coordinator reviews the actual #793 draft head independently and checks
-required head-specific CI before any merge/Done/advancement. Do not launch #794
-from this worker. Resume by refreshing current main, open PRs, #793 execution and
-comments, dependencies, then `AGENTS.md`, `CHATGPT_WORKFLOW.md` and this checkpoint.
-Preserve and reconcile the existing branch/PR/execution rather than duplicate it.
+Next: refresh #794 comments, actual branch/PR/head/tree and CI. Worker publishes
+exactly one draft PR referencing #794 and Issue #1; independent exact-head review,
+required CI and unchanged reviewed head remain coordinator gates. Worker must not
+approve/merge/mark Done or launch downstream cards. Corrections stay on this same
+branch/PR. Do not duplicate this execution or restart completed cards.

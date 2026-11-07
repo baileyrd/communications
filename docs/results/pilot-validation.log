@@ -1,0 +1,175 @@
+$ cargo fmt --check
+EXIT 0
+
+$ cargo test --locked
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running unittests src/lib.rs (target/debug/deps/communications_probe-e39a88d279004a19)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/communications_probe-636c8ca9806048e8)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/architecture.rs (target/debug/deps/architecture-7f653eb9f22e4877)
+
+running 6 tests
+test rejects_dangling_and_mistyped_relationships ... ok
+test rejects_invalid_confidence_provenance_and_digest ... ok
+test order_independent_encoding_does_not_collapse_assertions ... ok
+test preserves_all_fields_and_verifies_original_bytes ... ok
+test unknown_event_time_and_confidence_remain_unknown ... ok
+test unknown_version_or_fields_fail_closed ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/codecs_adapters.rs (target/debug/deps/codecs_adapters-920ce7b50c4767b8)
+
+running 12 tests
+test adapter_nested_ambiguity_and_envelope_identity_fail_closed ... ok
+test cbor_is_real_named_field_cbor_and_rejects_tags_indefinite_nonpreferred_and_duplicate_keys ... ok
+test cbor_rejects_unknown_duplicate_nested_keys_refs_and_invalid_contracts ... ok
+test every_codec_preserves_exact_fields_variants_extremes_and_canonical_repeatability ... ok
+test invalid_in_memory_contracts_cannot_be_encoded_or_rendered ... ok
+test model_native_is_explicitly_unsupported_for_all_arms ... ok
+test adapters_reject_ambiguous_metadata_extra_fields_and_corrupted_payloads ... ok
+test smoke_reference_content_is_not_a_renderers_shared_omission ... ok
+test typed_record_documented_bytes_and_scalar_validation ... ok
+test all_offline_contexts_and_matched_baselines_preserve_same_complete_facts ... ok
+test records_enforce_framing_versions_bounds_unknown_tags_and_unique_ids ... ok
+test every_truncation_trailing_bytes_and_oversize_payload_fail ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+     Running tests/contract.rs (target/debug/deps/contract-13561a15b6c45fc1)
+
+running 8 tests
+test duplicate_json_keys_fail_at_every_object_boundary ... ok
+test duplicate_references_and_assertions_fail_without_deduplication ... ok
+test roundtrip_preserves_literal_variants_conflicts_unicode_and_time_extremes ... ok
+test evidence_verification_uses_exact_bytes_and_never_locator_identity ... ok
+test unused_relation_kinds_and_malformed_identifiers_are_validated ... ok
+test schema_and_malformed_inputs_fail_closed ... ok
+test semantic_validation_runs_during_decode ... ok
+test unknown_or_missing_nested_fields_are_rejected ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/golden_harness.rs (target/debug/deps/golden_harness-3bba7fe5cdd0da78)
+
+running 15 tests
+test answers_use_exact_types_unknown_null_and_explicit_task_rubrics ... ok
+test checked_in_synthetic_controls_have_explicit_non_model_outcomes ... ok
+test cli_check_initial_expanded_and_usage_errors ... ok
+test efficiencies_and_empty_denominators_are_never_fabricated ... ok
+test final_requests_count_schema_questions_escaping_and_do_not_leak_answers ... ok
+test decimal_replay_still_rejects_duplicate_keys_at_every_nested_boundary ... ok
+test decimal_import_does_not_relax_integer_counts_contract_or_scoring_fields ... ok
+test jsonl_csv_are_losslessly_compatible_for_all_fields_and_special_characters ... ok
+test malformed_duplicate_and_ambiguous_responses_have_no_valid_score ... ok
+test fractional_telemetry_and_nested_settings_survive_cli_replay_and_both_exports ... ok
+test scorer_penalizes_omissions_inventions_contradictions_and_partial_metadata_separately ... ok
+test fractional_ingress_reaches_telemetry_validation_and_preserves_restrictions ... ok
+test request_identity_replay_telemetry_and_error_boundaries ... ok
+test three_initial_then_six_pinned_cases_preserve_every_arm_and_metadata ... ok
+test cli_runs_full_matrix_exports_and_replays_without_model_measurements ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.83s
+
+     Running tests/pilot.rs (target/debug/deps/pilot-2235062180f25a16)
+
+running 1 test
+test isolated_trial_cli_matches_requests_and_keeps_telemetry_unmeasured ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+   Doc-tests communications_probe
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+EXIT 0
+
+$ cargo clippy --all-targets --locked -- -D warnings
+    Checking typenum v1.20.1
+    Checking cfg-if v1.0.5
+    Checking zerocopy v0.8.63
+    Checking serde_core v1.0.229
+    Checking ciborium-io v0.2.2
+    Checking zmij v1.0.23
+    Checking itoa v1.0.18
+    Checking memchr v2.8.3
+    Checking generic-array v0.14.7
+    Checking cpufeatures v0.2.17
+    Checking base64 v0.22.1
+    Checking block-buffer v0.10.4
+    Checking crypto-common v0.1.7
+    Checking digest v0.10.7
+    Checking sha2 v0.10.9
+    Checking serde v1.0.229
+    Checking serde_json v1.0.154
+    Checking half v2.7.1
+    Checking ciborium-ll v0.2.2
+    Checking ciborium v0.2.2
+    Checking communications-probe v0.1.0 (/workspace/communications)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.13s
+EXIT 0
+
+$ cargo run --release --locked
+    Finished `release` profile [optimized] target(s) in 0.04s
+     Running `target/release/communications-probe`
+{"assertions":2,"case":"observation","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"decode_validate_mean_ns":9671,"decode_validate_total_ns":9671834,"encode_validate_mean_ns":3914,"encode_validate_total_ns":3914228,"encoding":"json","end_to_end_latency_ms":null,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"iterations":1000,"kind":"codec","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"payload_bytes":994,"peak_memory_bytes":null,"semantic_fidelity_score":null,"version":"0.1-draft","warmup_iterations":100}
+{"assertions":2,"case":"observation","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"decode_validate_mean_ns":20644,"decode_validate_total_ns":20644228,"encode_validate_mean_ns":2803,"encode_validate_total_ns":2803705,"encoding":"cbor","end_to_end_latency_ms":null,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"iterations":1000,"kind":"codec","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"payload_bytes":779,"peak_memory_bytes":null,"semantic_fidelity_score":null,"version":"0.1-draft","warmup_iterations":100}
+{"assertions":2,"case":"observation","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"decode_validate_mean_ns":5811,"decode_validate_total_ns":5811728,"encode_validate_mean_ns":1540,"encode_validate_total_ns":1540621,"encoding":"records","end_to_end_latency_ms":null,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"iterations":1000,"kind":"codec","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"payload_bytes":372,"peak_memory_bytes":null,"semantic_fidelity_score":null,"version":"0.1-draft","warmup_iterations":100}
+{"arm":"conventional","assertions":2,"case":"observation","context":"human_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":198,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":1186,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":34112,"parse_decode_validate_total_ns":34112302,"payload_bytes":988,"peak_memory_bytes":null,"render_encode_validate_mean_ns":18492,"render_encode_validate_total_ns":18492946,"rendered_payload_text_bytes":988,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":0,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"json"},"assertions":2,"case":"observation","context":"human_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":2097,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":3091,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":33591,"parse_decode_validate_total_ns":33591647,"payload_bytes":994,"peak_memory_bytes":null,"render_encode_validate_mean_ns":11809,"render_encode_validate_total_ns":11809444,"rendered_payload_text_bytes":994,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1466,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"cbor"},"assertions":2,"case":"observation","context":"human_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":2076,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":2855,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":33779,"parse_decode_validate_total_ns":33779161,"payload_bytes":779,"peak_memory_bytes":null,"render_encode_validate_mean_ns":8404,"render_encode_validate_total_ns":8404986,"rendered_payload_text_bytes":1040,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1660,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"records"},"assertions":2,"case":"observation","context":"human_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":3160,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":3532,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":19586,"parse_decode_validate_total_ns":19586423,"payload_bytes":372,"peak_memory_bytes":null,"render_encode_validate_mean_ns":7832,"render_encode_validate_total_ns":7832411,"rendered_payload_text_bytes":496,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":2876,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":"conventional","assertions":2,"case":"observation","context":"model_tool","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":92,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":1086,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":47720,"parse_decode_validate_total_ns":47720167,"payload_bytes":994,"peak_memory_bytes":null,"render_encode_validate_mean_ns":19372,"render_encode_validate_total_ns":19372512,"rendered_payload_text_bytes":994,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":0,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"json"},"assertions":2,"case":"observation","context":"model_tool","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":1803,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":2797,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":28434,"parse_decode_validate_total_ns":28434797,"payload_bytes":994,"peak_memory_bytes":null,"render_encode_validate_mean_ns":7746,"render_encode_validate_total_ns":7746723,"rendered_payload_text_bytes":994,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1466,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"cbor"},"assertions":2,"case":"observation","context":"model_tool","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":2101,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":2880,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":32742,"parse_decode_validate_total_ns":32742358,"payload_bytes":779,"peak_memory_bytes":null,"render_encode_validate_mean_ns":8759,"render_encode_validate_total_ns":8759078,"rendered_payload_text_bytes":1040,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1660,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"records"},"assertions":2,"case":"observation","context":"model_tool","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":3184,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":3556,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":15299,"parse_decode_validate_total_ns":15299885,"payload_bytes":372,"peak_memory_bytes":null,"render_encode_validate_mean_ns":6194,"render_encode_validate_total_ns":6194414,"rendered_payload_text_bytes":496,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":2876,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":"conventional","assertions":2,"case":"observation","context":"model_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":203,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":1197,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":40622,"parse_decode_validate_total_ns":40622532,"payload_bytes":994,"peak_memory_bytes":null,"render_encode_validate_mean_ns":17267,"render_encode_validate_total_ns":17267971,"rendered_payload_text_bytes":994,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":0,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"json"},"assertions":2,"case":"observation","context":"model_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":2097,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":3091,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":32111,"parse_decode_validate_total_ns":32111268,"payload_bytes":994,"peak_memory_bytes":null,"render_encode_validate_mean_ns":12111,"render_encode_validate_total_ns":12111841,"rendered_payload_text_bytes":994,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1466,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"cbor"},"assertions":2,"case":"observation","context":"model_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":2076,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":2855,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":34341,"parse_decode_validate_total_ns":34341978,"payload_bytes":779,"peak_memory_bytes":null,"render_encode_validate_mean_ns":8888,"render_encode_validate_total_ns":8888945,"rendered_payload_text_bytes":1040,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1660,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"records"},"assertions":2,"case":"observation","context":"model_model","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":3160,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":3532,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":18207,"parse_decode_validate_total_ns":18207586,"payload_bytes":372,"peak_memory_bytes":null,"render_encode_validate_mean_ns":7926,"render_encode_validate_total_ns":7926384,"rendered_payload_text_bytes":496,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":2876,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":"conventional","assertions":2,"case":"observation","context":"model_data","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":47,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":1041,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":42360,"parse_decode_validate_total_ns":42360140,"payload_bytes":994,"peak_memory_bytes":null,"render_encode_validate_mean_ns":19401,"render_encode_validate_total_ns":19401084,"rendered_payload_text_bytes":994,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":0,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"json"},"assertions":2,"case":"observation","context":"model_data","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":1758,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":2752,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":23354,"parse_decode_validate_total_ns":23354120,"payload_bytes":994,"peak_memory_bytes":null,"render_encode_validate_mean_ns":7324,"render_encode_validate_total_ns":7324688,"rendered_payload_text_bytes":994,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1466,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"cbor"},"assertions":2,"case":"observation","context":"model_data","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":2056,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":2835,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":32743,"parse_decode_validate_total_ns":32743299,"payload_bytes":779,"peak_memory_bytes":null,"render_encode_validate_mean_ns":6527,"render_encode_validate_total_ns":6527636,"rendered_payload_text_bytes":1040,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":1660,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"arm":{"semantic":"records"},"assertions":2,"case":"observation","context":"model_data","correct_assertions_per_1000_input_tokens":null,"cpu_time_ns":null,"end_to_end_latency_ms":null,"envelope_expansion_bytes":3139,"evidence_digest_matches":true,"exact_structural_roundtrip":true,"final_envelope_bytes":3511,"iterations":1000,"kind":"adapter","limitation":"One smoke fixture, one warmed process per command; no model or endpoint; structural preservation does not measure understanding. Adapter timings include codec work; do not add them to codec times.","mode":"offline_codec_adapter_smoke","model_cost_usd":null,"model_input_tokens":null,"model_latency_ms":null,"model_output_tokens":null,"parse_decode_validate_mean_ns":15323,"parse_decode_validate_total_ns":15323991,"payload_bytes":372,"peak_memory_bytes":null,"render_encode_validate_mean_ns":5347,"render_encode_validate_total_ns":5347307,"rendered_payload_text_bytes":496,"schema_mode":"cold_included_in_final_envelope","schema_text_bytes":2876,"semantic_fidelity_score":null,"timing_boundary":"Full local translation: encode/validate + schema + text/base64 + envelope; parse checks duplicate keys, decodes/validates and reconstructs canonical envelope. Includes allocations/drop. Not network or inference.","version":"0.1-draft","warmup_iterations":100}
+{"capability":{"context":"human_model","limitation":"Offline user-message text; no model comprehension measured.","live_endpoint":false,"offline_roundtrip":true},"kind":"capability"}
+{"capability":{"context":"model_tool","limitation":"Offline tools/call JSON-RPC-shaped envelope; no MCP session, discovery or endpoint.","live_endpoint":false,"offline_roundtrip":true},"kind":"capability"}
+{"capability":{"context":"model_model","limitation":"Offline sender/receiver message boundary; no agent or model execution.","live_endpoint":false,"offline_roundtrip":true},"kind":"capability"}
+{"capability":{"context":"model_data","limitation":"Offline retrieved-document envelope; no search, storage or locator retrieval.","live_endpoint":false,"offline_roundtrip":true},"kind":"capability"}
+{"capability":{"context":"model_native","limitation":"Unsupported/not testable: no authorized documented tensor/hidden-state interface.","live_endpoint":false,"offline_roundtrip":false},"kind":"capability"}
+EXIT 0
+
+$ python3 scripts/test-offline-pilot.py
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK
+EXIT 0
+
+$ python3 scripts/validate-golden-results.py
+golden-offline: 96 rows; CSV restores every JSONL value; all exact request/source/contract/suite/lock hashes verified; all telemetry null; modes valid
+golden-synthetic-replay: 7 rows; CSV restores every JSONL value; all exact request/source/contract/suite/lock hashes verified; all telemetry null; modes valid
+7 synthetic response hashes and exact expected score outcomes verified; example request digest matches replay binding
+EXIT 0
+
+$ python3 scripts/offline-pilot.py audit docs/results/pilot
+pilot audit: 480 attempts, 480 successes, 0 failures retained; 96 matched combinations; order/IDs/CSV/hashes/byte arithmetic/timing and null boundaries verified
+EXIT 0
+
+$ git diff --check
+EXIT 0
+
+Publication staging caught an extra blank EOF line in this new validation log; removed.
+$ git diff --cached --check
+EXIT 0 (verified after restaging)

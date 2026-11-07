@@ -12,3 +12,6 @@ jobs:
       - run: cargo +1.98.1 test --locked
       - run: cargo +1.98.1 clippy --all-targets --locked -- -D warnings
       - run: cargo +1.98.1 run --release --locked
+      - run: python3 scripts/test-offline-pilot.py
+      - run: python3 scripts/validate-golden-results.py
+      - run: python3 scripts/offline-pilot.py audit docs/results/pilot
