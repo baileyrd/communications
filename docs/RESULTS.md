@@ -1,3 +1,18 @@
+# #794 repeated offline pilot — current result
+
+See the [pilot report](PILOT.md): 480/480 successful local attempts, six cases ×
+four offline contexts × four arms × five fresh processes; seeded order, raw
+JSONL/CSV, fixed matrix, exact hashes and descriptive local timing distributions.
+Smaller CBOR/CSR payloads still produce larger cold local requests than matched
+conventional controls. The model comprehension/inference-efficiency hypothesis
+is untested; model accuracy, tokens, cost and latency remain null. No real model
+calls occurred. Independent review and CI remain coordinator gates.
+
+The sections below preserve original historical measurements and limitations.
+Their references to #794 being undelivered apply to those earlier checkpoints.
+
+---
+
 # #793 offline golden harness — 2026-11-07
 
 PR #5 review correction: replay imports now use separate finite-number JSON

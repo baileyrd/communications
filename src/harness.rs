@@ -245,36 +245,46 @@ pub fn run(initial_only: bool) -> Result<Vec<Row>, String> {
     {
         for ctx in CONTEXTS {
             for arm_name in ARMS {
-                let c = context(ctx)?;
-                let a = arm(arm_name)?;
-                let mut row = base(
+                rows.push(run_trial(
                     case,
                     ctx,
                     arm_name,
                     format!("offline/{}/{ctx}/{arm_name}", case.reference.id),
-                    "offline_local",
-                )?;
-                if let Arm::Semantic(encoding) = a {
-                    let payload = encoding.encode(&case.contract)?;
-                    row.codec_encode_validate_total_ns =
-                        Some(time(|| encoding.encode(black_box(&case.contract)))?);
-                    row.codec_decode_validate_total_ns =
-                        Some(time(|| encoding.decode(black_box(&payload)))?);
-                }
-                let envelope = adapter::render(c, a, &case.contract)?;
-                row.adapter_render_encode_validate_total_ns =
-                    Some(time(|| adapter::render(c, a, black_box(&case.contract)))?);
-                row.adapter_parse_decode_validate_total_ns =
-                    Some(time(|| adapter::parse(c, a, black_box(&envelope)))?);
-                row.request_render_total_ns =
-                    Some(time(|| request(black_box(case), ctx, arm_name))?);
-                row.warmup_iterations = WARMUP;
-                row.iterations = ITERATIONS;
-                rows.push(row);
+                )?);
             }
         }
     }
     Ok(rows)
+}
+
+/// One local observation; caller selects process/repetition/order boundaries.
+pub fn run_trial(
+    case: &LoadedCase,
+    ctx: &str,
+    arm_name: &str,
+    trial_id: String,
+) -> Result<Row, String> {
+    if trial_id.trim().is_empty() {
+        return Err("empty trial id".into());
+    }
+    let c = context(ctx)?;
+    let a = arm(arm_name)?;
+    let mut row = base(case, ctx, arm_name, trial_id, "offline_local")?;
+    if let Arm::Semantic(encoding) = a {
+        let payload = encoding.encode(&case.contract)?;
+        row.codec_encode_validate_total_ns =
+            Some(time(|| encoding.encode(black_box(&case.contract)))?);
+        row.codec_decode_validate_total_ns = Some(time(|| encoding.decode(black_box(&payload)))?);
+    }
+    let envelope = adapter::render(c, a, &case.contract)?;
+    row.adapter_render_encode_validate_total_ns =
+        Some(time(|| adapter::render(c, a, black_box(&case.contract)))?);
+    row.adapter_parse_decode_validate_total_ns =
+        Some(time(|| adapter::parse(c, a, black_box(&envelope)))?);
+    row.request_render_total_ns = Some(time(|| request(black_box(case), ctx, arm_name))?);
+    row.warmup_iterations = WARMUP;
+    row.iterations = ITERATIONS;
+    Ok(row)
 }
 
 pub fn replay(input: &str) -> Result<Vec<Row>, String> {
@@ -401,7 +411,7 @@ fn save(rows: &[Row], jsonl: &str, csv: &str) -> Result<(), String> {
     eprintln!("wrote {} rows to {jsonl} and {csv}", rows.len());
     Ok(())
 }
-pub const HELP: &str = "Usage: communications-probe [golden check [--initial] | golden run JSONL CSV [--initial] | golden request CASE CONTEXT ARM | golden replay INPUT_JSONL OUTPUT_JSONL OUTPUT_CSV | golden sample]\nNo arguments: unchanged #792 smoke. Context: human_model|model_tool|model_model|model_data. Arm: conventional|json|cbor|records. sample prints one explicitly synthetic perfect replay record. No live/model calls.";
+pub const HELP: &str = "Usage: communications-probe [golden check [--initial] | golden run JSONL CSV [--initial] | golden request CASE CONTEXT ARM | golden replay INPUT_JSONL OUTPUT_JSONL OUTPUT_CSV | golden trial CASE CONTEXT ARM TRIAL_ID | golden sample]\nNo arguments: unchanged #792 smoke. Context: human_model|model_tool|model_model|model_data. Arm: conventional|json|cbor|records. sample prints one explicitly synthetic perfect replay record. No live/model calls.";
 pub fn cli(args: &[String]) -> Result<(), String> {
     let arg: Vec<&str> = args.iter().map(String::as_str).collect();
     match arg.as_slice() {
@@ -442,6 +452,20 @@ pub fn cli(args: &[String]) -> Result<(), String> {
                 return Err("do not overwrite replay input".into());
             }
             save(&replay(&read_bounded(input)?)?, j, c)
+        }
+        ["golden", "trial", id, ctx, a, trial_id] => {
+            let cases = golden::load()?;
+            let case = cases
+                .iter()
+                .find(|c| c.reference.id == *id)
+                .ok_or("unknown case")?;
+            let mut row = run_trial(case, ctx, a, (*trial_id).into())?;
+            row.limitation = "Offline local observation in caller-selected order/process; no model execution or telemetry. See pilot manifest for repetition/process boundaries. Wall times are not CPU/model/end-to-end latency; overlapping spans must not be summed.".into();
+            println!(
+                "{}",
+                serde_json::to_string(&row).map_err(|e| e.to_string())?
+            );
+            Ok(())
         }
         ["golden", "sample"] => {
             let cases = golden::load()?;

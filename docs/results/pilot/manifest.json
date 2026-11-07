@@ -1,0 +1,71 @@
+{
+  "mode": "offline_only",
+  "repetitions": 5,
+  "seed": 794,
+  "process_boundary": "one fresh release child per trial; serial; parent Python not timed",
+  "order": "Python random.Random(seed) MT19937 shuffle of all 96 combinations once per repetition; actual sequence in trials",
+  "warmup_iterations_per_operation": 3,
+  "timed_iterations_per_operation": 20,
+  "timing_scope": "per-child warmed batch totals; same fixed named-operation order inside child; startup/setup/hashes/I/O excluded; spans overlap",
+  "sampling_unit": "one warmed 20-operation batch in one fresh child for one case/context/arm; five per combination",
+  "summary_scope": "descriptive pooled batch means by arm; heterogeneous cases/contexts, not iid operation samples; no confidence intervals",
+  "endpoint": {
+    "configured": false,
+    "calls": 0,
+    "provider": null,
+    "budget": null,
+    "reason": "runtime status reported no secret bindings, runtime variables or outbound identities; repository has offline clients only; no authorized free endpoint verified"
+  },
+  "model_native": "unsupported/not testable",
+  "environment": {
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "machine": "x86_64",
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n",
+    "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)"
+  },
+  "base_commit": "ae9dafe30526bc6925a23031e5b9a3fe39ae254a",
+  "commands": [
+    "cargo build --release --locked",
+    "python3 scripts/offline-pilot.py run docs/results/pilot",
+    "target/release/communications-probe golden trial CASE CONTEXT ARM TRIAL_ID",
+    "python3 scripts/offline-pilot.py audit docs/results/pilot"
+  ],
+  "inputs_sha256": {
+    "Cargo.lock": "e0f63b24d0233ac79114028bd451cd06fc16d8b84d99c58f53b52951e678da3a",
+    "docs/CONTRACT-SCHEMA.txt": "d44491054cfde9b52db6c29bba3a8a3b420191b0cea844ef5d5eb777b1644c2a",
+    "docs/RECORD-SCHEMA.txt": "4d3b558198827c7ebf9afcae6581792b0a18771d9256f9f8ce2e1367b8be8f70",
+    "fixtures/golden/conflict.contract.json": "81eaa3e01091d751ff3c3281db9ca2dd6db58c50a7dd89486d91e821bf599998",
+    "fixtures/golden/conflict.txt": "cb07f9ddf8e78be936c064441135c897c6c975793db48df0dc80dee101e6aa5d",
+    "fixtures/golden/ordering.contract.json": "e569416ef8c44b7d927d6671710b34e63cc0e5af559baca9189f52c5c235bc2e",
+    "fixtures/golden/ordering.txt": "c308ca5d516a2b3dbf39cff47d882ec00d0126248885daf87666feecc2fdaf3c",
+    "fixtures/golden/provenance.contract.json": "a2c2995fda27c83cf1b772a52b56d9e7910e603571f7788b32540f90965571b6",
+    "fixtures/golden/provenance.txt": "ad98e8fed764d9d9c9808233543bb039cab4e91fbabdd4fd47c44ff55571cbbc",
+    "fixtures/golden/quoted.contract.json": "0eabb7af3e01e47b086e7f42c85ad301ec28d37cd653f036bea144273f228d98",
+    "fixtures/golden/quoted.txt": "1d7f38480f9f44e1f9d9c728dd0d2a9ece4320d367abfb5803dde2fe77b4bf36",
+    "fixtures/golden/relocation.contract.json": "4e7275c953f6770da2e096b0a7a27272b6660d596006f745f8b1bdcefcdb0bf3",
+    "fixtures/golden/relocation.txt": "23e042976b972484853322f84692d025d6c664f7b9e5ad68f3db98d978d597aa",
+    "fixtures/golden/suite.json": "069f63dc3567d74ba108e4c4a58da31345dbac2b5418fd5713d5ae83aa591be0",
+    "fixtures/golden/synthetic-replay.jsonl": "a1d89dc6575d35d77a5f83954f512a8b764fd1b0794e915bdc2474aa136a4284",
+    "fixtures/golden/unknown.contract.json": "2fb05334f9b531a4f938b1ea3bf1713bc629f0b613ece4f484039d5c246c1927",
+    "fixtures/golden/unknown.txt": "71731c7a3a7284278af9500de5523739e2e894c55f8ae88fde3cc92dbdbf4e02",
+    "scripts/offline-pilot.py": "3d9c4179871cb706d9f6b5e9b1ff8a88c4ed53fd54847511a9714c5794a6366e",
+    "scripts/test-offline-pilot.py": "8652cae532830d35430ac2812e248eb27c3f0500ffa9cf831ee69fb843dd21e7",
+    "src/adapter.rs": "aa898f195a70f8987248b7eb9d8595b6aed1e19c00fea5b09c0fee4174faf118",
+    "src/codec/records.rs": "da9e2893c0be84f0890de4a88ceb5e632f01126d525a88ed7b3f37225255a879",
+    "src/codec.rs": "473fa90170d9feee84f80c5b6b1685a7521bec65ce27e2e7c07ebbf58cc38103",
+    "src/decode.rs": "e4386fbacb38c87b9d6c32c244636cd7268621b36f2d66221e252ea6f5f617d4",
+    "src/golden.rs": "9fd13a4df028a8b3148ef0c5784f34fab8978c401959b0b3c8e78b2403ab7f65",
+    "src/harness/replay_json.rs": "8336f132987ca1377a89c0a8108337b588108193f705962b8797a36c74ca9f98",
+    "src/harness.rs": "f86fd2bc49724ba1b3bb282415be8e22e292bf3e04c722a30bb4505d41fae4aa",
+    "src/lib.rs": "09396c02b3d66722b5a83a5bc5c2fa44e938e71b91c622618ef79e2054069085",
+    "src/main.rs": "26242fa8a5cb58e3bbd821334ca0763102030baab32c8ef72e624701e3fbc110"
+  },
+  "binary_sha256": "871a09a91a7c5e81810479a9cbadda55305f58ed08ec393743e0d9acb9e9d43e",
+  "outputs_sha256": {
+    "matrix.json": "3c85590393524082bb2ef91fb883979d62cb71aaed15298ff1bd7fc737fd5ef4",
+    "summary.json": "1c99e386a5c5b3c461c25a125dcf62d47182805e3be98462d9e27747033ba684",
+    "trials.csv": "16dee0d1c0b3dc68388e19b0df749202c19050a88a27070049ca036cf683dc2b",
+    "trials.jsonl": "c63d120b483ab8108d0cba264a3460b50e9dadfcbf22b49f4bbe60c2322ae4ef"
+  }
+}
