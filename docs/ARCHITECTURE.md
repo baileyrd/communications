@@ -1,9 +1,10 @@
-# M01 minimal semantic contract — #791
+# M01 semantic contract and offline codecs/adapters — #791/#792
 
-Status: #791 builds on merged #790 (PR #2), retaining one independent crate,
-one smoke fixture and one JSON wire form. The vocabulary remains versioned
-`0.1-draft`; this is a minimal experiment contract, not a production standard.
-Independent review and merge of this increment remain coordinator gates.
+Status: #790 (PR #2) and #791 (PR #3) are merged; verified base for #792 is
+`f6cbefffdcfe43efb81748e0c29233b63aea9dcc`. One independent crate and the original
+smoke fixture now exercise JSON, CBOR, custom typed records and four offline
+context boundaries. The vocabulary remains `0.1-draft`, not a production standard.
+Independent exact-head review, required CI and merge of #792 remain coordinator gates.
 
 The experiment asks whether a shared semantic contract can carry matched facts
 across mechanisms with less total cost and equal understanding. A smaller binary
@@ -49,11 +50,15 @@ request. Decoders must validate before handing data to consumers. A source fact
 ledger is independent of all renderers so identical omissions cannot pass simply
 because two adapters share a bug.
 
-CBOR and compact typed-record encodings are #792, after #791 stabilizes the
-contract. JSON remains a readable control. A small Protobuf runtime may later be
-an optional **fourth** baseline; it does not replace CBOR. MCP is one contextual
-adapter, not the contract or proof of a model-native interface. No hidden-state
-or arbitrary tensor interface is assumed available.
+`src/codec.rs` and `src/codec/records.rs` implement the #792 transport boundary;
+`src/adapter.rs` owns the four offline context renderers/parsers and capability
+descriptions. See [exact wire profiles and adapter limits](WIRE-FORMATS.md). Core
+data/validation never refer to adapter/model/MCP/storage types. JSON remains the
+readable control. Pinned Ciborium encodes genuine CBOR; CSR/1 is a documented
+custom typed-record form. Both binary decoders reject alternate local profiles
+instead of silently normalizing them. All decoded contract ingress validates.
+A small Protobuf runtime remains deferred as an optional **fourth** baseline;
+it does not replace CBOR. No hidden-state/tensor interface is available.
 
 ## Validated ingress and canonical form
 
@@ -92,6 +97,11 @@ is a structural contract, not a universal ontology. Kind names remain local opaq
 strings; unused relation kinds must still be represented by an entity in this
 minimal vocabulary. Separate per-kind registries are outside this slice.
 
-CBOR/typed-record encodings (#792), golden cases, extraction, adapters and semantic
-fidelity/efficiency evaluation remain downstream. Exact structural round-trip
-preservation does not establish model understanding or efficiency.
+The bounded codec API limits payloads to 1 MiB; offline adapters limit envelopes
+to 4 MiB. CSR/1 also caps strings/counts; CBOR caps recursion at 32. These bounds
+do not turn the experiment into a hardened public endpoint. Adapter parsing
+requires exact local renderer output; protocol interoperability is untested.
+
+Golden cases (#793), extraction and semantic fidelity/efficiency evaluation/model
+pilot (#794) remain downstream. Exact structural round-trip preservation does not
+establish model understanding or efficiency.

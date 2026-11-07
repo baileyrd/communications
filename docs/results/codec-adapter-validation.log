@@ -1,0 +1,87 @@
+Final #792 source validation UTC 2026-11-07T18:48:50.630709+00:00
+Base main f6cbefffdcfe43efb81748e0c29233b63aea9dcc; branch codex/m01-792-codecs-adapters
+PATH includes /workspace/.cargo/bin; CARGO_HOME=/workspace/.cargo; RUSTUP_HOME=/workspace/.rustup
+
+$ cargo fmt --check
+exit=0
+
+$ cargo test --locked
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running unittests src/lib.rs (target/debug/deps/communications_probe-e39a88d279004a19)
+     Running unittests src/main.rs (target/debug/deps/communications_probe-636c8ca9806048e8)
+     Running tests/architecture.rs (target/debug/deps/architecture-7f653eb9f22e4877)
+     Running tests/codecs_adapters.rs (target/debug/deps/codecs_adapters-920ce7b50c4767b8)
+     Running tests/contract.rs (target/debug/deps/contract-13561a15b6c45fc1)
+   Doc-tests communications_probe
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 6 tests
+test rejects_dangling_and_mistyped_relationships ... ok
+test rejects_invalid_confidence_provenance_and_digest ... ok
+test order_independent_encoding_does_not_collapse_assertions ... ok
+test preserves_all_fields_and_verifies_original_bytes ... ok
+test unknown_event_time_and_confidence_remain_unknown ... ok
+test unknown_version_or_fields_fail_closed ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 12 tests
+test cbor_is_real_named_field_cbor_and_rejects_tags_indefinite_nonpreferred_and_duplicate_keys ... ok
+test adapter_nested_ambiguity_and_envelope_identity_fail_closed ... ok
+test cbor_rejects_unknown_duplicate_nested_keys_refs_and_invalid_contracts ... ok
+test every_codec_preserves_exact_fields_variants_extremes_and_canonical_repeatability ... ok
+test invalid_in_memory_contracts_cannot_be_encoded_or_rendered ... ok
+test model_native_is_explicitly_unsupported_for_all_arms ... ok
+test adapters_reject_ambiguous_metadata_extra_fields_and_corrupted_payloads ... ok
+test all_offline_contexts_and_matched_baselines_preserve_same_complete_facts ... ok
+test typed_record_documented_bytes_and_scalar_validation ... ok
+test smoke_reference_content_is_not_a_renderers_shared_omission ... ok
+test records_enforce_framing_versions_bounds_unknown_tags_and_unique_ids ... ok
+test every_truncation_trailing_bytes_and_oversize_payload_fail ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+
+running 8 tests
+test evidence_verification_uses_exact_bytes_and_never_locator_identity ... ok
+test duplicate_json_keys_fail_at_every_object_boundary ... ok
+test roundtrip_preserves_literal_variants_conflicts_unicode_and_time_extremes ... ok
+test duplicate_references_and_assertions_fail_without_deduplication ... ok
+test unused_relation_kinds_and_malformed_identifiers_are_validated ... ok
+test schema_and_malformed_inputs_fail_closed ... ok
+test semantic_validation_runs_during_decode ... ok
+test unknown_or_missing_nested_fields_are_rejected ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+exit=0
+
+$ cargo clippy --all-targets --locked -- -D warnings
+    Checking communications-probe v0.1.0 (/workspace/communications)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.38s
+exit=0
+
+$ cargo run --release --locked
+    Finished `release` profile [optimized] target(s) in 0.05s
+     Running `target/release/communications-probe`
+stdout: 24 valid JSONL rows; 3 codec, 16 adapter, 5 capability. All exact round trips/evidence checks true.
+Revalidation timing sample; original report measurement is codec-adapter-smoke.jsonl from same product source.
+exit=0
+
+$ git diff --check
+exit=0

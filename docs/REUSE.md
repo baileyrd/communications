@@ -38,3 +38,13 @@ attempt inside `/workspace/reference-main` failed because its root workspace
 manifest listed members not fetched in this partial inspection snapshot; isolated
 copies resolved that tooling issue. MCP, Nexus and database suites were inspected
 but **not run**: their workspace/application graphs were not imported or built.
+
+## #792 decision
+
+The optional fourth rusty_protobuf baseline remains **deferred**. The existing
+pinned source assessment above found manual schema implementation and duplicate/
+unknown-field policy work; importing/adapting it would broaden this bounded
+codec/adapter increment. #792 adds no Rusty Mill path/workspace dependency, copies
+no licensed code and does not change the unresolved owner license choice. Genuine
+CBOR uses exactly pinned Ciborium 0.2.2; text transfer uses base64 0.22.1. Their
+transitive versions/checksums are in Cargo.lock. No new reuse test claim is made.

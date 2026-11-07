@@ -1,0 +1,18 @@
+UTC 2026-11-07T18:48:24.624424+00:00
+$ rustc -Vv
+rustc 1.98.1 (48a229cea 2026-09-01)
+binary: rustc
+commit-hash: 48a229ceaefd4985c50990b14116b6d856af0985
+commit-date: 2026-09-01
+host: x86_64-unknown-linux-gnu
+release: 1.98.1
+LLVM version: 22.1.8
+$ cargo --version
+cargo 1.98.1 (797e8a9bc 2026-08-05)
+$ uname -a
+Linux 72d5ef4043ac 6.18.57 #1 SMP Tue Oct 20 21:56:04 UTC 2026 x86_64 GNU/Linux
+e0f63b24d0233ac79114028bd451cd06fc16d8b84d99c58f53b52951e678da3a  Cargo.lock
+08eeda1f86d3f63483b29e5503923f4ce75812c7abcd9d6709c85e8614e30a06  fixtures/contract.json
+4ecc52e6ee2c4e8dfc3035ee236eb8b1476bbb8b836d834fecb532dac6b37989  fixtures/observation.txt
+d44491054cfde9b52db6c29bba3a8a3b420191b0cea844ef5d5eb777b1644c2a  docs/CONTRACT-SCHEMA.txt
+4d3b558198827c7ebf9afcae6581792b0a18771d9256f9f8ce2e1367b8be8f70  docs/RECORD-SCHEMA.txt

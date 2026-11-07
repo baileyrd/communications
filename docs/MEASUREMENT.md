@@ -1,8 +1,11 @@
 # Measurement architecture and fair comparison
 
-This is a plan for #792–#794; only the offline JSON smoke in `src/main.rs` runs now.
-No model endpoint is configured and no paid calls are authorized. Null means
-not measured, never zero. The hypothesis is not yet tested.
+The bounded #792 smoke in `src/main.rs` runs three codecs and sixteen offline
+adapter/control combinations on the unchanged observation fixture. Five capability
+rows distinguish offline boundaries from unsupported model-native access. #793
+golden cases and #794 model experiments remain planned. No model endpoint is
+configured and no paid calls are authorized. Null means unmeasured, never zero.
+The comprehension/efficiency hypothesis is not tested.
 
 ## Comparison design
 
@@ -46,15 +49,67 @@ overhead and final token usage still count. Mark inaccessible model-native tenso
 or hidden-state interfaces **not testable**. A proxy must be labeled and never
 treated as equivalent access.
 
-## Five future contexts
+## Context boundary and future live experiments
 
 Human↔model uses normal text plus questions; model↔tool uses an actual supported
 tool-call envelope (MCP-style is a context, not automatic endpoint support);
 model↔model holds sender/receiver settings and intermediate payloads fixed;
 model↔retrieval counts retrieval and context assembly; model-native representation
-is not testable without a documented authorized interface. The architecture does
-not claim any of these model experiments have run.
+is not testable without a documented authorized interface. The offline render/parse boundaries and matched controls are documented in
+[wire formats](WIRE-FORMATS.md); none of these model experiments has run.
 
 #793 owns the three initial golden cases, then six, including immutable inputs,
 fact ledgers and question/rubric sets. The checked-in observation is an architecture
 smoke fixture, not that golden suite. #794 owns the actual comparative pilot.
+
+## Delivered #792 local measurements
+
+`cargo run --release --locked > docs/results/codec-adapter-smoke.jsonl` emits three
+codec rows, sixteen adapter rows and five capability rows. The matched source is
+`fixtures/contract.json` and original bytes `fixtures/observation.txt`, preserved
+unchanged from #790/#791. Fixture loading, validation setup and evidence hashing
+happen before all timing. Round-trip equality is asserted outside timing and the
+independent checked-in reference is compared in regression tests. No golden-case
+extraction or live input is measured.
+
+Each operation has 100 untimed warm-up iterations followed by 1,000 timed iterations
+using `Instant` and `black_box`. Results are totals and truncated integer means in
+nanoseconds, not CPU time. Encoding includes validation, sorting/cloning where
+used, all allocations and destruction. Decoding includes parse, allocations,
+contract validation, and destruction. CBOR/CSR decode also includes validated
+re-encoding and byte comparison to enforce the strict local profile. JSON decode
+retains the duplicate-checked value and typed construction cost. No evidence
+hashing, source retrieval, I/O, printing, dependency compilation or model execution
+is inside these spans. Warm-up does not exclude allocator cost from timed work.
+
+Adapter render times the **complete local translation**, including the selected
+codec, validation, full cold schema construction, UTF-8/base64 rendering, JSON
+envelope and drop. Adapter parse includes outer/nested duplicate checks, payload
+transfer decoding, codec decode/validation, full envelope reconstruction/comparison
+and drop. These combined measurements are intentional; they are not disjoint
+additional overhead to add to codec times, nor is subtracting independent means a
+measurement of isolated translation cost. The raw rows name these boundaries.
+
+Payload bytes are counted before transfer. Rendered payload text bytes count UTF-8
+or padded base64 before JSON escaping. Schema text bytes count the exact included
+UTF-8 schema before escaping. Final envelope bytes count **all actual emitted UTF-8
+bytes**, including schemas, version/encoding/transfer metadata, base64, quotes,
+backslashes and nested message escaping. Envelope expansion is final minus raw
+payload, not compression. Schema is repeated in each semantic request; there is
+no cache, amortized result or uncounted external schema. Conventional arms have no
+separate schema; they use an ordinary labelled fact sheet or structured JSON with
+the same vocabulary/facts. The structured conventional payload and semantic JSON
+payload coincide. These controls test structural content parity, not how a model
+would choose to write the facts or how well it comprehends either form.
+
+Only the final **local offline** envelope is measured. An actual provider's system
+prompts, questions, tool definitions/discovery, protocol/session/HTTP envelopes,
+tokenization, retries, inference and responses are unavailable. Their metrics are
+null/unmeasured; no estimate from byte counts is substituted. A future pilot must
+record and compare those real costs, full settings and schema sufficiency.
+
+One warmed process, fixed order, one tiny fixture and one total per operation do
+not supply a confidence interval, comparative performance guarantee, memory/CPU
+measurement or isolated-system assurance. Results can vary with scheduling and
+allocator/cache state. Binary-byte reduction is only a transport observation;
+base64 plus schema can make the final envelope larger than conventional JSON.
