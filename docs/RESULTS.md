@@ -1,4 +1,4 @@
-# Offline architecture smoke result — 2026-11-07
+# Historical #790 offline architecture smoke result — 2026-11-07
 
 The probe succeeds on one synthetic observation with two assertions. This establishes
 an executable architecture boundary and exact structural preservation. It does
@@ -47,3 +47,10 @@ Remote CI is checked separately on the published PR head; local checks alone do
 not establish remote CI success. See Mill Board #790 for current run evidence.
 The [resumed validation log](results/resumed-validation.log) records checks on
 the final source prepared against the actual README baseline.
+
+
+#791 changes validated decode to reject duplicate keys/references and perform
+semantic validation during deserialization. The table above records the original
+#790 decoder and must not be presented as timings for the new decoder. Current
+#791 validation and smoke output are in [contract validation](results/contract-validation.log).
+No comparative performance or semantic-fidelity claim follows from either run.

@@ -1,10 +1,12 @@
-//! Draft semantic architecture probe; not the complete M01 contract or adapter API.
+//! Minimal versioned semantic contract, independent of transport and model adapters.
+mod decode;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, BTreeSet};
 
-#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+pub const SCHEMA_VERSION: &str = "0.1-draft";
+
+#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
 pub struct Contract {
     pub version: String,
     pub entities: BTreeMap<String, Entity>,
@@ -69,7 +71,11 @@ pub enum Object {
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
+#[serde(
+    tag = "kind",
+    rename_all = "snake_case",
+    from = "decode::WireUncertainty"
+)]
 pub enum Uncertainty {
     Unknown,
     /// Source-reported confidence, not a calibrated probability.
@@ -83,6 +89,7 @@ pub enum Uncertainty {
 pub struct Provenance {
     pub asserted_by: String,
     pub method: Method,
+    #[serde(deserialize_with = "decode::unique_references")]
     pub evidence: BTreeSet<String>,
 }
 
@@ -98,9 +105,14 @@ pub enum Method {
 #[serde(deny_unknown_fields)]
 pub struct Times {
     /// UTC epoch milliseconds. null means unknown, not record time.
+    #[serde(deserialize_with = "Option::<i64>::deserialize")]
     pub event_ms: Option<i64>,
     pub record_ms: i64,
     pub interpretation_ms: i64,
+}
+
+fn identifier(value: &str) -> bool {
+    !value.is_empty() && value.trim() == value && !value.chars().any(char::is_control)
 }
 
 fn require(ok: bool, message: String) -> Result<(), String> {
@@ -113,27 +125,37 @@ fn require(ok: bool, message: String) -> Result<(), String> {
 
 impl Contract {
     pub fn validate(&self) -> Result<(), String> {
-        require(self.version == "0.1-draft", "unsupported version".into())?;
+        require(self.version == SCHEMA_VERSION, "unsupported version".into())?;
         require(!self.assertions.is_empty(), "no assertions".into())?;
         for (id, e) in &self.entities {
             require(
-                !id.is_empty() && !e.kind.is_empty(),
-                "empty entity identifier/kind".into(),
+                identifier(id) && identifier(&e.kind),
+                "invalid entity identifier/kind".into(),
             )?;
             require(
                 !["boolean", "text", "integer"].contains(&e.kind.as_str()),
                 "entity kind collides with literal kind".into(),
             )?;
         }
+        let kinds: BTreeSet<_> = self.entities.values().map(|e| e.kind.as_str()).collect();
         for (id, r) in &self.relations {
             require(
-                !id.is_empty() && !r.subject_kind.is_empty() && !r.object_kind.is_empty(),
-                "empty relation field".into(),
+                identifier(id) && identifier(&r.subject_kind) && identifier(&r.object_kind),
+                "invalid relation field".into(),
+            )?;
+            require(
+                kinds.contains(r.subject_kind.as_str()),
+                format!("undeclared subject kind in {id}"),
+            )?;
+            require(
+                kinds.contains(r.object_kind.as_str())
+                    || ["boolean", "text", "integer"].contains(&r.object_kind.as_str()),
+                format!("undeclared object kind in {id}"),
             )?;
         }
         for (id, e) in &self.evidence {
             require(
-                !id.is_empty() && !e.locator.is_empty(),
+                identifier(id) && !e.locator.trim().is_empty(),
                 "empty evidence identifier/locator".into(),
             )?;
             require(
@@ -147,7 +169,7 @@ impl Contract {
         let mut ids = BTreeSet::new();
         for a in &self.assertions {
             require(
-                !a.id.is_empty() && ids.insert(&a.id),
+                identifier(&a.id) && ids.insert(&a.id),
                 "duplicate/empty assertion id".into(),
             )?;
             let subject = self.entities.get(&a.subject).ok_or("missing subject")?;
@@ -183,7 +205,22 @@ impl Contract {
         Ok(())
     }
 
-    /// Stable probe encoding: sorted maps, assertion ids, and evidence-reference sets.
+    /// Decode exactly one JSON document and validate before exposing the contract.
+    /// Duplicate object keys and evidence references fail rather than losing data.
+    pub fn from_json(bytes: &[u8]) -> Result<Self, String> {
+        serde_json::from_slice(bytes).map_err(|e| e.to_string())
+    }
+
+    /// Verify caller-supplied original bytes. This never fetches a locator.
+    pub fn verify_evidence(&self, id: &str, bytes: &[u8]) -> Result<(), String> {
+        let evidence = self.evidence.get(id).ok_or("missing evidence")?;
+        require(
+            evidence.matches(bytes),
+            format!("evidence digest mismatch for {id}"),
+        )
+    }
+
+    /// Stable contract encoding: sorted maps, assertion ids, and evidence-reference sets.
     /// This is deliberately not a claim of RFC 8785 or cross-format canonicalization.
     pub fn canonical_json(&self) -> Result<Vec<u8>, String> {
         self.validate()?;
@@ -194,6 +231,6 @@ impl Contract {
 }
 
 pub fn fixture() -> Contract {
-    serde_json::from_str(include_str!("../fixtures/contract.json"))
+    Contract::from_json(include_bytes!("../fixtures/contract.json"))
         .expect("checked-in smoke fixture")
 }
