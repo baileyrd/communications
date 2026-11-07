@@ -45,7 +45,7 @@ pub(crate) fn unique_references<'de, D: Deserializer<'de>>(
     Ok(result)
 }
 
-struct UniqueValue(Value);
+pub(crate) struct UniqueValue(pub(crate) Value);
 
 impl<'de> Deserialize<'de> for UniqueValue {
     fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
@@ -98,6 +98,11 @@ impl<'de> Visitor<'de> for UniqueVisitor {
 
     fn visit_unit<E: de::Error>(self) -> Result<Self::Value, E> {
         Ok(UniqueValue(Value::Null))
+    }
+
+    // CBOR's null enters through visit_none; JSON null uses visit_unit.
+    fn visit_none<E: de::Error>(self) -> Result<Self::Value, E> {
+        self.visit_unit()
     }
 }
 

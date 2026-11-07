@@ -1,4 +1,6 @@
 //! Minimal versioned semantic contract, independent of transport and model adapters.
+pub mod adapter;
+pub mod codec;
 mod decode;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
