@@ -1,10 +1,11 @@
 # M01 semantic contract and offline codecs/adapters — #791/#792
 
-Status: #790 (PR #2) and #791 (PR #3) are merged; verified base for #792 is
-`f6cbefffdcfe43efb81748e0c29233b63aea9dcc`. One independent crate and the original
-smoke fixture now exercise JSON, CBOR, custom typed records and four offline
-context boundaries. The vocabulary remains `0.1-draft`, not a production standard.
-Independent exact-head review, required CI and merge of #792 remain coordinator gates.
+Status: #790–#792 are merged. Verified #793 base main is
+`50a4621d2683856287cf0052d41fb0a01356c5fb` (PR #4; tree
+`c611cb633abc6d58617f6ea73015f0797b40d945`). #793 adds a bounded offline
+[golden harness](GOLDEN-HARNESS.md) in this same independent crate. The vocabulary
+remains `0.1-draft`, not a production standard. Independent review and CI for
+this implementation remain coordinator gates.
 
 The experiment asks whether a shared semantic contract can carry matched facts
 across mechanisms with less total cost and equal understanding. A smaller binary
@@ -102,6 +103,13 @@ to 4 MiB. CSR/1 also caps strings/counts; CBOR caps recursion at 32. These bound
 do not turn the experiment into a hardened public endpoint. Adapter parsing
 requires exact local renderer output; protocol interoperability is untested.
 
-Golden cases (#793), extraction and semantic fidelity/efficiency evaluation/model
-pilot (#794) remain downstream. Exact structural round-trip preservation does not
-establish model understanding or efficiency.
+`src/golden.rs` loads six pinned synthetic sources, independently authored
+entity/relation/fact ledgers and expected answers, checks separate manual contract
+extractions, and scores exact structured responses. `src/harness.rs` builds matched
+requests, times local operations and imports replay/telemetry without a network
+client. Core contract types do not depend on these runner types. See the
+[fixture/scoring boundaries](GOLDEN-HARNESS.md). The smoke remains unchanged.
+
+Automated extraction, actual model comprehension/application and comparative
+inference efficiency (#794) remain untested. Exact structural round trips and
+perfect synthetic scorer controls do not establish model understanding.

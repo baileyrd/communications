@@ -1,0 +1,4 @@
+Fixture ordering. All times are UTC epoch milliseconds. Local entities: pump=pump, sensor=device. Relations running: pump -> boolean; count: pump -> integer.
+Sensor observes running=false, confidence 1000 permille, event 9000, record 12000, interpretation 13000 (assertion t1).
+Sensor reports count=7, confidence 600 permille, event 8000, record 12500, interpretation 13500 (assertion t2).
+Both cite original evidence e1 at fixture:golden/ordering.txt. Later recording does not mean later event.

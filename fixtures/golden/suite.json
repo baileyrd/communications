@@ -1,0 +1,420 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "conflict",
+      "source_sha256": "cb07f9ddf8e78be936c064441135c897c6c975793db48df0dc80dee101e6aa5d",
+      "facts": [
+        {
+          "id": "c1",
+          "subject": "gate",
+          "relation": "open",
+          "value": {
+            "type": "boolean",
+            "value": true
+          },
+          "by": "alice",
+          "method": "reported",
+          "evidence": [
+            "e1"
+          ],
+          "event_ms": 1000,
+          "recorded_ms": 2000,
+          "interpreted_ms": 3000,
+          "confidence_permille": 800
+        },
+        {
+          "id": "c2",
+          "subject": "gate",
+          "relation": "open",
+          "value": {
+            "type": "boolean",
+            "value": false
+          },
+          "by": "bob",
+          "method": "reported",
+          "evidence": [
+            "e1"
+          ],
+          "event_ms": 1000,
+          "recorded_ms": 2500,
+          "interpreted_ms": 3100,
+          "confidence_permille": null
+        }
+      ],
+      "questions": [
+        {
+          "id": "c",
+          "task": "comprehension",
+          "prompt": "Who reports open=true? Return entity id.",
+          "expected": "alice"
+        },
+        {
+          "id": "a",
+          "task": "application",
+          "prompt": "May these reports be resolved to a certain physical state? Return boolean.",
+          "expected": false
+        }
+      ],
+      "entity_kinds": {
+        "gate": "gate",
+        "alice": "person",
+        "bob": "person"
+      },
+      "relation_kinds": {
+        "open": [
+          "gate",
+          "boolean"
+        ]
+      }
+    },
+    {
+      "id": "unknown",
+      "source_sha256": "71731c7a3a7284278af9500de5523739e2e894c55f8ae88fde3cc92dbdbf4e02",
+      "facts": [
+        {
+          "id": "u1",
+          "subject": "parcel",
+          "relation": "destination",
+          "value": {
+            "type": "text",
+            "value": "unknown"
+          },
+          "by": "clerk",
+          "method": "reported",
+          "evidence": [
+            "e1"
+          ],
+          "event_ms": null,
+          "recorded_ms": 4000,
+          "interpreted_ms": 5000,
+          "confidence_permille": null
+        },
+        {
+          "id": "u2",
+          "subject": "parcel",
+          "relation": "sealed",
+          "value": {
+            "type": "boolean",
+            "value": true
+          },
+          "by": "clerk",
+          "method": "observed",
+          "evidence": [
+            "e1"
+          ],
+          "event_ms": 3500,
+          "recorded_ms": 4001,
+          "interpreted_ms": 5001,
+          "confidence_permille": 1000
+        }
+      ],
+      "questions": [
+        {
+          "id": "c",
+          "task": "comprehension",
+          "prompt": "What event time is known for destination? Return integer or null.",
+          "expected": null
+        },
+        {
+          "id": "a",
+          "task": "application",
+          "prompt": "Can a delivery time be scheduled from supplied facts alone? Return boolean.",
+          "expected": false
+        }
+      ],
+      "entity_kinds": {
+        "parcel": "parcel",
+        "clerk": "person"
+      },
+      "relation_kinds": {
+        "destination": [
+          "parcel",
+          "text"
+        ],
+        "sealed": [
+          "parcel",
+          "boolean"
+        ]
+      }
+    },
+    {
+      "id": "ordering",
+      "source_sha256": "c308ca5d516a2b3dbf39cff47d882ec00d0126248885daf87666feecc2fdaf3c",
+      "facts": [
+        {
+          "id": "t1",
+          "subject": "pump",
+          "relation": "running",
+          "value": {
+            "type": "boolean",
+            "value": false
+          },
+          "by": "sensor",
+          "method": "observed",
+          "evidence": [
+            "e1"
+          ],
+          "event_ms": 9000,
+          "recorded_ms": 12000,
+          "interpreted_ms": 13000,
+          "confidence_permille": 1000
+        },
+        {
+          "id": "t2",
+          "subject": "pump",
+          "relation": "count",
+          "value": {
+            "type": "integer",
+            "value": 7
+          },
+          "by": "sensor",
+          "method": "reported",
+          "evidence": [
+            "e1"
+          ],
+          "event_ms": 8000,
+          "recorded_ms": 12500,
+          "interpreted_ms": 13500,
+          "confidence_permille": 600
+        }
+      ],
+      "questions": [
+        {
+          "id": "c",
+          "task": "comprehension",
+          "prompt": "Which assertion has the later event? Return assertion id.",
+          "expected": "t1"
+        },
+        {
+          "id": "a",
+          "task": "application",
+          "prompt": "If count must have event >=8500 for use, is reported count eligible? Return boolean.",
+          "expected": false
+        }
+      ],
+      "entity_kinds": {
+        "pump": "pump",
+        "sensor": "device"
+      },
+      "relation_kinds": {
+        "running": [
+          "pump",
+          "boolean"
+        ],
+        "count": [
+          "pump",
+          "integer"
+        ]
+      }
+    },
+    {
+      "id": "provenance",
+      "source_sha256": "ad98e8fed764d9d9c9808233543bb039cab4e91fbabdd4fd47c44ff55571cbbc",
+      "facts": [
+        {
+          "id": "p1",
+          "subject": "sample",
+          "relation": "label",
+          "value": {
+            "type": "text",
+            "value": "pass"
+          },
+          "by": "lab",
+          "method": "reported",
+          "evidence": [
+            "e1"
+          ],
+          "event_ms": 10,
+          "recorded_ms": 20,
+          "interpreted_ms": 30,
+          "confidence_permille": 900
+        },
+        {
+          "id": "p2",
+          "subject": "sample",
+          "relation": "label",
+          "value": {
+            "type": "text",
+            "value": "recheck"
+          },
+          "by": "analyst",
+          "method": "inferred",
+          "evidence": [
+            "e1"
+          ],
+          "event_ms": null,
+          "recorded_ms": 21,
+          "interpreted_ms": 31,
+          "confidence_permille": 400
+        }
+      ],
+      "questions": [
+        {
+          "id": "c",
+          "task": "comprehension",
+          "prompt": "Who inferred recheck? Return entity id.",
+          "expected": "analyst"
+        },
+        {
+          "id": "a",
+          "task": "application",
+          "prompt": "If only lab reports qualify, which assertion qualifies? Return assertion id.",
+          "expected": "p1"
+        }
+      ],
+      "entity_kinds": {
+        "sample": "sample",
+        "lab": "organization",
+        "analyst": "person"
+      },
+      "relation_kinds": {
+        "label": [
+          "sample",
+          "text"
+        ]
+      }
+    },
+    {
+      "id": "relocation",
+      "source_sha256": "23e042976b972484853322f84692d025d6c664f7b9e5ad68f3db98d978d597aa",
+      "facts": [
+        {
+          "id": "r1",
+          "subject": "crate",
+          "relation": "located_in",
+          "value": {
+            "type": "entity",
+            "value": "north"
+          },
+          "by": "mover",
+          "method": "observed",
+          "evidence": [
+            "e1"
+          ],
+          "event_ms": 100,
+          "recorded_ms": 300,
+          "interpreted_ms": 400,
+          "confidence_permille": 1000
+        },
+        {
+          "id": "r2",
+          "subject": "crate",
+          "relation": "located_in",
+          "value": {
+            "type": "entity",
+            "value": "south"
+          },
+          "by": "mover",
+          "method": "observed",
+          "evidence": [
+            "e1"
+          ],
+          "event_ms": 200,
+          "recorded_ms": 250,
+          "interpreted_ms": 401,
+          "confidence_permille": 1000
+        }
+      ],
+      "questions": [
+        {
+          "id": "c",
+          "task": "comprehension",
+          "prompt": "Where was crate at event 200? Return room id.",
+          "expected": "south"
+        },
+        {
+          "id": "a",
+          "task": "application",
+          "prompt": "For sorting by event ascending, return assertion ids in order.",
+          "expected": [
+            "r1",
+            "r2"
+          ]
+        }
+      ],
+      "entity_kinds": {
+        "crate": "crate",
+        "north": "room",
+        "south": "room",
+        "mover": "person"
+      },
+      "relation_kinds": {
+        "located_in": [
+          "crate",
+          "room"
+        ]
+      }
+    },
+    {
+      "id": "quoted",
+      "source_sha256": "1d7f38480f9f44e1f9d9c728dd0d2a9ece4320d367abfb5803dde2fe77b4bf36",
+      "facts": [
+        {
+          "id": "q1",
+          "subject": "sign",
+          "relation": "text",
+          "value": {
+            "type": "text",
+            "value": "café \"A\"\nclosed"
+          },
+          "by": "reader",
+          "method": "reported",
+          "evidence": [
+            "e1"
+          ],
+          "event_ms": null,
+          "recorded_ms": -10,
+          "interpreted_ms": 0,
+          "confidence_permille": null
+        },
+        {
+          "id": "q2",
+          "subject": "sign",
+          "relation": "lit",
+          "value": {
+            "type": "boolean",
+            "value": false
+          },
+          "by": "reader",
+          "method": "observed",
+          "evidence": [
+            "e1"
+          ],
+          "event_ms": -20,
+          "recorded_ms": -9,
+          "interpreted_ms": 1,
+          "confidence_permille": 0
+        }
+      ],
+      "questions": [
+        {
+          "id": "c",
+          "task": "comprehension",
+          "prompt": "Return the exact reported sign text.",
+          "expected": "café \"A\"\nclosed"
+        },
+        {
+          "id": "a",
+          "task": "application",
+          "prompt": "Does lit have unknown confidence? Return boolean.",
+          "expected": false
+        }
+      ],
+      "entity_kinds": {
+        "sign": "sign",
+        "reader": "person"
+      },
+      "relation_kinds": {
+        "text": [
+          "sign",
+          "text"
+        ],
+        "lit": [
+          "sign",
+          "boolean"
+        ]
+      }
+    }
+  ]
+}

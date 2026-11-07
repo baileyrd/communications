@@ -1,0 +1,78 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "sign": {
+      "kind": "sign"
+    },
+    "reader": {
+      "kind": "person"
+    }
+  },
+  "relations": {
+    "text": {
+      "subject_kind": "sign",
+      "object_kind": "text"
+    },
+    "lit": {
+      "subject_kind": "sign",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "1d7f38480f9f44e1f9d9c728dd0d2a9ece4320d367abfb5803dde2fe77b4bf36",
+      "locator": "fixture:golden/quoted.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "q1",
+      "subject": "sign",
+      "predicate": "text",
+      "object": {
+        "type": "text",
+        "value": "café \"A\"\nclosed"
+      },
+      "uncertainty": {
+        "kind": "unknown"
+      },
+      "provenance": {
+        "asserted_by": "reader",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": null,
+        "record_ms": -10,
+        "interpretation_ms": 0
+      }
+    },
+    {
+      "id": "q2",
+      "subject": "sign",
+      "predicate": "lit",
+      "object": {
+        "type": "boolean",
+        "value": false
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 0
+      },
+      "provenance": {
+        "asserted_by": "reader",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": -20,
+        "record_ms": -9,
+        "interpretation_ms": 1
+      }
+    }
+  ]
+}

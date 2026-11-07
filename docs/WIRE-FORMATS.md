@@ -114,3 +114,13 @@ bounded at 4 MiB. There is no live protocol handshake, discovery/tool-definition
 exchange, query, evidence fetch, binary attachment, agent messaging or hidden-state
 access. Outside-probe protocol overhead remains unmeasured. Base64 bytes are not
 zero tokens, and a round trip in Rust does not prove a model can decode a packet.
+
+
+## #793 golden requests
+
+The codec and adapter profiles above are unchanged. The [golden runner](GOLDEN-HARNESS.md)
+wraps each complete offline context envelope with common instructions,
+comprehension/application questions and a strict reconstruction/answer schema.
+Final local request bytes include this entire wrapper, all escaping and binary
+base64. The same six pinned reference cases run through all sixteen combinations.
+No protocol/provider equivalence or live transport is added.

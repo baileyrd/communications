@@ -3,8 +3,8 @@
 The bounded #792 smoke in `src/main.rs` runs three codecs and sixteen offline
 adapter/control combinations on the unchanged observation fixture. Five capability
 rows distinguish offline boundaries from unsupported model-native access. #793
-golden cases and #794 model experiments remain planned. No model endpoint is
-configured and no paid calls are authorized. Null means unmeasured, never zero.
+now adds the [golden harness](GOLDEN-HARNESS.md); #794 model experiments remain
+planned. No model endpoint is configured and no paid calls are authorized. Null means unmeasured, never zero.
 The comprehension/efficiency hypothesis is not tested.
 
 ## Comparison design
@@ -58,9 +58,13 @@ model↔retrieval counts retrieval and context assembly; model-native representa
 is not testable without a documented authorized interface. The offline render/parse boundaries and matched controls are documented in
 [wire formats](WIRE-FORMATS.md); none of these model experiments has run.
 
-#793 owns the three initial golden cases, then six, including immutable inputs,
-fact ledgers and question/rubric sets. The checked-in observation is an architecture
-smoke fixture, not that golden suite. #794 owns the actual comparative pilot.
+#793 delivers three initial golden cases expanded to six with immutable sources,
+separate reference ledgers and structured reconstruction/question rubrics. The
+original observation remains a separate architecture smoke fixture. #794 owns the
+actual comparative pilot. See [golden measurement/import boundaries](GOLDEN-HARNESS.md)
+for final requests with common questions/output schema, named overlapping local
+timing spans, caller-attested telemetry and exact scoring limits. Local runs have
+null model scores; only explicitly tagged synthetic replay has scorer controls.
 
 ## Delivered #792 local measurements
 

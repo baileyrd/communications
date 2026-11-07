@@ -23,6 +23,11 @@ fn time<T>(mut operation: impl FnMut() -> Result<T, String>) -> Result<u128, Str
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let args: Vec<String> = std::env::args().skip(1).collect();
+    if !args.is_empty() {
+        communications_probe::harness::cli(&args)?;
+        return Ok(());
+    }
     let c = fixture();
     c.validate()?;
     c.verify_evidence("e1", include_bytes!("../fixtures/observation.txt"))?;

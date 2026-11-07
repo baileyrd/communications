@@ -1,0 +1,78 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "sample": {
+      "kind": "sample"
+    },
+    "lab": {
+      "kind": "organization"
+    },
+    "analyst": {
+      "kind": "person"
+    }
+  },
+  "relations": {
+    "label": {
+      "subject_kind": "sample",
+      "object_kind": "text"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "ad98e8fed764d9d9c9808233543bb039cab4e91fbabdd4fd47c44ff55571cbbc",
+      "locator": "fixture:golden/provenance.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "p1",
+      "subject": "sample",
+      "predicate": "label",
+      "object": {
+        "type": "text",
+        "value": "pass"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 900
+      },
+      "provenance": {
+        "asserted_by": "lab",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "p2",
+      "subject": "sample",
+      "predicate": "label",
+      "object": {
+        "type": "text",
+        "value": "recheck"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 400
+      },
+      "provenance": {
+        "asserted_by": "analyst",
+        "method": "inferred",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": null,
+        "record_ms": 21,
+        "interpretation_ms": 31
+      }
+    }
+  ]
+}

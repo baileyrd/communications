@@ -1,0 +1,79 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "pump": {
+      "kind": "pump"
+    },
+    "sensor": {
+      "kind": "device"
+    }
+  },
+  "relations": {
+    "running": {
+      "subject_kind": "pump",
+      "object_kind": "boolean"
+    },
+    "count": {
+      "subject_kind": "pump",
+      "object_kind": "integer"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "c308ca5d516a2b3dbf39cff47d882ec00d0126248885daf87666feecc2fdaf3c",
+      "locator": "fixture:golden/ordering.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "t1",
+      "subject": "pump",
+      "predicate": "running",
+      "object": {
+        "type": "boolean",
+        "value": false
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "sensor",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 9000,
+        "record_ms": 12000,
+        "interpretation_ms": 13000
+      }
+    },
+    {
+      "id": "t2",
+      "subject": "pump",
+      "predicate": "count",
+      "object": {
+        "type": "integer",
+        "value": 7
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 600
+      },
+      "provenance": {
+        "asserted_by": "sensor",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 8000,
+        "record_ms": 12500,
+        "interpretation_ms": 13500
+      }
+    }
+  ]
+}

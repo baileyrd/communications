@@ -1,0 +1,77 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "gate": {
+      "kind": "gate"
+    },
+    "alice": {
+      "kind": "person"
+    },
+    "bob": {
+      "kind": "person"
+    }
+  },
+  "relations": {
+    "open": {
+      "subject_kind": "gate",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "cb07f9ddf8e78be936c064441135c897c6c975793db48df0dc80dee101e6aa5d",
+      "locator": "fixture:golden/conflict.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "c1",
+      "subject": "gate",
+      "predicate": "open",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 800
+      },
+      "provenance": {
+        "asserted_by": "alice",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 1000,
+        "record_ms": 2000,
+        "interpretation_ms": 3000
+      }
+    },
+    {
+      "id": "c2",
+      "subject": "gate",
+      "predicate": "open",
+      "object": {
+        "type": "boolean",
+        "value": false
+      },
+      "uncertainty": {
+        "kind": "unknown"
+      },
+      "provenance": {
+        "asserted_by": "bob",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 1000,
+        "record_ms": 2500,
+        "interpretation_ms": 3100
+      }
+    }
+  ]
+}
