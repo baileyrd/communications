@@ -1,0 +1,7 @@
+Authored synthetic scenario conflict-zero-confidence. Opposed text reports at an unknown event retain zero and unknown confidence.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"a": "agent", "b": "agent", "sample": "item"}.
+Relation catalogue: {"label": ["item", "text"]}.
+f1: a (reported) states sample label = {"type": "text", "value": "pass"}; event null, record 20, interpretation 30, confidence permille 0; cites e1.
+f2: b (reported) states sample label = {"type": "text", "value": "fail"}; event null, record 20, interpretation 30, confidence permille null; cites e1.
+Original e1 is this complete report, locator fixture:golden/conflict-zero-confidence.txt. No other facts or causal rules are supplied.

@@ -1,0 +1,7 @@
+Authored synthetic scenario same-event-dispute. Same event with opposite booleans and equal confidence; neither reporter wins.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"a": "agent", "b": "agent", "door": "item"}.
+Relation catalogue: {"open": ["item", "boolean"]}.
+f1: a (reported) states door open = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille 700; cites e1.
+f2: b (reported) states door open = {"type": "boolean", "value": false}; event 10, record 20, interpretation 30, confidence permille 700; cites e1.
+Original e1 is this complete report, locator fixture:golden/same-event-dispute.txt. No other facts or causal rules are supplied.

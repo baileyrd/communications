@@ -136,3 +136,16 @@ coverage and byte/timing/null arithmetic. Summary distributions describe batch
 means, n=5 per combination and n=120 heterogeneous pooled batches per arm, not
 independent inner iterations; P95 uses nearest rank. No confidence intervals or
 CPU/model/end-to-end interpretations are supplied. See [report/artifacts](PILOT.md).
+
+## #795 60-case extension
+
+[Expanded benchmark](EXPANDED-BENCHMARK.md) fixes 960 matched cells and five serial
+fresh-child batch samples per cell (4,800 attempts, seed795). Per-cell distributions
+preserve case/context heterogeneity; the separate pooled arm summary is descriptive.
+Inner 20-operation loops are not independent samples. Five batches support local
+variability description, not stable tails, population confidence or real-model
+significance. All prior timing boundaries/null rules remain. No model interface,
+cross-model interoperability, MCP session or retrieval experiment is inferred from
+local envelopes. Native hidden-state access is explicitly unsupported. References
+and expected answers originate outside tested renderers; synthetic common-author
+transcription remains a limit requiring independent technical review.

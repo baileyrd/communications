@@ -1,0 +1,78 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "door": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "locked": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    },
+    "label": {
+      "subject_kind": "item",
+      "object_kind": "text"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "f2e3c3634b7c0685886053341a5c53f59f456135c11b605436c4cbac639b22e0",
+      "locator": "fixture:golden/unknown-confidence-observation.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "door",
+      "predicate": "locked",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "unknown"
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "door",
+      "predicate": "label",
+      "object": {
+        "type": "text",
+        "value": "secure"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 800
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

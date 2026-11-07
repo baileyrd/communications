@@ -222,7 +222,7 @@ fn base(
     Ok(Row {
         version:golden::VERSION, harness_version:env!("CARGO_PKG_VERSION").into(), mode:mode.into(), trial_id,
         case_id:case.reference.id.clone(), context:ctx.into(), arm:arm_name.into(),
-        suite_sha256:golden::digest(golden::SUITE_BYTES), source_sha256:case.reference.source_sha256.clone(),
+        suite_sha256:case.suite_sha256.clone(), source_sha256:case.reference.source_sha256.clone(),
         contract_sha256:case.contract_sha256.clone(), cargo_lock_sha256:golden::digest(include_bytes!("../Cargo.lock")),
         response_schema_sha256:golden::digest(golden::RESPONSE_SCHEMA.as_bytes()), instructions_sha256:golden::digest(golden::INSTRUCTIONS.as_bytes()),
         request_sha256:golden::digest(&final_request), response_sha256:None,
@@ -288,13 +288,16 @@ pub fn run_trial(
 }
 
 pub fn replay(input: &str) -> Result<Vec<Row>, String> {
+    replay_cases(input, &golden::load()?)
+}
+
+fn replay_cases(input: &str, cases: &[LoadedCase]) -> Result<Vec<Row>, String> {
     if input.is_empty() {
         return Err("replay contains no trials".into());
     }
     if input.len() as u64 > MAX_IMPORT_BYTES {
         return Err("replay exceeds 16 MiB".into());
     }
-    let cases = golden::load()?;
     let mut ids = std::collections::BTreeSet::new();
     input
         .lines()
@@ -414,6 +417,9 @@ fn save(rows: &[Row], jsonl: &str, csv: &str) -> Result<(), String> {
 pub const HELP: &str = "Usage: communications-probe [golden check [--initial] | golden run JSONL CSV [--initial] | golden request CASE CONTEXT ARM | golden replay INPUT_JSONL OUTPUT_JSONL OUTPUT_CSV | golden trial CASE CONTEXT ARM TRIAL_ID | golden sample]\nNo arguments: unchanged #792 smoke. Context: human_model|model_tool|model_model|model_data. Arm: conventional|json|cbor|records. sample prints one explicitly synthetic perfect replay record. No live/model calls.";
 pub fn cli(args: &[String]) -> Result<(), String> {
     let arg: Vec<&str> = args.iter().map(String::as_str).collect();
+    if arg.first() == Some(&"expanded") {
+        return expanded_cli(&arg[1..]);
+    }
     match arg.as_slice() {
         ["golden", "check"] | ["golden", "check", "--initial"] => {
             let cases = golden::load()?;
@@ -492,5 +498,43 @@ pub fn cli(args: &[String]) -> Result<(), String> {
             Ok(())
         }
         _ => Err(HELP.into()),
+    }
+}
+
+/// Reuses the golden requests, timing and import boundaries with a distinct pinned suite.
+fn expanded_cli(args: &[&str]) -> Result<(), String> {
+    let cases = golden::load_expanded()?;
+    match args {
+        ["check"] => {
+            for case in cases {
+                println!("{}", json!({"case":case.reference.id,"source_sha256":case.reference.source_sha256,
+                    "contract_sha256":case.contract_sha256,"suite_sha256":case.suite_sha256,"ledger_verified":true}));
+            }
+            Ok(())
+        }
+        ["capabilities"] => {
+            for ctx in Context::OFFLINE.into_iter().chain([Context::ModelNative]) {
+                println!("{}", serde_json::to_string(&ctx.capability()).map_err(|e| e.to_string())?);
+            }
+            Ok(())
+        }
+        ["request", id, ctx, arm] | ["trial", id, ctx, arm, _] => {
+            use std::io::Write;
+            let case = cases.iter().find(|c| c.reference.id == *id).ok_or("unknown expanded case")?;
+            if args[0] == "request" {
+                std::io::stdout().write_all(&request(case, ctx, arm)?).map_err(|e| e.to_string())
+            } else {
+                let row = run_trial(case, ctx, arm, args[4].into())?;
+                println!("{}", serde_json::to_string(&row).map_err(|e| e.to_string())?);
+                Ok(())
+            }
+        }
+        ["replay", input, j, c] => {
+            if Path::new(input) == Path::new(j) || Path::new(input) == Path::new(c) {
+                return Err("do not overwrite replay input".into());
+            }
+            save(&replay_cases(&read_bounded(input)?, &cases)?, j, c)
+        }
+        _ => Err("Usage: communications-probe expanded check|capabilities|request CASE CONTEXT ARM|trial CASE CONTEXT ARM TRIAL_ID|replay INPUT JSONL CSV".into()),
     }
 }

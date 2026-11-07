@@ -1,0 +1,85 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "箱": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    },
+    "北": {
+      "kind": "item"
+    },
+    "記録者": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "位置": {
+      "subject_kind": "item",
+      "object_kind": "item"
+    },
+    "sealed": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "6ff2e1ca24dda528202aad909fa98ee490d976b9d6b8c6d9aef9be986f1bbc97",
+      "locator": "fixture:golden/unicode-identifiers.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "箱",
+      "predicate": "位置",
+      "object": {
+        "type": "entity",
+        "value": "北"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "箱",
+      "predicate": "sealed",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "記録者",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

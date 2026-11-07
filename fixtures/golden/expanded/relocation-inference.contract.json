@@ -1,0 +1,81 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "crate": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    },
+    "dock": {
+      "kind": "item"
+    },
+    "truck": {
+      "kind": "item"
+    }
+  },
+  "relations": {
+    "at": {
+      "subject_kind": "item",
+      "object_kind": "item"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "9e8450ed9a5cdac6d5511b6a00fef8de4a3bcab1c356b62b384e1303c6f07b70",
+      "locator": "fixture:golden/relocation-inference.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "crate",
+      "predicate": "at",
+      "object": {
+        "type": "entity",
+        "value": "dock"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "crate",
+      "predicate": "at",
+      "object": {
+        "type": "entity",
+        "value": "truck"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 500
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "inferred",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 20,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

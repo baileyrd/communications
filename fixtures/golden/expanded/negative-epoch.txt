@@ -1,0 +1,7 @@
+Authored synthetic scenario negative-epoch. Pre-epoch events and later records retain signed times.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"archive": "item", "observer": "agent"}.
+Relation catalogue: {"count": ["item", "integer"], "sealed": ["item", "boolean"]}.
+f1: observer (observed) states archive count = {"type": "integer", "value": 2}; event -300, record -200, interpretation -100, confidence permille 1000; cites e1.
+f2: observer (observed) states archive sealed = {"type": "boolean", "value": true}; event -250, record -190, interpretation 0, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/negative-epoch.txt. No other facts or causal rules are supplied.

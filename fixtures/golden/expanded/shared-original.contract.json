@@ -1,0 +1,111 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "parcel": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    },
+    "dock": {
+      "kind": "item"
+    }
+  },
+  "relations": {
+    "at": {
+      "subject_kind": "item",
+      "object_kind": "item"
+    },
+    "mass": {
+      "subject_kind": "item",
+      "object_kind": "integer"
+    },
+    "sealed": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "6127d1ec5ff7298451119eb379d0e6ac95eedcf82e2ea7fcc25e2f08816079ae",
+      "locator": "fixture:golden/shared-original.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "parcel",
+      "predicate": "at",
+      "object": {
+        "type": "entity",
+        "value": "dock"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "parcel",
+      "predicate": "mass",
+      "object": {
+        "type": "integer",
+        "value": 7
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f3",
+      "subject": "parcel",
+      "predicate": "sealed",
+      "object": {
+        "type": "boolean",
+        "value": false
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "inferred",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": null,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

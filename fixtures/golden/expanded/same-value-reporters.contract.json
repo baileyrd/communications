@@ -1,0 +1,78 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "battery": {
+      "kind": "item"
+    },
+    "a": {
+      "kind": "agent"
+    },
+    "b": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "count": {
+      "subject_kind": "item",
+      "object_kind": "integer"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "baf68ac3268d5d0d618e9d25079b99db30d81c1d2668e3828f838442db07b6b7",
+      "locator": "fixture:golden/same-value-reporters.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "battery",
+      "predicate": "count",
+      "object": {
+        "type": "integer",
+        "value": 2
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "a",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "battery",
+      "predicate": "count",
+      "object": {
+        "type": "integer",
+        "value": 2
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "b",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

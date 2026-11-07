@@ -1,0 +1,7 @@
+Authored synthetic scenario inferred-certainty. Even maximum confidence inference remains inferred attribution.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"board": "item", "observer": "agent"}.
+Relation catalogue: {"safe": ["item", "boolean"], "tested": ["item", "boolean"]}.
+f1: observer (inferred) states board safe = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: observer (observed) states board tested = {"type": "boolean", "value": false}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/inferred-certainty.txt. No other facts or causal rules are supplied.

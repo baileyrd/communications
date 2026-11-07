@@ -1,0 +1,78 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "meter": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    },
+    "offset": {
+      "kind": "item"
+    }
+  },
+  "relations": {
+    "count": {
+      "subject_kind": "item",
+      "object_kind": "integer"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "a2f8162b0bffd851907359b6ec59b3f79157dd042fc6aac26eb677a1df31f7e8",
+      "locator": "fixture:golden/zero-negative.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "meter",
+      "predicate": "count",
+      "object": {
+        "type": "integer",
+        "value": 0
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "offset",
+      "predicate": "count",
+      "object": {
+        "type": "integer",
+        "value": -1
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 0
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

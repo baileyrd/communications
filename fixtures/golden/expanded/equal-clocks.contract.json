@@ -1,0 +1,79 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "relay": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "ready": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    },
+    "label": {
+      "subject_kind": "item",
+      "object_kind": "text"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "76e85a05c1f789b1d3e8156e922abd296be03a3c005c45e4e1b84f255f149d91",
+      "locator": "fixture:golden/equal-clocks.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "relay",
+      "predicate": "ready",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 0,
+        "record_ms": 0,
+        "interpretation_ms": 0
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "relay",
+      "predicate": "label",
+      "object": {
+        "type": "text",
+        "value": "epoch"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 0,
+        "record_ms": 0,
+        "interpretation_ms": 0
+      }
+    }
+  ]
+}

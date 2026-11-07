@@ -1,0 +1,81 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "crate": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    },
+    "north": {
+      "kind": "item"
+    },
+    "south": {
+      "kind": "item"
+    }
+  },
+  "relations": {
+    "at": {
+      "subject_kind": "item",
+      "object_kind": "item"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "3de7c5c01d59798a606452b67d565196a0ccbc68c80d85195cb8f582da54c145",
+      "locator": "fixture:golden/one-to-many.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "crate",
+      "predicate": "at",
+      "object": {
+        "type": "entity",
+        "value": "north"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "crate",
+      "predicate": "at",
+      "object": {
+        "type": "entity",
+        "value": "south"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

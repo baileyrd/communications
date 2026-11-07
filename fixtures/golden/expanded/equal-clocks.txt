@@ -1,0 +1,7 @@
+Authored synthetic scenario equal-clocks. Equal event, record and interpretation clocks are allowed.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"observer": "agent", "relay": "item"}.
+Relation catalogue: {"label": ["item", "text"], "ready": ["item", "boolean"]}.
+f1: observer (observed) states relay ready = {"type": "boolean", "value": true}; event 0, record 0, interpretation 0, confidence permille 1000; cites e1.
+f2: observer (observed) states relay label = {"type": "text", "value": "epoch"}; event 0, record 0, interpretation 0, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/equal-clocks.txt. No other facts or causal rules are supplied.

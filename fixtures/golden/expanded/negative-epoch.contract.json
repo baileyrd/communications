@@ -1,0 +1,79 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "archive": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "count": {
+      "subject_kind": "item",
+      "object_kind": "integer"
+    },
+    "sealed": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "fca276fad0d5ead99fd8d2140a7216c4a06ffbaa88a4d3537033a055b643a55c",
+      "locator": "fixture:golden/negative-epoch.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "archive",
+      "predicate": "count",
+      "object": {
+        "type": "integer",
+        "value": 2
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": -300,
+        "record_ms": -200,
+        "interpretation_ms": -100
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "archive",
+      "predicate": "sealed",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": -250,
+        "record_ms": -190,
+        "interpretation_ms": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+Authored synthetic scenario many-to-one. Two subjects can point to one location without conflating subject identities.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"a": "item", "b": "item", "dock": "item", "observer": "agent"}.
+Relation catalogue: {"at": ["item", "item"], "sealed": ["item", "boolean"]}.
+f1: observer (observed) states a at = {"type": "entity", "value": "dock"}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: observer (observed) states b at = {"type": "entity", "value": "dock"}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f3: observer (observed) states a sealed = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/many-to-one.txt. No other facts or causal rules are supplied.

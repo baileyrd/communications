@@ -1,0 +1,82 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "alarm": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    },
+    "door": {
+      "kind": "item"
+    }
+  },
+  "relations": {
+    "on": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    },
+    "open": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "bf910768dd7e431a6dacfce7c5e81fcb12e7371a31d9c27d1af9d06f01303a46",
+      "locator": "fixture:golden/absent-causal-link.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "alarm",
+      "predicate": "on",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 5,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "door",
+      "predicate": "open",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 5,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+Authored synthetic scenario inverted-clocks. Interpretation precedes recording numerically; no ordering constraint is invented.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"observer": "agent", "sensor": "item"}.
+Relation catalogue: {"valid": ["item", "boolean"], "value": ["item", "integer"]}.
+f1: observer (observed) states sensor value = {"type": "integer", "value": 4}; event 30, record 20, interpretation 10, confidence permille 1000; cites e1.
+f2: observer (observed) states sensor valid = {"type": "boolean", "value": true}; event 29, record 21, interpretation 9, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/inverted-clocks.txt. No other facts or causal rules are supplied.

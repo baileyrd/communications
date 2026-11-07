@@ -1,0 +1,8 @@
+Authored synthetic scenario clock-confidence-filter. Time and confidence filters must be combined without filling unknowns.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"a": "item", "b": "item", "c": "item", "observer": "agent"}.
+Relation catalogue: {"ready": ["item", "boolean"]}.
+f1: observer (observed) states a ready = {"type": "boolean", "value": true}; event 50, record 20, interpretation 30, confidence permille 800; cites e1.
+f2: observer (observed) states b ready = {"type": "boolean", "value": true}; event null, record 20, interpretation 30, confidence permille 900; cites e1.
+f3: observer (observed) states c ready = {"type": "boolean", "value": true}; event 60, record 20, interpretation 30, confidence permille null; cites e1.
+Original e1 is this complete report, locator fixture:golden/clock-confidence-filter.txt. No other facts or causal rules are supplied.

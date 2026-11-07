@@ -1,0 +1,7 @@
+Authored synthetic scenario clock-extremes. Extreme signed times remain exact without arithmetic conversion.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"observer": "agent", "record": "item"}.
+Relation catalogue: {"count": ["item", "integer"], "flag": ["item", "boolean"]}.
+f1: observer (observed) states record flag = {"type": "boolean", "value": true}; event -9223372036854775808, record 9223372036854775807, interpretation 0, confidence permille 1000; cites e1.
+f2: observer (observed) states record count = {"type": "integer", "value": 1}; event null, record 0, interpretation -9223372036854775808, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/clock-extremes.txt. No other facts or causal rules are supplied.

@@ -1,0 +1,79 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "observer": {
+      "kind": "item"
+    },
+    "witness": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "awake": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    },
+    "count": {
+      "subject_kind": "item",
+      "object_kind": "integer"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "aee95fe65012c1ce4b89c0841242984b50e66a4d4ec791a0a6be46eba2538061",
+      "locator": "fixture:golden/reporter-is-subject.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "observer",
+      "predicate": "awake",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "observer",
+      "predicate": "count",
+      "object": {
+        "type": "integer",
+        "value": 1
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "witness",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

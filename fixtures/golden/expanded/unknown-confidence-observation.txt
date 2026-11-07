@@ -1,0 +1,7 @@
+Authored synthetic scenario unknown-confidence-observation. An observation can have unknown confidence without losing method.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"door": "item", "observer": "agent"}.
+Relation catalogue: {"label": ["item", "text"], "locked": ["item", "boolean"]}.
+f1: observer (observed) states door locked = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille null; cites e1.
+f2: observer (reported) states door label = {"type": "text", "value": "secure"}; event 10, record 20, interpretation 30, confidence permille 800; cites e1.
+Original e1 is this complete report, locator fixture:golden/unknown-confidence-observation.txt. No other facts or causal rules are supplied.

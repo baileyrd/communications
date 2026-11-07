@@ -1,0 +1,7 @@
+Authored synthetic scenario directional-edge. A directed entity relation cannot be inverted silently.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"a": "item", "b": "item", "observer": "agent"}.
+Relation catalogue: {"active": ["item", "boolean"], "linked_to": ["item", "item"]}.
+f1: observer (observed) states a linked_to = {"type": "entity", "value": "b"}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: observer (observed) states b active = {"type": "boolean", "value": false}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/directional-edge.txt. No other facts or causal rules are supplied.

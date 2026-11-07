@@ -79,10 +79,29 @@ seeded shuffled order. Model scores, tokens, cost and model latency remain null.
 ```sh
 cargo build --release --locked
 python3 scripts/test-offline-pilot.py
-python3 scripts/offline-pilot.py audit docs/results/pilot
+python3 scripts/audit-pinned-pilot.py
 python3 scripts/offline-pilot.py run /tmp/communications-pilot-new
 ```
 
 The new output directory must not exist. `golden trial CASE CONTEXT ARM TRIAL_ID`
 measures one selected observation without a network client. See the report for
 raw exports, joined invariant matrix, failure denominators and timing limits.
+
+
+#795 adds a [60-case offline expansion](docs/EXPANDED-BENCHMARK.md), preserving the
+six-case commands and old evidence. The expanded suite has 134 authored facts and
+120 explicit question rubrics, four matched transports, four local contexts and
+an explicit unsupported native capability. Full #795 cross-model acceptance and
+Issue #1 remain incomplete; no real model call or inference result is claimed.
+
+```sh
+cargo run --release --locked -- expanded check
+cargo run --release --locked -- expanded capabilities
+python3 scripts/test-expanded-pilot.py
+python3 scripts/expanded-pilot.py audit docs/results/expanded
+python3 scripts/audit-pinned-pilot.py
+```
+
+The last command retains #794's exact historical source-hash audit while checking
+its requests with the current binary; see the expanded report for that boundary.
+For a new 60-case repeated run use `python3 scripts/expanded-pilot.py run /tmp/communications-expanded-new`.

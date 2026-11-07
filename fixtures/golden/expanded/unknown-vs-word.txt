@@ -1,0 +1,7 @@
+Authored synthetic scenario unknown-vs-word. The string null is a known text value; the event null is unknown.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"label": "item", "observer": "agent"}.
+Relation catalogue: {"text": ["item", "text"], "valid": ["item", "boolean"]}.
+f1: observer (observed) states label text = {"type": "text", "value": "null"}; event null, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: observer (observed) states label valid = {"type": "boolean", "value": false}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/unknown-vs-word.txt. No other facts or causal rules are supplied.

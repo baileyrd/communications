@@ -1,0 +1,115 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "box": {
+      "kind": "item"
+    },
+    "a": {
+      "kind": "agent"
+    },
+    "east": {
+      "kind": "item"
+    },
+    "b": {
+      "kind": "agent"
+    },
+    "west": {
+      "kind": "item"
+    },
+    "c": {
+      "kind": "agent"
+    },
+    "dock": {
+      "kind": "item"
+    }
+  },
+  "relations": {
+    "at": {
+      "subject_kind": "item",
+      "object_kind": "item"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "3b283d6bd08d18988fbd764177cf1fadb44273a8b9705b17b330105458b116e8",
+      "locator": "fixture:golden/three-way-location.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "box",
+      "predicate": "at",
+      "object": {
+        "type": "entity",
+        "value": "east"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "a",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "box",
+      "predicate": "at",
+      "object": {
+        "type": "entity",
+        "value": "west"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "b",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f3",
+      "subject": "box",
+      "predicate": "at",
+      "object": {
+        "type": "entity",
+        "value": "dock"
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 300
+      },
+      "provenance": {
+        "asserted_by": "c",
+        "method": "inferred",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

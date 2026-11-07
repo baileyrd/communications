@@ -1,0 +1,78 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "valve": {
+      "kind": "item"
+    },
+    "a": {
+      "kind": "agent"
+    },
+    "b": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "open": {
+      "subject_kind": "item",
+      "object_kind": "boolean"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "37c17454d50e400ffd9c83d47a6f1f3ca53e1a428eda883df72a3f0b6bbd5168",
+      "locator": "fixture:golden/high-confidence-conflict.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "valve",
+      "predicate": "open",
+      "object": {
+        "type": "boolean",
+        "value": true
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "a",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "valve",
+      "predicate": "open",
+      "object": {
+        "type": "boolean",
+        "value": false
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1
+      },
+      "provenance": {
+        "asserted_by": "b",
+        "method": "reported",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 10,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

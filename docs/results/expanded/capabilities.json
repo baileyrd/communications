@@ -1,0 +1,32 @@
+[
+  {
+    "context": "human_model",
+    "limitation": "Offline user-message text; no model comprehension measured.",
+    "live_endpoint": false,
+    "offline_roundtrip": true
+  },
+  {
+    "context": "model_tool",
+    "limitation": "Offline tools/call JSON-RPC-shaped envelope; no MCP session, discovery or endpoint.",
+    "live_endpoint": false,
+    "offline_roundtrip": true
+  },
+  {
+    "context": "model_model",
+    "limitation": "Offline sender/receiver message boundary; no agent or model execution.",
+    "live_endpoint": false,
+    "offline_roundtrip": true
+  },
+  {
+    "context": "model_data",
+    "limitation": "Offline retrieved-document envelope; no search, storage or locator retrieval.",
+    "live_endpoint": false,
+    "offline_roundtrip": true
+  },
+  {
+    "context": "model_native",
+    "limitation": "Unsupported/not testable: no authorized documented tensor/hidden-state interface.",
+    "live_endpoint": false,
+    "offline_roundtrip": false
+  }
+]

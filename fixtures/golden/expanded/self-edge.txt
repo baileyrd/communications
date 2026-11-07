@@ -1,0 +1,7 @@
+Authored synthetic scenario self-edge. A self reference is valid and differs from an absent edge to a second item.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"a": "item", "b": "item", "observer": "agent"}.
+Relation catalogue: {"active": ["item", "boolean"], "linked_to": ["item", "item"]}.
+f1: observer (observed) states a linked_to = {"type": "entity", "value": "a"}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: observer (observed) states b active = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/self-edge.txt. No other facts or causal rules are supplied.

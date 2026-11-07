@@ -1,0 +1,8 @@
+Authored synthetic scenario shared-original. Different fact kinds cite the same full report; digest identity is evidence, not truth.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"dock": "item", "observer": "agent", "parcel": "item"}.
+Relation catalogue: {"at": ["item", "item"], "mass": ["item", "integer"], "sealed": ["item", "boolean"]}.
+f1: observer (observed) states parcel at = {"type": "entity", "value": "dock"}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: observer (reported) states parcel mass = {"type": "integer", "value": 7}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f3: observer (inferred) states parcel sealed = {"type": "boolean", "value": false}; event null, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/shared-original.txt. No other facts or causal rules are supplied.

@@ -1,0 +1,7 @@
+Authored synthetic scenario high-confidence-conflict. Maximum reported confidence does not erase a conflicting low-confidence report.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"a": "agent", "b": "agent", "valve": "item"}.
+Relation catalogue: {"open": ["item", "boolean"]}.
+f1: a (reported) states valve open = {"type": "boolean", "value": true}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: b (reported) states valve open = {"type": "boolean", "value": false}; event 10, record 20, interpretation 30, confidence permille 1; cites e1.
+Original e1 is this complete report, locator fixture:golden/high-confidence-conflict.txt. No other facts or causal rules are supplied.

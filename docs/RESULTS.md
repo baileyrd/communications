@@ -1,3 +1,74 @@
+# #795 60-case offline expansion — 2026-11-07
+
+**Full #795 acceptance remains incomplete.** The [expanded benchmark report](EXPANDED-BENCHMARK.md)
+delivers 60 authored synthetic cases (134 facts/120 explicit question rubrics),
+4,800/4,800 successful fresh-child local attempts and zero execution errors.
+Four contexts × conventional/JSON/genuine CBOR/CSR/1 × five batches per cell,
+seed795. All 960 matched cells preserve their complete contracts/ledgers.
+No real or imported model response, MCP session, model exchange, retrieval or
+native-state call ran. Actual accuracy/usage/cost/model latency stay null.
+
+| Arm | Payload bytes, min–max | Complete cold local request bytes, min–max |
+| --- | ---: | ---: |
+| Conventional | 860–2,058 | 2,951–4,542 |
+| JSON | 866–2,058 | 4,652–6,844 |
+| CBOR | 681–1,593 | 4,752–6,041 |
+| CSR/1 | 318–863 | 5,494–6,257 |
+
+For every one of the 240 case/context pairs, all three semantic arms have larger
+complete local requests than their matched conventional control, despite smaller
+CBOR/CSR payloads. These exact counts include common questions/instructions/output
+schema and cold transport schema/base64/escaping. No provider/protocol overhead,
+model tokenization, schema caching or understanding claim follows. Conventional
+human text is a labelled fact sheet; other conventional payloads are structured
+JSON with the same facts. These are authored representation controls, not a
+representative natural-language baseline.
+
+| Arm | Complete request render, pooled batch means: n | Min ns | Median ns | P95 ns | Max ns |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Conventional | 1,200 | 20,049.25 | 32,542.525 | 50,180.6 | 338,086.9 |
+| JSON | 1,200 | 15,526.4 | 21,507.65 | 32,475.45 | 179,896.1 |
+| CBOR | 1,200 | 12,889.45 | 14,999.6 | 23,170.9 | 169,163.45 |
+| CSR/1 | 1,200 | 12,789.25 | 14,946.8 | 22,099.8 | 293,824.9 |
+
+This table pools heterogeneous cases/contexts for descriptive inspection; it is
+not an iid significance comparison. [Per-cell statistics](results/expanded/summary-by-cell.json)
+retain five fresh-child batch observations per cell, not 100 independent inner
+operations. Each has 3 untimed warm-ups and a 20-operation measured batch per named
+span. With n=5, nearest-rank P95 is the maximum; no stable-tail or population
+confidence claim is justified. Shared host/OS caches and fixed operation order
+within each child limit conclusions. Spans overlap and must not be summed or
+converted to CPU/model/end-to-end latency. No performance gate is introduced.
+
+[Raw JSONL](results/expanded/trials.jsonl), [equivalent CSV](results/expanded/trials.csv),
+[lossless invariant matrix](results/expanded/matrix.json), [pre-run plan](results/expanded/plan.json),
+[input/output/environment manifest](results/expanded/manifest.json),
+[per-case source/reference/extraction digests](results/expanded/case-manifest.json),
+[capability matrix](results/expanded/capabilities.json) and
+[validation](results/expanded-validation.log) retain the evidence. The independent
+audit verifies every source/reference/extraction, order/id, matrix/export join,
+request hash/bytes, statistic, failure denominator and null boundary. See the
+[full design, coverage taxonomy, authorship limits and reproduction commands](EXPANDED-BENCHMARK.md).
+
+All 42 prior Rust integration tests and three Python regressions are retained;
+three new Rust tests plus five Python regressions cover expanded loading/scaling,
+selection, capabilities, all structural arms, import compatibility, statistics and
+export/failure accounting. Original six fixtures and smoke/golden/pilot evidence
+remain unchanged. The historical pilot's source-pinned audit runs in its immutable
+input context and regenerates exact requests with the current binary; this avoids
+misrepresenting old timings as measurements of new sources.
+
+Full original-card live interfaces/cross-model interoperability remain untested.
+No authorized provider endpoint, exact model pair or bounded call/budget/data-sharing
+grant is configured; these are the concrete missing prerequisites. Native hidden
+states are unsupported. A vector-specific board comment is excluded pending
+verified owner scope. Independent exact-head review/CI and unresolved acceptance
+assessment remain coordinator gates; Issue #1 stays open and #795 is not Done.
+
+The following sections preserve earlier measured checkpoints and limitations.
+
+---
+
 # #794 repeated offline pilot — current result
 
 See the [pilot report](PILOT.md): 480/480 successful local attempts, six cases ×

@@ -9,6 +9,7 @@ use std::collections::{BTreeMap, BTreeSet};
 
 pub const VERSION: u32 = 1;
 pub const SUITE_BYTES: &[u8] = include_bytes!("../fixtures/golden/suite.json");
+pub const EXPANDED_SUITE_BYTES: &[u8] = include_bytes!("../fixtures/golden/expanded-suite.json");
 pub const RESPONSE_SCHEMA: &str = include_str!("../docs/GOLDEN-RESPONSE-SCHEMA.txt");
 pub const INSTRUCTIONS: &str = "Reconstruct every supplied assertion using its original id and exact typed fields. Preserve conflicting reports independently; do not resolve them. Answer the comprehension and application questions using only supplied facts. Use the structured response schema; unknown answers are explicit null. Do not fetch evidence locators. Return one JSON object only.";
 
@@ -113,6 +114,7 @@ pub struct LoadedCase {
     pub reference: Case,
     pub contract: Contract,
     pub contract_sha256: String,
+    pub suite_sha256: String,
     pub source: &'static [u8],
 }
 
@@ -125,6 +127,19 @@ fn files(id: &str) -> Result<(&'static [u8], &'static [u8]), String> {
             )
         };
     }
+    macro_rules! expanded_file {
+        ($id:literal) => {
+            (
+                include_bytes!(concat!("../fixtures/golden/expanded/", $id, ".txt")).as_slice(),
+                include_bytes!(concat!(
+                    "../fixtures/golden/expanded/",
+                    $id,
+                    ".contract.json"
+                ))
+                .as_slice(),
+            )
+        };
+    }
     Ok(match id {
         "conflict" => file!("conflict"),
         "unknown" => file!("unknown"),
@@ -132,12 +147,75 @@ fn files(id: &str) -> Result<(&'static [u8], &'static [u8]), String> {
         "provenance" => file!("provenance"),
         "relocation" => file!("relocation"),
         "quoted" => file!("quoted"),
+        "same-event-dispute" => expanded_file!("same-event-dispute"),
+        "retraction-unlinked" => expanded_file!("retraction-unlinked"),
+        "three-way-location" => expanded_file!("three-way-location"),
+        "count-disagreement" => expanded_file!("count-disagreement"),
+        "empty-vs-missing" => expanded_file!("empty-vs-missing"),
+        "normalization-pair" => expanded_file!("normalization-pair"),
+        "rtl-label" => expanded_file!("rtl-label"),
+        "emoji-sequence" => expanded_file!("emoji-sequence"),
+        "control-text" => expanded_file!("control-text"),
+        "literal-instructions" => expanded_file!("literal-instructions"),
+        "integer-extremes" => expanded_file!("integer-extremes"),
+        "zero-negative" => expanded_file!("zero-negative"),
+        "equal-clocks" => expanded_file!("equal-clocks"),
+        "inverted-clocks" => expanded_file!("inverted-clocks"),
+        "negative-epoch" => expanded_file!("negative-epoch"),
+        "clock-extremes" => expanded_file!("clock-extremes"),
+        "event-tie" => expanded_file!("event-tie"),
+        "unknown-event-sort" => expanded_file!("unknown-event-sort"),
+        "interpretation-revision" => expanded_file!("interpretation-revision"),
+        "late-record-early-event" => expanded_file!("late-record-early-event"),
+        "zero-unknown-certainty" => expanded_file!("zero-unknown-certainty"),
+        "confidence-threshold" => expanded_file!("confidence-threshold"),
+        "high-confidence-conflict" => expanded_file!("high-confidence-conflict"),
+        "inferred-certainty" => expanded_file!("inferred-certainty"),
+        "unknown-confidence-observation" => expanded_file!("unknown-confidence-observation"),
+        "same-value-reporters" => expanded_file!("same-value-reporters"),
+        "method-triad" => expanded_file!("method-triad"),
+        "reporter-is-subject" => expanded_file!("reporter-is-subject"),
+        "shared-original" => expanded_file!("shared-original"),
+        "inference-without-event" => expanded_file!("inference-without-event"),
+        "directional-edge" => expanded_file!("directional-edge"),
+        "self-edge" => expanded_file!("self-edge"),
+        "chain-not-transitive" => expanded_file!("chain-not-transitive"),
+        "cycle" => expanded_file!("cycle"),
+        "one-to-many" => expanded_file!("one-to-many"),
+        "many-to-one" => expanded_file!("many-to-one"),
+        "relation-name-distinction" => expanded_file!("relation-name-distinction"),
+        "absent-causal-link" => expanded_file!("absent-causal-link"),
+        "unknown-vs-word" => expanded_file!("unknown-vs-word"),
+        "boolean-word" => expanded_file!("boolean-word"),
+        "numeric-word" => expanded_file!("numeric-word"),
+        "nonfinite-word" => expanded_file!("nonfinite-word"),
+        "whitespace-label" => expanded_file!("whitespace-label"),
+        "quoted-json" => expanded_file!("quoted-json"),
+        "unicode-identifiers" => expanded_file!("unicode-identifiers"),
+        "long-label" => expanded_file!("long-label"),
+        "clock-confidence-filter" => expanded_file!("clock-confidence-filter"),
+        "provenance-event-filter" => expanded_file!("provenance-event-filter"),
+        "conflict-zero-confidence" => expanded_file!("conflict-zero-confidence"),
+        "relocation-inference" => expanded_file!("relocation-inference"),
+        "boundary-join" => expanded_file!("boundary-join"),
+        "duplicate-content-ids" => expanded_file!("duplicate-content-ids"),
+        "missing-is-not-false" => expanded_file!("missing-is-not-false"),
+        "multifact-decision" => expanded_file!("multifact-decision"),
         _ => return Err("unknown compiled fixture".into()),
     })
 }
 
 pub fn load() -> Result<Vec<LoadedCase>, String> {
-    let suite: Suite = from_json(SUITE_BYTES)?;
+    load_suite(SUITE_BYTES)
+}
+
+/// The six originals plus 54 authored cases. Original commands retain six-case behavior.
+pub fn load_expanded() -> Result<Vec<LoadedCase>, String> {
+    load_suite(EXPANDED_SUITE_BYTES)
+}
+
+fn load_suite(suite_bytes: &[u8]) -> Result<Vec<LoadedCase>, String> {
+    let suite: Suite = from_json(suite_bytes)?;
     if suite.version != VERSION || suite.cases.is_empty() {
         return Err("unsupported/empty golden suite".into());
     }
@@ -160,6 +238,7 @@ pub fn load() -> Result<Vec<LoadedCase>, String> {
                 reference,
                 contract,
                 contract_sha256: digest(bytes),
+                suite_sha256: digest(suite_bytes),
                 source,
             })
         })

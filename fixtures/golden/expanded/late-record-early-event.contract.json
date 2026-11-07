@@ -1,0 +1,100 @@
+{
+  "version": "0.1-draft",
+  "entities": {
+    "pump": {
+      "kind": "item"
+    },
+    "observer": {
+      "kind": "agent"
+    }
+  },
+  "relations": {
+    "count": {
+      "subject_kind": "item",
+      "object_kind": "integer"
+    }
+  },
+  "evidence": {
+    "e1": {
+      "sha256": "9407529036ee18220ea2b385bc727b2ef1a8a2d5c3ecde416f95eeb303625ac0",
+      "locator": "fixture:golden/late-record-early-event.txt"
+    }
+  },
+  "assertions": [
+    {
+      "id": "f1",
+      "subject": "pump",
+      "predicate": "count",
+      "object": {
+        "type": "integer",
+        "value": 1
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 9,
+        "record_ms": 10,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f2",
+      "subject": "pump",
+      "predicate": "count",
+      "object": {
+        "type": "integer",
+        "value": 2
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 3,
+        "record_ms": 20,
+        "interpretation_ms": 30
+      }
+    },
+    {
+      "id": "f3",
+      "subject": "pump",
+      "predicate": "count",
+      "object": {
+        "type": "integer",
+        "value": 3
+      },
+      "uncertainty": {
+        "kind": "confidence",
+        "permille": 1000
+      },
+      "provenance": {
+        "asserted_by": "observer",
+        "method": "observed",
+        "evidence": [
+          "e1"
+        ]
+      },
+      "times": {
+        "event_ms": 6,
+        "record_ms": 15,
+        "interpretation_ms": 30
+      }
+    }
+  ]
+}

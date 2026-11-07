@@ -1,0 +1,467 @@
+{
+  "version": 1,
+  "original_cases": [
+    "conflict",
+    "unknown",
+    "ordering",
+    "provenance",
+    "relocation",
+    "quoted"
+  ],
+  "new_cases": [
+    {
+      "id": "same-event-dispute",
+      "distinction": "Same event with opposite booleans and equal confidence; neither reporter wins.",
+      "tags": [
+        "conflict",
+        "provenance",
+        "uncertainty"
+      ]
+    },
+    {
+      "id": "retraction-unlinked",
+      "distinction": "Later report contradicts an earlier report; no retraction predicate exists.",
+      "tags": [
+        "conflict",
+        "time",
+        "unknown"
+      ]
+    },
+    {
+      "id": "three-way-location",
+      "distinction": "Three reporters give distinct entity locations at the same event.",
+      "tags": [
+        "relations",
+        "conflict",
+        "provenance"
+      ]
+    },
+    {
+      "id": "count-disagreement",
+      "distinction": "Conflicting signed integer counts are retained, never averaged.",
+      "tags": [
+        "integer",
+        "conflict"
+      ]
+    },
+    {
+      "id": "empty-vs-missing",
+      "distinction": "Empty reported text is content; absence of a destination assertion is different.",
+      "tags": [
+        "text",
+        "unknown"
+      ]
+    },
+    {
+      "id": "normalization-pair",
+      "distinction": "Visually similar composed and decomposed strings must remain distinct.",
+      "tags": [
+        "unicode",
+        "text",
+        "relations"
+      ]
+    },
+    {
+      "id": "rtl-label",
+      "distinction": "Arabic text and embedded directional marks are exact evidence content.",
+      "tags": [
+        "unicode",
+        "unknown"
+      ]
+    },
+    {
+      "id": "emoji-sequence",
+      "distinction": "Joined emoji with a skin modifier differs from separate glyphs.",
+      "tags": [
+        "unicode",
+        "uncertainty"
+      ]
+    },
+    {
+      "id": "control-text",
+      "distinction": "Text includes tab, CRLF, NUL and a backslash, all preserved inside a literal.",
+      "tags": [
+        "text",
+        "boundary"
+      ]
+    },
+    {
+      "id": "literal-instructions",
+      "distinction": "Instruction-like text is quoted data rather than authority.",
+      "tags": [
+        "text",
+        "provenance"
+      ]
+    },
+    {
+      "id": "integer-extremes",
+      "distinction": "Minimum and maximum signed 64-bit values are literal counts, not floats.",
+      "tags": [
+        "integer",
+        "boundary"
+      ]
+    },
+    {
+      "id": "zero-negative",
+      "distinction": "A zero count is known while a negative value is a separate report.",
+      "tags": [
+        "integer",
+        "uncertainty",
+        "boundary"
+      ]
+    },
+    {
+      "id": "equal-clocks",
+      "distinction": "Equal event, record and interpretation clocks are allowed.",
+      "tags": [
+        "time",
+        "boundary"
+      ]
+    },
+    {
+      "id": "inverted-clocks",
+      "distinction": "Interpretation precedes recording numerically; no ordering constraint is invented.",
+      "tags": [
+        "time",
+        "boundary"
+      ]
+    },
+    {
+      "id": "negative-epoch",
+      "distinction": "Pre-epoch events and later records retain signed times.",
+      "tags": [
+        "time",
+        "integer"
+      ]
+    },
+    {
+      "id": "clock-extremes",
+      "distinction": "Extreme signed times remain exact without arithmetic conversion.",
+      "tags": [
+        "time",
+        "boundary",
+        "unknown"
+      ]
+    },
+    {
+      "id": "event-tie",
+      "distinction": "Equal event times do not authorize record-order truth resolution.",
+      "tags": [
+        "time",
+        "conflict"
+      ]
+    },
+    {
+      "id": "unknown-event-sort",
+      "distinction": "An unknown event must not be replaced by the record time when sorting.",
+      "tags": [
+        "time",
+        "unknown",
+        "relations"
+      ]
+    },
+    {
+      "id": "interpretation-revision",
+      "distinction": "Same content/event recorded once but interpreted at distinct times remains two assertions.",
+      "tags": [
+        "time",
+        "provenance"
+      ]
+    },
+    {
+      "id": "late-record-early-event",
+      "distinction": "The newest recording reports the oldest event.",
+      "tags": [
+        "time",
+        "integer"
+      ]
+    },
+    {
+      "id": "zero-unknown-certainty",
+      "distinction": "Zero, unknown and maximum confidence are three distinct values.",
+      "tags": [
+        "uncertainty",
+        "boundary"
+      ]
+    },
+    {
+      "id": "confidence-threshold",
+      "distinction": "Threshold comparison applies only to known numeric confidence, not truth.",
+      "tags": [
+        "uncertainty",
+        "unknown"
+      ]
+    },
+    {
+      "id": "high-confidence-conflict",
+      "distinction": "Maximum reported confidence does not erase a conflicting low-confidence report.",
+      "tags": [
+        "uncertainty",
+        "conflict",
+        "provenance"
+      ]
+    },
+    {
+      "id": "inferred-certainty",
+      "distinction": "Even maximum confidence inference remains inferred attribution.",
+      "tags": [
+        "uncertainty",
+        "provenance"
+      ]
+    },
+    {
+      "id": "unknown-confidence-observation",
+      "distinction": "An observation can have unknown confidence without losing method.",
+      "tags": [
+        "uncertainty",
+        "provenance"
+      ]
+    },
+    {
+      "id": "same-value-reporters",
+      "distinction": "Identical values from two reporters remain two separately attributed claims.",
+      "tags": [
+        "provenance",
+        "integer"
+      ]
+    },
+    {
+      "id": "method-triad",
+      "distinction": "Observed, reported and inferred assertions share a source but retain distinct methods.",
+      "tags": [
+        "provenance",
+        "conflict"
+      ]
+    },
+    {
+      "id": "reporter-is-subject",
+      "distinction": "An entity can assert a fact about itself; attribution is still explicit.",
+      "tags": [
+        "provenance",
+        "relations"
+      ]
+    },
+    {
+      "id": "shared-original",
+      "distinction": "Different fact kinds cite the same full report; digest identity is evidence, not truth.",
+      "tags": [
+        "evidence",
+        "provenance",
+        "relations"
+      ]
+    },
+    {
+      "id": "inference-without-event",
+      "distinction": "Inference record and interpretation clocks do not invent an event time.",
+      "tags": [
+        "provenance",
+        "time",
+        "unknown"
+      ]
+    },
+    {
+      "id": "directional-edge",
+      "distinction": "A directed entity relation cannot be inverted silently.",
+      "tags": [
+        "relations",
+        "unknown"
+      ]
+    },
+    {
+      "id": "self-edge",
+      "distinction": "A self reference is valid and differs from an absent edge to a second item.",
+      "tags": [
+        "relations",
+        "boundary"
+      ]
+    },
+    {
+      "id": "chain-not-transitive",
+      "distinction": "Two hops do not authorize an unstated transitive assertion.",
+      "tags": [
+        "relations",
+        "unknown"
+      ]
+    },
+    {
+      "id": "cycle",
+      "distinction": "A two-node cycle preserves both directed claims.",
+      "tags": [
+        "relations",
+        "boundary"
+      ]
+    },
+    {
+      "id": "one-to-many",
+      "distinction": "Multiple entity targets coexist without implicit uniqueness.",
+      "tags": [
+        "relations",
+        "conflict"
+      ]
+    },
+    {
+      "id": "many-to-one",
+      "distinction": "Two subjects can point to one location without conflating subject identities.",
+      "tags": [
+        "relations",
+        "unknown"
+      ]
+    },
+    {
+      "id": "relation-name-distinction",
+      "distinction": "Same entities with distinct predicates preserve relationship identity.",
+      "tags": [
+        "relations",
+        "evidence"
+      ]
+    },
+    {
+      "id": "absent-causal-link",
+      "distinction": "Coincident booleans carry no causal relationship.",
+      "tags": [
+        "relations",
+        "time",
+        "unknown"
+      ]
+    },
+    {
+      "id": "unknown-vs-word",
+      "distinction": "The string null is a known text value; the event null is unknown.",
+      "tags": [
+        "text",
+        "unknown"
+      ]
+    },
+    {
+      "id": "boolean-word",
+      "distinction": "Text false and boolean false retain different typed meanings.",
+      "tags": [
+        "text",
+        "boundary"
+      ]
+    },
+    {
+      "id": "numeric-word",
+      "distinction": "Leading zeros and plus sign in text are not numeric normalization candidates.",
+      "tags": [
+        "text",
+        "integer"
+      ]
+    },
+    {
+      "id": "nonfinite-word",
+      "distinction": "NaN is permitted as text, never a numeric confidence or count.",
+      "tags": [
+        "text",
+        "boundary",
+        "unknown"
+      ]
+    },
+    {
+      "id": "whitespace-label",
+      "distinction": "Leading, trailing and nonbreaking whitespace in text are preserved.",
+      "tags": [
+        "text",
+        "unicode"
+      ]
+    },
+    {
+      "id": "quoted-json",
+      "distinction": "JSON-looking text remains a single literal rather than extra assertions.",
+      "tags": [
+        "text",
+        "boundary"
+      ]
+    },
+    {
+      "id": "unicode-identifiers",
+      "distinction": "Non-ASCII entity and predicate identifiers preserve references exactly.",
+      "tags": [
+        "unicode",
+        "relations",
+        "provenance"
+      ]
+    },
+    {
+      "id": "long-label",
+      "distinction": "A long literal exercises length encoding across small-string boundaries.",
+      "tags": [
+        "text",
+        "boundary"
+      ]
+    },
+    {
+      "id": "clock-confidence-filter",
+      "distinction": "Time and confidence filters must be combined without filling unknowns.",
+      "tags": [
+        "time",
+        "uncertainty",
+        "unknown"
+      ]
+    },
+    {
+      "id": "provenance-event-filter",
+      "distinction": "Report attribution and event cutoff select a different claim than record cutoff.",
+      "tags": [
+        "provenance",
+        "time",
+        "integer"
+      ]
+    },
+    {
+      "id": "conflict-zero-confidence",
+      "distinction": "Opposed text reports at an unknown event retain zero and unknown confidence.",
+      "tags": [
+        "conflict",
+        "uncertainty",
+        "unknown"
+      ]
+    },
+    {
+      "id": "relocation-inference",
+      "distinction": "An inferred later location does not become a later observation.",
+      "tags": [
+        "relations",
+        "time",
+        "provenance"
+      ]
+    },
+    {
+      "id": "boundary-join",
+      "distinction": "Negative event, zero confidence, empty text and a directed link coexist.",
+      "tags": [
+        "boundary",
+        "relations",
+        "time",
+        "uncertainty",
+        "text"
+      ]
+    },
+    {
+      "id": "duplicate-content-ids",
+      "distinction": "All semantic metadata may coincide while distinct assertion ids remain retained.",
+      "tags": [
+        "boundary",
+        "evidence",
+        "provenance"
+      ]
+    },
+    {
+      "id": "missing-is-not-false",
+      "distinction": "Absence of a ready assertion is different from an explicit false tested assertion.",
+      "tags": [
+        "unknown",
+        "text"
+      ]
+    },
+    {
+      "id": "multifact-decision",
+      "distinction": "A conjunction rule selects one subject across six facts without unstated facts.",
+      "tags": [
+        "relations",
+        "integer",
+        "uncertainty"
+      ]
+    }
+  ]
+}

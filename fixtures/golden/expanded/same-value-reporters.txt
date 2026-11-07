@@ -1,0 +1,7 @@
+Authored synthetic scenario same-value-reporters. Identical values from two reporters remain two separately attributed claims.
+All times are signed UTC epoch milliseconds. Assertion ids preserve distinct claims, not resolved truth.
+Local entities: {"a": "agent", "b": "agent", "battery": "item"}.
+Relation catalogue: {"count": ["item", "integer"]}.
+f1: a (reported) states battery count = {"type": "integer", "value": 2}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+f2: b (reported) states battery count = {"type": "integer", "value": 2}; event 10, record 20, interpretation 30, confidence permille 1000; cites e1.
+Original e1 is this complete report, locator fixture:golden/same-value-reporters.txt. No other facts or causal rules are supplied.
